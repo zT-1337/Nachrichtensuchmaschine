@@ -5,6 +5,10 @@ import org.apache.lucene.search.Query;
 
 public class LuceneIndex implements Index {
 
+	private IndexWriter writer_;
+	private IndexSearcher searcher_;
+	
+	
 	@Override
 	public void addNews(Document doc) {
 		// TODO Auto-generated method stub
