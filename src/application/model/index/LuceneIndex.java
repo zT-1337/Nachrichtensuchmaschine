@@ -1,6 +1,8 @@
 package application.model.index;
 
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 
 public class LuceneIndex implements Index {
