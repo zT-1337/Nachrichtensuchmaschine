@@ -13,7 +13,7 @@
     <HBox prefHeight="35.0" prefWidth="1000.0">
       <children>
         <Separator prefHeight="25.0" prefWidth="200.0" visible="false" HBox.hgrow="ALWAYS" />
-        <Button fx:id="page_button_1" minHeight="-1.0" minWidth="40.0" mnemonicParsing="false" prefHeight="-1.0" prefWidth="40.0" text="99">
+        <Button fx:id="page_button_1" minHeight="-1.0" minWidth="40.0" mnemonicParsing="false" onAction="#page_button_1_press" prefHeight="-1.0" prefWidth="40.0" text="99">
           <font>
             <Font size="14.0" fx:id="x4" />
           </font>
@@ -26,17 +26,17 @@
             <Insets left="15.0" fx:id="x2" />
           </HBox.margin>
         </Label>
-        <Button id="cache_button_2" fx:id="page_button_2" font="$x4" minHeight="-1.0" minWidth="40.0" mnemonicParsing="false" prefHeight="-1.0" prefWidth="40.0" text="99">
+        <Button id="cache_button_2" fx:id="page_button_2" font="$x4" minHeight="-1.0" minWidth="40.0" mnemonicParsing="false" onAction="#page_button_2_press" prefHeight="-1.0" prefWidth="40.0" text="99">
           <HBox.margin>
             <Insets bottom="5.0" left="15.0" top="5.0" />
           </HBox.margin>
         </Button>
-        <Button fx:id="page_button_3" font="$x4" minHeight="-1.0" minWidth="40.0" mnemonicParsing="false" prefHeight="-1.0" prefWidth="40.0" text="99">
+        <Button fx:id="page_button_3" font="$x4" minHeight="-1.0" minWidth="40.0" mnemonicParsing="false" onAction="#page_button_3_press" prefHeight="-1.0" prefWidth="40.0" text="99">
           <HBox.margin>
             <Insets bottom="5.0" left="15.0" top="5.0" />
           </HBox.margin>
         </Button>
-        <Button fx:id="page_button_4" font="$x4" minHeight="-1.0" minWidth="40.0" mnemonicParsing="false" prefHeight="-1.0" prefWidth="40.0" text="99">
+        <Button fx:id="page_button_4" font="$x4" minHeight="-1.0" minWidth="40.0" mnemonicParsing="false" onAction="#page_button_5_press" prefHeight="-1.0" prefWidth="40.0" text="99">
           <HBox.margin>
             <Insets bottom="5.0" left="15.0" top="5.0" />
           </HBox.margin>
@@ -46,7 +46,7 @@
             <Insets left="15.0" fx:id="x2" />
           </HBox.margin>
         </Label>
-        <Button fx:id="page_button_5" font="$x4" minHeight="-1.0" minWidth="40.0" mnemonicParsing="false" prefHeight="-1.0" prefWidth="40.0" text="99">
+        <Button fx:id="page_button_5" font="$x4" minHeight="-1.0" minWidth="40.0" mnemonicParsing="false" onAction="#page_button_5_press" prefHeight="-1.0" prefWidth="40.0" text="99">
           <HBox.margin>
             <Insets bottom="5.0" left="15.0" top="5.0" />
           </HBox.margin>
@@ -85,7 +85,7 @@
             </TextField>
             <TextField fx:id="thema_label" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.margin="$x3" GridPane.rowIndex="1" />
             <TextField fx:id="zeitraum_label" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.margin="$x3" GridPane.rowIndex="2" />
-            <Button fx:id="suche_button" font="$x1" minHeight="55.0" minWidth="70.0" mnemonicParsing="false" prefHeight="80.0" text="Suche" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button id="suche_button" fx:id="search_button_press" font="$x1" minHeight="55.0" minWidth="70.0" mnemonicParsing="false" onAction="#search_button_press" prefHeight="80.0" text="Suche" GridPane.columnIndex="2" GridPane.rowIndex="1" />
           </children>
           <columnConstraints>
             <ColumnConstraints hgrow="NEVER" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
@@ -125,9 +125,9 @@
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
                         <Label fx:id="datum_label_1" font="$x4" minWidth="77.0" text="TT.MM.2000" />
                         <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
-                        <Button fx:id="silimar_button_1" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Similar" />
+                        <Button fx:id="silimar_button_1" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#silimar_button_1_press" prefWidth="75.0" text="Similar" />
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
-                        <Button fx:id="cache_button_1" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                        <Button fx:id="cache_button_1" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_1_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
                       </children>
                       <VBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" />
@@ -155,9 +155,9 @@
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
                         <Label id="datum_label_1" fx:id="datum_label_2" font="$x4" minWidth="77.0" text="TT.MM.2000" />
                         <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
-                        <Button id="silimar_button_1" fx:id="silimar_button_2" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Similar" />
+                        <Button id="silimar_button_1" fx:id="silimar_button_2" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#silimar_button_2_press" prefWidth="75.0" text="Similar" />
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
-                        <Button id="cache_button_1" fx:id="cache_button_2" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                        <Button id="cache_button_1" fx:id="cache_button_2" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_2_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
                       </children>
                       <VBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" />
@@ -185,9 +185,9 @@
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
                         <Label id="datum_label_1" fx:id="datum_label_3" font="$x4" minWidth="77.0" text="TT.MM.2000" />
                         <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
-                        <Button id="silimar_button_1" fx:id="silimar_button_3" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Similar" />
+                        <Button id="silimar_button_1" fx:id="silimar_button_3" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#silimar_button_3_press" prefWidth="75.0" text="Similar" />
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
-                        <Button id="cache_button_1" fx:id="cache_button_3" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                        <Button id="cache_button_1" fx:id="cache_button_3" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_3_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
                       </children>
                       <VBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" />
@@ -215,9 +215,9 @@
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
                         <Label id="datum_label_1" fx:id="datum_label_4" font="$x4" minWidth="77.0" text="TT.MM.2000" />
                         <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
-                        <Button id="silimar_button_1" fx:id="silimar_button_4" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Similar" />
+                        <Button id="silimar_button_1" fx:id="silimar_button_4" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#silimar_button_4_press" prefWidth="75.0" text="Similar" />
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
-                        <Button id="cache_button_1" fx:id="cache_button_4" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                        <Button id="cache_button_1" fx:id="cache_button_4" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_4_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
                       </children>
                       <VBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" />
@@ -245,9 +245,9 @@
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
                         <Label id="datum_label_1" fx:id="datum_label_5" font="$x4" minWidth="77.0" text="TT.MM.2000" />
                         <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
-                        <Button id="silimar_button_1" fx:id="silimar_button_5" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Similar" />
+                        <Button id="silimar_button_1" fx:id="silimar_button_5" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#silimar_button_5_press" prefWidth="75.0" text="Similar" />
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
-                        <Button id="cache_button_1" fx:id="cache_button_5" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                        <Button id="cache_button_1" fx:id="cache_button_5" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_5_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
                       </children>
                       <VBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" />
@@ -275,9 +275,9 @@
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
                         <Label id="datum_label_1" fx:id="datum_label_6" font="$x4" minWidth="77.0" text="TT.MM.2000" />
                         <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
-                        <Button id="silimar_button_1" fx:id="silimar_button_6" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Similar" />
+                        <Button id="silimar_button_1" fx:id="silimar_button_6" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#silimar_button_6_press" prefWidth="75.0" text="Similar" />
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
-                        <Button id="cache_button_1" fx:id="cache_button_6" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                        <Button id="cache_button_1" fx:id="cache_button_6" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_6_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
                       </children>
                       <VBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" />
@@ -305,9 +305,9 @@
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
                         <Label id="datum_label_1" fx:id="datum_label_7" font="$x4" minWidth="77.0" text="TT.MM.2000" />
                         <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
-                        <Button id="silimar_button_1" fx:id="silimar_button_7" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Similar" />
+                        <Button id="silimar_button_1" fx:id="silimar_button_7" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#silimar_button_7_press" prefWidth="75.0" text="Similar" />
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
-                        <Button id="cache_button_1" fx:id="cache_button_7" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                        <Button id="cache_button_1" fx:id="cache_button_7" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_7_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
                       </children>
                       <VBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" />
@@ -335,9 +335,9 @@
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
                         <Label id="datum_label_1" fx:id="datum_label_8" font="$x4" minWidth="77.0" text="TT.MM.2000" />
                         <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
-                        <Button id="silimar_button_1" fx:id="silimar_button_8" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Similar" />
+                        <Button id="silimar_button_1" fx:id="silimar_button_8" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#silimar_button_8_press" prefWidth="75.0" text="Similar" />
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
-                        <Button id="cache_button_1" fx:id="cache_button_8" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                        <Button id="cache_button_1" fx:id="cache_button_8" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_8_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
                       </children>
                       <VBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" />
@@ -365,9 +365,9 @@
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
                         <Label id="datum_label_1" fx:id="datum_label_9" font="$x4" minWidth="77.0" text="TT.MM.2000" />
                         <Separator minHeight="-1.0" minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
-                        <Button id="silimar_button_1" fx:id="silimar_button_9" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Similar" />
+                        <Button id="silimar_button_1" fx:id="silimar_button_9" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#silimar_button_9_press" prefWidth="75.0" text="Similar" />
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
-                        <Button id="cache_button_1" fx:id="cache_button_9" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                        <Button id="cache_button_1" fx:id="cache_button_9" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_9_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
                       </children>
                       <VBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" />
@@ -395,9 +395,9 @@
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
                         <Label id="datum_label_1" fx:id="datum_label_10" font="$x4" minWidth="77.0" text="TT.MM.2000" />
                         <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
-                        <Button id="silimar_button_1" fx:id="silimar_button_10" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Similar" />
+                        <Button id="silimar_button_1" fx:id="silimar_button_10" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#silimar_button_10_press" prefWidth="75.0" text="Similar" />
                         <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
-                        <Button id="cache_button_1" fx:id="cache_button_10" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                        <Button id="cache_button_1" fx:id="cache_button_10" alignment="CENTER" font="$x4" minHeight="21.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_10_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
                       </children>
                       <VBox.margin>
                         <Insets bottom="7.0" left="7.0" right="7.0" />
@@ -420,8 +420,8 @@
       <menus>
         <Menu mnemonicParsing="false" text="Datei">
           <items>
-            <MenuItem mnemonicParsing="false" text="Quelle Hinzufügen" fx:id="quelle_hinzufuegen_menu_item" />
-            <MenuItem mnemonicParsing="false" text="Beenden" fx:id="beenden_menu_item" />
+            <MenuItem mnemonicParsing="false" onAction="#add_source_press" text="Quelle Hinzufügen" fx:id="add_source" />
+            <MenuItem mnemonicParsing="false" onAction="#quit" text="Beenden" fx:id="quit" />
           </items>
         </Menu>
       </menus>
