@@ -3,13 +3,14 @@ package application.model.newsresult;
 import org.apache.lucene.search.ScoreDoc;
 
 import application.model.news.News;
+import application.model.news.NewsLuceneAdapter;
 
 public class NewsResultLuceneAdapter implements NewsResult {
 
-	private ScoreDoc[] docs;
+	private ScoreDoc[] docs_;
 
 	public NewsResultLuceneAdapter(ScoreDoc[] docs) {
-		// TODO Auto-generated constructor stub
+		docs_ = docs;
 	}
 
 	@Override
