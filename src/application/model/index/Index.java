@@ -6,9 +6,12 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 
+import application.model.news.News;
+import application.model.newsresult.NewsResult;
+
 public interface Index {
 
-	public void addNews(Document doc) throws IOException;
+	public void addNews(News news) throws IOException;
 	
-	public ScoreDoc[] searchFor(Query querry, int n);
+	public NewsResult searchFor(Query querry, int n);
 }
