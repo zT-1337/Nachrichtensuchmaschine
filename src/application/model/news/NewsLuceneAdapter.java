@@ -17,37 +17,37 @@ public class NewsLuceneAdapter implements News {
 	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
-		return null;
+		return doc_.get(NewsFields.TITLE);
 	}
 
 	@Override
 	public String getPubDate() {
 		// TODO Auto-generated method stub
-		return null;
+		return doc_.get(NewsFields.PUBDATE);
 	}
 
 	@Override
 	public String getSource() {
 		// TODO Auto-generated method stub
-		return null;
+		return doc_.get(NewsFields.SOURCE);
 	}
 
 	@Override
 	public String getURL() {
 		// TODO Auto-generated method stub
-		return null;
+		return doc_.get(NewsFields.URL);
 	}
 
 	@Override
 	public String getText() {
 		// TODO Auto-generated method stub
-		return null;
+		return doc_.get(NewsFields.TEXT);
 	}
 
 	@Override
 	public String getReducedText() {
 		// TODO Auto-generated method stub
-		return null;
+		return doc_.get(NewsFields.REDUCEDTEXT);
 	}
 
 	@Override
