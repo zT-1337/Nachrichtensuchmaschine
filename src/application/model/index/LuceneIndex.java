@@ -11,7 +11,6 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.SimpleFSDirectory;
 
@@ -32,10 +31,18 @@ public class LuceneIndex implements Index, Closeable {
 	}
 	
 	@Override
-	public void addNews(News news) throws IOException {
+	public ResultIndex addNews(News news) {
 		// TODO Auto-generated method stub
 		Document doc = (Document) news.getDataStructure();
-		writer_.addDocument(doc);
+		try {
+			writer_.addDocument(doc);
+			return ResultIndex.SUCCESS;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResultIndex.IOEXCEPTION;
+		}
+		
 	}
 
 	@Override
