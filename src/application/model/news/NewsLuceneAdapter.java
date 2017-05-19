@@ -5,6 +5,14 @@ import org.apache.lucene.document.Document;
 public class NewsLuceneAdapter implements News {
 	
 	private Document doc_;
+	
+	public NewsLuceneAdapter() {
+		doc_ = new Document();
+	}
+	
+	public NewsLuceneAdapter(Document doc) {
+		doc_ = doc;
+	}
 
 	@Override
 	public String getTitle() {
@@ -81,7 +89,7 @@ public class NewsLuceneAdapter implements News {
 	@Override
 	public Object getDataStructure() {
 		// TODO Auto-generated method stub
-		return null;
+		return doc_;
 	}
 
 }
