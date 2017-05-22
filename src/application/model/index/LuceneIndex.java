@@ -33,7 +33,12 @@ import application.model.newsresult.NewsResultLuceneAdapter;
  * 
  * @author Thomas Zerr
  * @version 1.0
- *
+ * 
+ * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/search/package-summary.html">Suche in Lucene</a>
+ * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/document/Document.html">Document</a>
+ * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/index/package-summary.html">Index in Lucene</a>
+ * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/index/IndexWriterConfig.html">IndexWriterConfig</a>
+ * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/search/TopDocs.html">TopDocs</a>
  */
 public class LuceneIndex implements Index, Closeable {
 
@@ -67,8 +72,6 @@ public class LuceneIndex implements Index, Closeable {
 	 * Die 'news' muss ein NewsLuceneAdapter sein, um die richtige Datenstruktur zu erhalten, in der die Nachricht gespeichert ist.
 	 * In diesem Falls wäre es der Typ Document von Lucene
 	 * 
-	 * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/document/Document.html">Document</a>
-	 * 
 	 * @param news Die Nachricht, welche hinzugefügt werden soll. Von der Nachricht wird erwartet, dass sie vom konkreten Typ NewsLuceneAdapter ist
 	 * 
 	 * @return Einen "Returncode" der Beschreibt was beim Hinzufügen vorgefallen ist.
@@ -93,8 +96,6 @@ public class LuceneIndex implements Index, Closeable {
 	 * Sucht nach Nachrichten im Index.
 	 * Es wird anhand der Query nach Nachrichten gesucht. 
 	 * Die erhaltenen Nachrichten werden zusammen mit dem Score zurückgelieftert
-	 * 
-	 * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/search/package-summary.html">Suche in Lucene</a>
 	 * 
 	 * @param querry Die Query nach der Nachrichten gesucht werden.
 	 * @param n Die Anzahl der Nachrichten, welche als Ergebnis zurückgeliefert werden soll
@@ -133,8 +134,6 @@ public class LuceneIndex implements Index, Closeable {
 	 * Initialisiert den Pfad des Indexes.
 	 * Der Pfad für den Index lautet "./index", dieser muss auch existieren.
 	 * 
-	 * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/index/package-summary.html">Index in Lucene</a>
-	 * 
 	 * @return void
 	 */
 	private void initDirectory() {
@@ -155,7 +154,6 @@ public class LuceneIndex implements Index, Closeable {
 	 * Für den IndexWriterConfig werden die Standardkonfiguration genutzt.
 	 * Es wird directory_ als FSDirectory verwendet
 	 * 
-	 * @see <a href="">IndexWriterConfig</a>
 	 * 
 	 * @return void
 	 */
@@ -189,8 +187,6 @@ public class LuceneIndex implements Index, Closeable {
 	/**
 	 * Erzeugt eine NewsResult aus einem Suchergebnis.
 	 * Das Suchergebnis von Lucene wird in ein NewsResult umgewandelt.
-	 * 
-	 * @see <a>TopDocs</a>
 	 * 
 	 * @param top In diesem Object kapselt Lucene seine Suchergebnisse
 	 * @param n Anzahl der Nachrichten, welche als Ergebnis zurückgeliefert werden soll
