@@ -8,9 +8,9 @@ import application.model.news.NewsLuceneAdapter;
 public class NewsResultLuceneAdapter implements NewsResult {
 
 	private Document[] docs_;
-	private int[] scores_;
+	private float[] scores_;
 
-	public NewsResultLuceneAdapter(Document[] docs, int[] scores) {
+	public NewsResultLuceneAdapter(Document[] docs, float[] scores) {
 		docs_ = docs;
 		scores_ = scores;
 	}
@@ -25,7 +25,7 @@ public class NewsResultLuceneAdapter implements NewsResult {
 	}
 
 	@Override
-	public int getScore(int index) {
+	public float getScore(int index) {
 		// TODO Auto-generated method stub
 		if(index > -1 && index < scores_.length)
 			return scores_[index];
