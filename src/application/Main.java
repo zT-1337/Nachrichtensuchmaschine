@@ -1,6 +1,8 @@
 package application;
-	
+
+import application.view.*;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -10,11 +12,17 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
+			FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("MainWindow.fxml"));
+			BorderPane root = (BorderPane) loader.load();
+		    Scene scene = new Scene(root);
+		    primaryStage.setScene(scene);
+		    primaryStage.setTitle("Nachrichtensuchmaschine");
+		    MainWindow mainController = (MainWindow) loader.getController();
+		    primaryStage.show();
+			
+			
+			
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

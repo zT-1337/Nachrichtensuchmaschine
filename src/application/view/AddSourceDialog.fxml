@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="382.0" prefWidth="568.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.view.AddSourceDialog">
+  <children>
+    <Label text="Quelle hinzufügen">
+      <font>
+        <Font name="System Bold" size="20.0" />
+      </font>
+    </Label>
+    <GridPane gridLinesVisible="true" prefHeight="268.0" prefWidth="568.0" VBox.vgrow="SOMETIMES">
+      <children>
+        <Label text="Name der Seite:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+          <font>
+            <Font size="18.0" fx:id="x1" />
+          </font>
+        </Label>
+        <Label font="$x1" text="Thema:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label font="$x1" text="Sprache:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label font="$x1" text="Link:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <FlowPane alignment="CENTER_LEFT" columnHalignment="LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+          <children>
+            <RadioButton font="$x1" mnemonicParsing="false" text="Deutsch" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="Englisch" />
+          </children>
+        </FlowPane>
+        <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+          <children>
+            <RadioButton font="$x1" mnemonicParsing="false" text="business">
+              <FlowPane.margin>
+                <Insets bottom="3.0" right="10.0" top="10.0" fx:id="x2" />
+              </FlowPane.margin>
+            </RadioButton>
+            <RadioButton font="$x1" mnemonicParsing="false" text="career" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="computer" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="culture" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="finance" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="lifestyle" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="mobility" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="opinion" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="politics" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="science" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="society" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="sport" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="study" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="technology" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="travel" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="Deutsch" FlowPane.margin="$x2" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="Deutsch" FlowPane.margin="$x2" />
+          </children>
+        </FlowPane>
+        <FlowPane alignment="CENTER_LEFT" columnHalignment="LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+          <children>
+            <RadioButton font="$x1" mnemonicParsing="false" text="USA" />
+            <Separator prefWidth="20.0" visible="false" />
+            <RadioButton font="$x1" mnemonicParsing="false" text="Deutschland" />
+          </children>
+        </FlowPane>
+        <Label font="$x1" text="Land" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="150.0" prefWidth="150.0" />
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="-1.0" minWidth="10.0" prefWidth="300.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+      </rowConstraints>
+    </GridPane>
+    <HBox minHeight="30.0" prefHeight="24.0" prefWidth="568.0">
+      <children>
+        <Button minHeight="25.0" mnemonicParsing="false" text="Button">
+          <font>
+            <Font size="14.0" fx:id="x3" />
+          </font>
+        </Button>
+        <Separator prefWidth="200.0" visible="false" HBox.hgrow="ALWAYS" />
+        <Button font="$x3" minHeight="25.0" mnemonicParsing="false" text="Button" />
+      </children>
+    </HBox>
+  </children>
+</VBox>
