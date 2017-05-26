@@ -25,6 +25,7 @@ public interface NewsResult {
 	 * Liefert die Nachricht an der position Index.
 	 * Die Nachrichten sind anhand des jeweiligen Scores absteigend sortiert.
 	 * Das heißt die Nachricht an der Position 0 hat den höchsten Score.
+	 * Sollte nach einer Position verlangt werden, welche nicht existiert (index <= -1 oder index >= getSize()), wird null zurückgeliefert.
 	 * 
 	 * @param index Position der Nachricht
 	 * @return Nachricht an der Position 'index'.
