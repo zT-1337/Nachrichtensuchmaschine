@@ -23,6 +23,7 @@ public interface Search {
 	 * Suchen von Nachrichten.
 	 * Anhand der übergebenen Parameter werden nach Nachrichten gesucht.
 	 * Das Ergebnis besteht aus den Nachrichten, welche den höchsten Score für die Suche erreicht haben.
+	 * Sind alle Parameter leer, wird null zurückgeliefert.
 	 * 
 	 * @param terms Begriffe nach denen gesucht wird.
 	 * @param dates Zeiträume, indenen eine Nachricht publiziert sein muss, damit sie für die Suche akzeptiert wird.
