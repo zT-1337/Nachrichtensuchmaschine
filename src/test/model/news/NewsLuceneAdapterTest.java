@@ -2,6 +2,7 @@ package test.model.news;
 
 import static org.junit.Assert.*;
 
+import org.apache.lucene.document.Document;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,5 +66,12 @@ public class NewsLuceneAdapterTest {
 		
 		adapter_.setReducedText(testReducedText);
 		assertEquals(testReducedText, adapter_.getReducedText());
+	}
+	
+	@Test
+	public void GetDataStructureTest() {
+		Object dataStructure = adapter_.getDataStructure();
+		
+		assertTrue(dataStructure instanceof Document);
 	}
 }
