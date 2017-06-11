@@ -8,9 +8,10 @@ public class MainController {
 		
 	}
 	
-	public static void doSurceAdd(String one, String two, String three) {
-		
+	public static void doSourceAdd(String name, String thema, String sprache, String land, String link) {
+		System.out.println("Add Source with attributes: ");
 	}
+
 	
 	
 	

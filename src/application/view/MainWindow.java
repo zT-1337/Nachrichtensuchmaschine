@@ -2,6 +2,8 @@ package application.view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import application.view.AddSourceDialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,9 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 
 public class MainWindow {
+	
+	private Stage addSourceDialogStage;
+	private AddSourceDialog addSourceDialogController;
 
     @FXML
     private ResourceBundle resources;
@@ -169,11 +175,6 @@ public class MainWindow {
     @FXML
     private Button similar_button_9;
 
-    @FXML
-    private TextField stichwort_tf;
-
-    @FXML
-    private TextField thema_tf;
 
     @FXML
     private Label title_label_1;
@@ -205,13 +206,35 @@ public class MainWindow {
     @FXML
     private Label title_label_9;
 
+    
+    
+    @FXML
+    private TextField stichwort_tf;
+    
+    @FXML
+    private TextField thema_tf;
+    
     @FXML
     private TextField zeitraum_tf;
+    
+    
+    
+    
+    public void setAddSourceDialogStage(Stage addSourceDialogStage) {
+    	this.addSourceDialogStage = addSourceDialogStage;
+    }
+
+    public void setAddSourceDialogController(AddSourceDialog addSourceDialogController) {
+    	this.addSourceDialogController = addSourceDialogController;
+    }
+    
 
 
     @FXML
     void add_source_press(ActionEvent event) {
     	//open new dialog window
+    	addSourceDialogController.setInitDialog();
+    	addSourceDialogStage.showAndWait();
     }
 
     @FXML
@@ -252,6 +275,13 @@ public class MainWindow {
 
     @FXML
     void cache_button_9_press(ActionEvent event) {
+    }
+
+    @FXML
+    void help(ActionEvent event) {
+    	stichwort_tf.setText("ein paar tolle Stichwörter");
+    	thema_tf.setText("career");
+    	zeitraum_tf.setText("TODO zeitraum");
     }
 
     @FXML

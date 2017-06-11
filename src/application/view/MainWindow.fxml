@@ -58,14 +58,24 @@
   <center>
     <VBox prefHeight="200.0" prefWidth="100.0">
       <children>
-        <Label text="Suche">
-          <font>
-            <Font name="System Bold" size="20.0" />
-          </font>
-          <VBox.margin>
-            <Insets left="15.0" top="5.0" />
-          </VBox.margin>
-        </Label>
+        <HBox prefHeight="40.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+          <children>
+            <Label text="Suche">
+              <font>
+                <Font name="System Bold" size="20.0" />
+              </font>
+              <HBox.margin>
+                <Insets left="15.0" top="5.0" />
+              </HBox.margin>
+            </Label>
+            <Separator prefWidth="200.0" visible="false" HBox.hgrow="ALWAYS" />
+            <Button id="cancel" font="$x4" minHeight="25.0" mnemonicParsing="false" onAction="#help" text="?">
+              <HBox.margin>
+                <Insets right="5.0" top="5.0" />
+              </HBox.margin>
+            </Button>
+          </children>
+        </HBox>
         <GridPane gridLinesVisible="false" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefWidth="-1.0">
           <children>
             <Label alignment="CENTER_LEFT" contentDisplay="LEFT" maxWidth="1.7976931348623157E308" text="Stichwort:" textAlignment="LEFT" textOverrun="WORD_ELLIPSIS" underline="false" GridPane.columnIndex="0" GridPane.rowIndex="0">
