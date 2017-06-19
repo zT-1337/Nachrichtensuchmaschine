@@ -1,7 +1,7 @@
 /**
  * DateCreator
  * 
- * Version: 1.0
+ * Version: 1.1
  * 
  * Datum: 12.06.2017
  */
@@ -9,9 +9,7 @@ package application.controller.search;
 
 import java.util.regex.Pattern;
 
-import org.apache.lucene.index.Term;
 import org.apache.lucene.search.Query;
-import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TermRangeQuery;
 
 /**
@@ -20,7 +18,7 @@ import org.apache.lucene.search.TermRangeQuery;
  * Werden zwei Daten als Zeitraum geliefert, werden beide Daten als Term behandelt und mittels TermRangeQuery gesucht.
  * 
  * @author zt
- * @version 1.0
+ * @version 1.1
  * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/search/TermRangeQuery.html">TermRangeQuery</a>
  * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/search/TermQuery.html">TermQuery</a>
  */
@@ -52,14 +50,20 @@ public class DateCreator implements QueryCreator {
 	private boolean includeUpper;
 	
 	/**
+	 * Erzeugt die TermQueries, falls für den Zeitraum nur ein Datum übergeben wurde.
+	 */
+	private TermCreator termCreator;
+	
+	/**
 	 * Erzeugt einen DateCreator.
 	 */
 	public DateCreator() {
-		oneDate = "\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d";
-		twoDates = "\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d-\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d";
+		oneDate =  "\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d";
+		twoDates = oneDate + "-" + oneDate;
 		lengthDate = 10;
 		includeLower = true;
 		includeUpper = true;
+		termCreator = new TermCreator();
 	}
 	
 	/**
@@ -67,9 +71,13 @@ public class DateCreator implements QueryCreator {
 	 */
 	@Override
 	public Query create(String field, String value) {
-		// TODO Auto-generated method stub
+		if(field == null || value == null)
+			return null;
+		if(field.length() == 0 || value.length() == 0)
+			return null;
+		
 		if(Pattern.matches(oneDate, value)) {
-			return createTermQuery(field, value);
+			return termCreator.create(field, value);
 		}
 		
 		if(Pattern.matches(twoDates, value)) {
@@ -77,17 +85,6 @@ public class DateCreator implements QueryCreator {
 		}
 		
 		return null;
-	}
-	
-	/**
-	 * 
-	 * @param field Name des Lucenedocumentfields in dem gesucht werden soll
-	 * @param value Der Zeitraum, bestehend aus einem Datum, nachdem gesucht werden soll.
-	 * @return TermQuery mit dem übergebenen Datum
-	 */
-	private TermQuery createTermQuery(String field, String value) {
-		Term term = new Term(field, value);
-		return new TermQuery(term);
 	}
 
 	/**
@@ -98,7 +95,7 @@ public class DateCreator implements QueryCreator {
 	 */
 	private TermRangeQuery createTermRangeQuery(String field, String value) {
 		String firstDate = value.substring(0, lengthDate);	
-		String secondDate = value.substring(lengthDate+1, lengthDate*2);
+		String secondDate = value.substring(lengthDate+1, lengthDate*2+1);
 		
 		return TermRangeQuery.newStringRange(field, firstDate, secondDate, includeLower, includeUpper);
 	}
