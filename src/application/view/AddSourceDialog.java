@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -11,6 +13,7 @@ import javafx.stage.Stage;
 public class AddSourceDialog {
 	
 	private Stage myStage;
+	private MainController mainController;
 
     @FXML
     private ResourceBundle resources;
@@ -19,19 +22,16 @@ public class AddSourceDialog {
     private URL location;
 
     @FXML
-    private TextField land_tf;
-
-    @FXML
-    private TextField link_tf;
-
-    @FXML
     private TextField name_tf;
-
-    @FXML
-    private TextField sprache_tf;
-
     @FXML
     private TextField thema_tf;
+    @FXML
+    private TextField sprache_tf;
+    @FXML
+    private TextField land_tf;
+    @FXML
+    private TextField link_tf;
+    
 
 
     public void setStage(Stage stage) {
@@ -46,16 +46,27 @@ public class AddSourceDialog {
     	thema_tf.setText("");
     }
     
+    public void setMainController(MainController mainController) {
+    	this.mainController = mainController;
+    }
+    
     
     @FXML
     void cancel(ActionEvent event) {
+    	setInitDialog();
     	myStage.hide();
     	System.out.println("cancel AddSourceDialog");
     }
 
     @FXML
     void finish(ActionEvent event) {
-    	MainController.doSourceAdd(name_tf.getText(), thema_tf.getText(), sprache_tf.getText(), land_tf.getText(), link_tf.getText());
+    	if(name_tf.getText().equals("")|| thema_tf.getText().equals("")|| sprache_tf.getText().equals("")|| land_tf.getText().equals("")|| link_tf.getText().equals("")) {
+    		Alert alert = new Alert(AlertType.ERROR, "Alle Felder sind Pflichtfelder");
+    		alert.showAndWait();
+    	} else {
+    		mainController.doSourceAdd(name_tf.getText(), thema_tf.getText(), sprache_tf.getText(), land_tf.getText(), link_tf.getText());
+        	myStage.hide();
+    	}
     }
     
     @FXML
