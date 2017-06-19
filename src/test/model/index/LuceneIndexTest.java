@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TermQuery;
 import org.junit.After;
 import org.junit.Test;
 
@@ -12,13 +15,13 @@ import application.controller.search.LuceneSearch;
 import application.model.index.LuceneIndex;
 import application.model.index.ResultIndex;
 import application.model.news.News;
+import application.model.news.NewsFields;
 import application.model.news.NewsLuceneAdapter;
 import application.model.newsresult.NewsResult;
 
 public class LuceneIndexTest {
 
 	private LuceneIndex index = new LuceneIndex();
-	private LuceneSearch search = new LuceneSearch(index);
 	private News newsNull = null;
 	private NewsLuceneAdapter newsLucene = new NewsLuceneAdapter();
 	private TestNewsClass newsWrongType = new TestNewsClass();
@@ -54,9 +57,11 @@ public class LuceneIndexTest {
 		
 		assertTrue(result == ResultIndex.SUCCESS);
 		
-		NewsResult newsResult = search.search("test", "", "", "", 1);
+		Query query = new TermQuery(new Term(NewsFields.TEXT, "test"));
 		
-		System.out.println(newsResult.getSize());
+		NewsResult newsResult = index.searchFor(query, 1);
+		
+		assertFalse(newsResult.getSize() == 0);
 		assertTrue(newsResult.getNews(0).getText().equals(testString));
 		
 	}
