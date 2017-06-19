@@ -112,6 +112,8 @@ public class LuceneIndex implements Index, Closeable {
 	@Override
 	public NewsResult searchFor(Query query, int n) {
 		try {
+			//TODO test
+			initIndexSearcher();
 			TopDocs top = searcher_.search(query, n);
 			return initNewsResult(top);
 		} catch (IOException e) {
