@@ -10,10 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 
 
-public class Main extends Application {
+public class Main extends Application implements Runnable {
 	@Override
 	public void start(Stage primaryStage) {
 		
+		//Start des Crawlers
+		new Thread(new Main()).start();
+		
+		//Index und Search Komponenten initialisieren
+		
+		//JavaFX
 		try {
 			//Main-Stage
 			FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("MainWindow.fxml"));
@@ -43,7 +49,7 @@ public class Main extends Application {
 		    mainController.setMainWindow(mainWindow);
 		    addSourceDialog.setMainController(mainController);
 		    
-		    
+		    //Search Komponente an mainController weitergeben
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -55,5 +61,11 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	public void run() {
+		//Hier Crawler und co starten
+		
+		//TODO
 	}
 }
