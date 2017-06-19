@@ -1,7 +1,7 @@
 /*
  * LuceneIndex
  * 
- * Version: 1.0
+ * Version: 1.1
  * 
  * Date: 22.01.2017
  * 
@@ -25,6 +25,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.SimpleFSDirectory;
 
 import application.model.news.News;
+import application.model.news.NewsLuceneAdapter;
 import application.model.newsresult.NewsResult;
 import application.model.newsresult.NewsResultLuceneAdapter;
 /**
@@ -32,7 +33,7 @@ import application.model.newsresult.NewsResultLuceneAdapter;
  * Diese Klasse kapselt dazu die Funktionalitäten die Lucene dafür anbietet.
  * 
  * @author Thomas Zerr
- * @version 1.0
+ * @version 1.1
  * 
  * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/search/package-summary.html">Suche in Lucene</a>
  * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/document/Document.html">Document</a>
@@ -79,13 +80,19 @@ public class LuceneIndex implements Index, Closeable {
 	 */
 	@Override
 	public ResultIndex addNews(News news) {
-		// TODO Auto-generated method stub
+		if(news == null)
+			return ResultIndex.NULLPARAM;
+		
+		if(!(news instanceof NewsLuceneAdapter))
+			return ResultIndex.WRONGNEWSTYPE;
+		
 		Document doc = (Document) news.getDataStructure();
+		
 		try {
 			writer_.addDocument(doc);
+			writer_.commit();
 			return ResultIndex.SUCCESS;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return ResultIndex.IOEXCEPTION;
 		}
@@ -103,15 +110,14 @@ public class LuceneIndex implements Index, Closeable {
 	 * @return Die gefundenen Nachrichten und ihren jeweiligen Score.
 	 */
 	@Override
-	public NewsResult searchFor(Query querry, int n) {
-		// TODO Auto-generated method stub
+	public NewsResult searchFor(Query query, int n) {
 		try {
-			TopDocs top = searcher_.search(querry, n);
-			return initNewsResult(top, n);
+			TopDocs top = searcher_.search(query, n);
+			return initNewsResult(top);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return null;
 	}
 	
@@ -124,7 +130,6 @@ public class LuceneIndex implements Index, Closeable {
 	 */
 	@Override
 	public void close() throws IOException {
-		// TODO Auto-generated method stub
 		writer_.close();
 		searcher_.getIndexReader().close();
 		directory_.close();
@@ -142,7 +147,6 @@ public class LuceneIndex implements Index, Closeable {
 		try {
 			directory_ = new SimpleFSDirectory(FileSystems.getDefault().getPath(path));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -162,8 +166,8 @@ public class LuceneIndex implements Index, Closeable {
 		
 		try {
 			writer_ = new IndexWriter(directory_, conf);
+			writer_.commit();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -179,7 +183,6 @@ public class LuceneIndex implements Index, Closeable {
 			IndexReader reader = DirectoryReader.open(directory_);
 			searcher_ = new IndexSearcher(reader);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -194,8 +197,9 @@ public class LuceneIndex implements Index, Closeable {
 	 * @return Ein NewsResult mit den Nachrichten und den Scores aus dem Parameter top
 	 * 
 	 */
-	private NewsResult initNewsResult(TopDocs top, int n) throws IOException {
+	private NewsResult initNewsResult(TopDocs top) throws IOException {
 		//TODO Auto-generated method stub
+		int n = top.scoreDocs.length;
 		Document[] docs = new Document[n];
 		float[] scores = new float[n];
 		
