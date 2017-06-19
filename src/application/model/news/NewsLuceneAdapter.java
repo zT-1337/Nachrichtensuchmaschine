@@ -213,7 +213,7 @@ public class NewsLuceneAdapter implements News {
 	@Override
 	public void setText(String value) {
 		// TODO Auto-generated method stub
-		TextField text = new TextField(NewsFields.TEXT, value, Field.Store.NO);
+		TextField text = new TextField(NewsFields.TEXT, value, Field.Store.YES);
 		doc_.add(text);
 	}
 
