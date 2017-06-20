@@ -12,6 +12,7 @@ package application.model.index;
 import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.util.List;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -73,30 +74,37 @@ public class LuceneIndex implements Index, Closeable {
 	 * Die 'news' muss ein NewsLuceneAdapter sein, um die richtige Datenstruktur zu erhalten, in der die Nachricht gespeichert ist.
 	 * In diesem Falls wäre es der Typ Document von Lucene
 	 * 
-	 * @param news Die Nachricht, welche hinzugefügt werden soll. Von der Nachricht wird erwartet, dass sie vom konkreten Typ NewsLuceneAdapter ist
+	 * @param news Liste der Nachrichten, welche hinzugefügt werden soll. Von den Nachrichten wird erwartet, dass sie vom konkreten Typ NewsLuceneAdapter sind.
 	 * 
 	 * @return Einen "Returncode" der Beschreibt was beim Hinzufügen vorgefallen ist.
 	 * 
 	 */
 	@Override
-	public ResultIndex addNews(News news) {
-		if(news == null)
-			return ResultIndex.NULLPARAM;
-		
-		if(!(news instanceof NewsLuceneAdapter))
-			return ResultIndex.WRONGNEWSTYPE;
-		
-		Document doc = (Document) news.getDataStructure();
+	public ResultIndex addNews(List<News> news) {
+		for(News n : news) {
+			if( n == null)
+				return ResultIndex.NULLPARAM;
+			
+			if(!(n instanceof NewsLuceneAdapter))
+				return ResultIndex.WRONGNEWSTYPE;
+			
+			Document doc = (Document) n.getDataStructure();
+			
+			try {
+				writer_.addDocument(doc);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return ResultIndex.IOEXCEPTION;
+			}
+		}
 		
 		try {
-			writer_.addDocument(doc);
 			writer_.commit();
 			return ResultIndex.SUCCESS;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return ResultIndex.IOEXCEPTION;
 		}
-		
 	}
 	
 	/**
