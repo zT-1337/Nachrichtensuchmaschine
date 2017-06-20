@@ -14,6 +14,9 @@ import javafx.scene.layout.*;
 
 
 public class Main extends Application implements Runnable {
+	
+	LuceneIndex myIndex;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		
@@ -21,7 +24,7 @@ public class Main extends Application implements Runnable {
 		new Thread(new Main()).start();
 		
 		//Index und Search Komponenten initialisieren
-		final LuceneIndex myIndex;
+		myIndex = new LuceneIndex();
 		
 		//JavaFX
 		try {
