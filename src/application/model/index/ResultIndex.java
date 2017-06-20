@@ -24,5 +24,15 @@ public enum ResultIndex {
 	/**
 	 * Beim Hinzufuegen kam es zu einer IOException. Nachricht wurde nicht Hinzugefuegt.
 	 */
-	IOEXCEPTION
+	IOEXCEPTION,
+	
+	/**
+	 * Die übergebene News ist vom falschen konkreten Typ.
+	 */
+	WRONGNEWSTYPE,
+	
+	/**
+	 * Statt einer News wurde null als Parameter geliefert.
+	 */
+	NULLPARAM
 }

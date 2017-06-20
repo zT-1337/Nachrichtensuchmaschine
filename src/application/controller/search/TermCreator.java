@@ -1,7 +1,7 @@
 /*
  * TermCreator
  * 
- * Version: 1.0
+ * Version: 1.1
  * 
  * Datum: 29.05.2017
  */
@@ -15,7 +15,7 @@ import org.apache.lucene.search.TermQuery;
  * Erzeugt eine TermQuery.
  * 
  * @author Thomas Zerr
- * @version 1.0
+ * @version 1.1
  *
  */
 public class TermCreator implements QueryCreator {
@@ -25,7 +25,12 @@ public class TermCreator implements QueryCreator {
 	 */
 	@Override
 	public Query create(String field, String value) {
-		// TODO Auto-generated method stub
+		if(field == null || value == null)
+			return null;
+		
+		if(field.length() == 0 || value.length() == 0)
+			return null;
+		
 		Term term = new Term(field, value);
 		TermQuery query = new TermQuery(term);
 		

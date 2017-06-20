@@ -1,7 +1,7 @@
 /*
  * NewsResultLuceneAdapter
  * 
- * Version: 1.0
+ * Version: 1.1
  * 
  * Datum: 24.05.2017
  */
@@ -16,7 +16,7 @@ import application.model.news.NewsLuceneAdapter;
  * Ein Konkreter NewsResult, welcher auf der Bibliothek Lucene basiert.
  * 
  * @author Thomas Zerr
- * @version 1.0
+ * @version 1.1
  * @see <a>News</a>
  * @see <a>NewsLuceneAdapter</a>
  * @see <a>LuceneIndex</a>
@@ -58,9 +58,11 @@ public class NewsResultLuceneAdapter implements NewsResult {
 	@Override
 	public News getNews(int index) {
 		// TODO Auto-generated method stub
-		if(index <= -1 && index >= docs_.length) {
+		if(getSize() == 0)
 			return null;
-		}
+		
+		if(index < 0 || index > getSize()-1)
+			return null;
 		
 		if(news_[index] == null) {
 			news_[index] = new NewsLuceneAdapter(docs_[index]);
