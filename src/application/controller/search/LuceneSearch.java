@@ -189,7 +189,9 @@ public class LuceneSearch implements Search {
 		
 		while(st.hasMoreTokens()) {
 			Query query = creator.create(field, st.nextToken());
-			builder.add(query, occurSubQuerys);
+			
+			if(query != null)
+				builder.add(query, occurSubQuerys);
 		}
 		
 		
