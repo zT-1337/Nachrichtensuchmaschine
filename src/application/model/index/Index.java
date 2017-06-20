@@ -9,6 +9,8 @@
 
 package application.model.index;
 
+import java.util.List;
+
 import org.apache.lucene.search.Query;
 
 import application.model.news.News;
@@ -19,7 +21,7 @@ import application.model.newsresult.NewsResult;
  * Nachrichten koennen hinzugefuegt und gesucht werden.
  * 
  * @author Thomas Zerr
- * @version 1.0,
+ * @version 1.1,
  * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/search/Query.html">Query</a>
  *
  */
@@ -28,11 +30,11 @@ public interface Index {
 	/**
 	 * Schnittstelle zum Hinzufuegen von Nachrichten.
 	 * 
-	 * @param news Die News, welche hinzugefuegt werden soll.
+	 * @param news Liste von News, welche hinzugefügt werden soll..
 	 * 
 	 * @return Einen "Returncode" der Beschreibt was beim Hinzufuegen vorgefallen ist.
 	 */
-	public ResultIndex addNews(News news);
+	public ResultIndex addNews(List<News> news);
 	
 	/**
 	 * Schnittstelle zum Suchen von Nachrichten.
