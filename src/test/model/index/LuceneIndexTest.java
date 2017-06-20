@@ -101,7 +101,7 @@ public class LuceneIndexTest {
 		
 		NewsResult newsResult = index.searchFor(query, 1);
 		
-		assertFalse(newsResult.getSize() == 0);
+		assertTrue(newsResult.getSize() == 1);
 		assertTrue(newsResult.getNews(0).getText().equals(testString));
 		System.out.println("Score:" + newsResult.getScore(0));
 		
@@ -151,6 +151,8 @@ public class LuceneIndexTest {
 		newsResult = index.searchFor(query3, 2);
 		
 		assertTrue(newsResult.getSize() == 2);
+		assertTrue(newsResult.getNews(0).getText().equals(testString1));
+		assertTrue(newsResult.getNews(1).getText().equals(testString2));
 		assertTrue(newsResult.getScore(0) >= newsResult.getScore(1));
 	}
 	
