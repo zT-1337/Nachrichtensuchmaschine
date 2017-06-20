@@ -1,6 +1,8 @@
 package application;
 
 import application.view.*;
+import application.controller.NewsCreator.*;
+import application.model.index.Index;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
@@ -18,6 +20,7 @@ public class Main extends Application implements Runnable {
 		new Thread(new Main()).start();
 		
 		//Index und Search Komponenten initialisieren
+		final Index myIndex;
 		
 		//JavaFX
 		try {
@@ -68,7 +71,10 @@ public class Main extends Application implements Runnable {
 	public void run() {
 		//Hier Crawler und co starten
 		try {
+			String notific = "C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/viewernotification";
+			String wordlist = "C:/Users/-Felix/git/Nachrichtensuchmaschine/WordStatisticsLetter1";
 			
+			 CreatorController cContr = new CreatorController(notific, wordlist, myIndex);
 		}
 		catch (Exception e) {
 			//TODO
