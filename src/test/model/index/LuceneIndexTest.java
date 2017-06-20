@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.Query;
@@ -11,7 +12,6 @@ import org.apache.lucene.search.TermQuery;
 import org.junit.After;
 import org.junit.Test;
 
-import application.controller.search.LuceneSearch;
 import application.model.index.LuceneIndex;
 import application.model.index.ResultIndex;
 import application.model.news.News;
@@ -28,7 +28,9 @@ public class LuceneIndexTest {
 	
 	@Test
 	public void addNewsWrongType() {
-		ResultIndex result = index.addNews(newsWrongType);
+		ArrayList<News> list = new ArrayList<News>();
+		list.add(newsWrongType);
+		ResultIndex result = index.addNews(list);
 		
 		if(result == ResultIndex.IOEXCEPTION)
 			fail("IOException beim hinzufügen der Nachricht");
@@ -38,7 +40,9 @@ public class LuceneIndexTest {
 
 	@Test
 	public void addNewsNull() {
-		ResultIndex result = index.addNews(newsNull);
+		ArrayList<News> list = new ArrayList<News>();
+		list.add(newsNull);
+		ResultIndex result = index.addNews(list);
 		
 		if(result == ResultIndex.IOEXCEPTION)
 			fail("IOException beim hinzufügen der Nachricht");
@@ -48,9 +52,11 @@ public class LuceneIndexTest {
 	
 	@Test
 	public void addSearchValidNews() {
+		ArrayList<News> list = new ArrayList<News>();
 		String testString = "Test Text";
 		newsLucene.setText(testString);
-		ResultIndex result = index.addNews(newsLucene);
+		list.add(newsLucene);
+		ResultIndex result = index.addNews(list);
 		
 		if(result == ResultIndex.IOEXCEPTION)
 			fail("IOException beim hinzufügen der Nachricht");
@@ -63,6 +69,7 @@ public class LuceneIndexTest {
 		
 		assertFalse(newsResult.getSize() == 0);
 		assertTrue(newsResult.getNews(0).getText().equals(testString));
+		System.out.println("Score:" + newsResult.getScore(0));
 		
 	}
 	
