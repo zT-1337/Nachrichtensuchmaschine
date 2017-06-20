@@ -49,6 +49,8 @@ public class Main extends Application implements Runnable {
 		    mainController.setMainWindow(mainWindow);
 		    addSourceDialog.setMainController(mainController);
 		    
+		    //mainWindow.setInitState();
+		    
 		    //Search Komponente an mainController weitergeben
 			
 		} catch(Exception e) {
@@ -65,7 +67,12 @@ public class Main extends Application implements Runnable {
 	
 	public void run() {
 		//Hier Crawler und co starten
+		try {
+			
+		}
+		catch (Exception e) {
+			//TODO
+		}
 		
-		//TODO
 	}
 }

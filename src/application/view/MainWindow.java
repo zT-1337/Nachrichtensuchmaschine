@@ -208,6 +208,30 @@ public class MainWindow {
     	this.mainController = mainController;
     }
     
+    //
+    public void setInitState() {
+    	news_Box_1.setVisible(false);
+		news_Box_1.setManaged(false);
+		news_Box_2.setVisible(false);
+		news_Box_2.setManaged(false);
+		news_Box_3.setVisible(false);
+		news_Box_3.setManaged(false);
+		news_Box_4.setVisible(false);
+		news_Box_4.setManaged(false);
+		news_Box_5.setVisible(false);
+		news_Box_5.setManaged(false);
+		news_Box_6.setVisible(false);
+		news_Box_6.setManaged(false);
+		news_Box_7.setVisible(false);
+		news_Box_7.setManaged(false);
+		news_Box_8.setVisible(false);
+		news_Box_8.setManaged(false);
+		news_Box_9.setVisible(false);
+		news_Box_9.setManaged(false);
+		news_Box_10.setVisible(false);
+		news_Box_10.setManaged(false);
+    }
+    
     
     //Entwurf Seite 15 News Anzeigen
     public void showNews(NewsResult result) {    	
