@@ -147,8 +147,8 @@ public class CreatorController {
 	}
 	
 	private boolean isExist(NewsLuceneAdapter a_News){
-		newsResult = search.search(null, null, null, newNews.getReducedText(), 0);
-		if(true)return true;
+		newsResult = search.search(null, null, null, newNews.getReducedText(), 1);
+		if((newsResult.getSize() != 0) && (newsResult.getScore(0) >= 0.9f))return true;
 		
 		return false;
 	}
