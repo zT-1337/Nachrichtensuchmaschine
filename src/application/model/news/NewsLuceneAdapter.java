@@ -178,7 +178,6 @@ public class NewsLuceneAdapter implements News {
 	 * Setzten des Publikationsdatums der Nachricht.
 	 * Das Publikationsdatum wird als ein StringField im Document gespeichert.
 	 * 
-	 * @param value Das Publikationsdatum der Nachricht als String
 	 */
 	@Override
 	public void setPubDate(String value) {
