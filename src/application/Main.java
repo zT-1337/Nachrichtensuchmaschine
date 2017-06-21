@@ -2,6 +2,7 @@ package application;
 
 import application.view.*;
 import application.controller.NewsCreator.*;
+import application.controller.search.LuceneSearch;
 import application.model.index.Index;
 import application.model.index.LuceneIndex;
 import javafx.application.Application;
@@ -13,15 +14,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 
 
-public class Main extends Application implements Runnable {
+public class Main extends Application {
 	
 	LuceneIndex myIndex;
 	
 	@Override
 	public void start(Stage primaryStage) {
-		
-		//Start des Crawlers
-		new Thread(new Main()).start();
 		
 		//Index und Search Komponenten initialisieren
 		myIndex = new LuceneIndex();
@@ -56,9 +54,17 @@ public class Main extends Application implements Runnable {
 		    mainController.setMainWindow(mainWindow);
 		    addSourceDialog.setMainController(mainController);
 		    
+		    //Set Initial (empty) window state
 		    //mainWindow.setInitState();
 		    
 		    //Search Komponente an mainController weitergeben
+		    LuceneSearch mySearch = new LuceneSearch(myIndex);
+		    mainController.setIndex(myIndex);
+		    mainController.setSearch(mySearch);
+		    System.out.println("@Main: View Started and Controller initialized");
+		    
+		    //NewsCreator starten
+		    (new Thread(new MainController())).start();
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -72,17 +78,5 @@ public class Main extends Application implements Runnable {
 		launch(args);
 	}
 	
-	public void run() {
-		//Hier Crawler und co starten
-		try {
-			String notific = "C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/viewernotification";
-			String wordlist = "C:/Users/-Felix/git/Nachrichtensuchmaschine/WordStatisticsLetter1";
-			
-			CreatorController cContr = new CreatorController(notific, wordlist, myIndex);
-		}
-		catch (Exception e) {
-			//TODO
-		}
-		
-	}
+	
 }
