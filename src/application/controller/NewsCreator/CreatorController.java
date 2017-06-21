@@ -18,6 +18,7 @@ import application.controller.NewsCreator.*;
 import application.controller.search.LuceneSearch;
 import application.model.index.LuceneIndex;
 import application.model.index.ResultIndex;
+import application.model.news.News;
 import application.model.news.NewsLuceneAdapter;
 import application.model.newsresult.NewsResult;
 import application.model.newsresult.NewsResultLuceneAdapter;
@@ -35,7 +36,7 @@ public class CreatorController {
 	private ArrayList<String> newsContent;
 	private ArrayList<String> xmlFiles;
 	private ArrayList<String> notifications;
-	private ArrayList<NewsLuceneAdapter> createdNews;
+	private ArrayList<News> createdNews;
 	
 	private LuceneIndex index;
 	private NewsLuceneAdapter newNews;
@@ -75,10 +76,11 @@ public class CreatorController {
 					newsContent.add(doReduceString(newsContent.get(2)));
 					createTopic(xmlFiles.get(i));
 					newNews = createNews(newsContent);
+					createdNews.add(newNews);
 				}
 			}
 			
-			if(isExist(newNews)) index.addNews(newNews);
+			if(isExist(newNews)) index.addNews(createdNews);
 			
 		}
 	}
