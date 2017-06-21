@@ -17,8 +17,23 @@ public class DatePatternMatcherTest {
 	}
 
 	@Test
-	public void test() {
+	public void testValidOneDate() {
 		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testInvalidOneDate() {
+		
+	}
+	
+	@Test
+	public void testValidTwoDates() {
+		
+	}
+	
+	@Test
+	public void testInvalidTwoDates() {
+		
 	}
 
 }

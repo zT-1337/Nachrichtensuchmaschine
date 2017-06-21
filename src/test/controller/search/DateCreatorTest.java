@@ -55,5 +55,20 @@ public class DateCreatorTest {
 		assertTrue(termRangeQuery.getUpperTerm().equals(new BytesRef("20000602")));
 		
 	}
+	
+	@Test
+	public void testOneInvalidDate() {
+		
+	}
+	
+	@Test
+	public void testTwoInvalidDates() {
+		
+	}
+	
+	@Test
+	public void testInvalidField() {
+		
+	}
 
 }
