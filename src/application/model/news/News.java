@@ -83,7 +83,7 @@ public interface News {
 	/**
 	 * Das Publikationsdatum der Nachricht setzen
 	 * 
-	 * @param value Der String der als das Datum gespeichert werden soll
+	 * @param value Der String der als das Datum gespeichert werden soll (Format: dd.mm.yyyy)
 	 */
 	public void setPubDate(String value);
 	
