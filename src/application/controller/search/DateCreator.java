@@ -1,7 +1,7 @@
 /**
  * DateCreator
  * 
- * Version: 1.1
+ * Version: 1.2
  * 
  * Datum: 12.06.2017
  */
@@ -88,6 +88,12 @@ public class DateCreator implements QueryCreator {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param field Name des Lucenedocumentfields in dem gesucht werden soll
+	 * @param value Der Zeitraum, bestehend aus einem Datum, nachdem gesucht werden soll
+	 * @return Query ist eine TermQuery mit den übergebenen Daten
+	 */
 	private Query createTermQuery(String field, String value) {
 		return termCreator.create(field, converter.dateToNumber(value));
 	}
