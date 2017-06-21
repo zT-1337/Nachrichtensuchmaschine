@@ -1,8 +1,12 @@
 package application.view;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import application.controller.NewsCreator.CreatorController;
 import application.controller.search.LuceneSearch;
@@ -35,15 +39,38 @@ public class MainController extends Thread {
 	
 	public void run() {
 		//Hier Crawler und co starten
+		System.out.println("NewsCreator Thread before Try Catch");
+		
+		Path path = Paths.get("./src/application/config.txt");
+		String[] pathArray = new String[3];
+		
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
+		    String line = null;
+		    int i = 0;
+		    while ((line = reader.readLine()) != null) {
+		        pathArray[i++] = line;
+		    }
+		} catch (IOException x) {
+		    System.err.format("IOException: %s%n", x);
+		}
+		
+		pathArray[0] = pathArray[0].replace("notification path:","");
+		pathArray[1] = pathArray[1].replace("wordlist path:","");
+		pathArray[2] = pathArray[2].replace("rssCrawler path:","");
+		
+		System.out.println("notifications Path: "+pathArray[0]);
+		System.out.println("wordlist path: "+pathArray[1]);
+		System.out.println("rssCrawler path: "+pathArray[2]);
+		
 		try {
-			String notific = "C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/viewernotification";
-			String wordlist = "C:/Users/-Felix/git/Nachrichtensuchmaschine/WordStatisticsLetter1";
+			String notific = pathArray[0];
+			String wordlist = pathArray[1];
 			
 			CreatorController cContr = new CreatorController(notific, wordlist, myIndex);
-			cContr.start("C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/rssfiles");
+			cContr.start(pathArray[2]);
 		}
 		catch (Exception e) {
-			System.out.println("error: "+e);
+			System.out.println("error: "+e.getStackTrace());
 			//TODO
 		}
 		
