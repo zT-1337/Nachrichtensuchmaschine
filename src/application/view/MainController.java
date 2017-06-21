@@ -4,28 +4,77 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import application.controller.NewsCreator.CreatorController;
+import application.controller.search.LuceneSearch;
+import application.model.index.LuceneIndex;
 import application.model.news.News;
 import application.model.newsresult.NewsResult;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class MainController implements application.controller.search.Search {
+
+
+public class MainController extends Thread {
 	
 	private MainWindow mainWindow;
 	private NewsResult result;
 	private int currentPage = 1;
 	
+	private LuceneIndex myIndex;
+	private LuceneSearch mySearch;
+	
 	Stage fileStage;
 	
+	public void setSearch(LuceneSearch search) {
+		mySearch = search;
+	}
+	
+	public void setIndex(LuceneIndex index) {
+		myIndex = index;
+	}
+	
+	public void run() {
+		//Hier Crawler und co starten
+		try {
+			String notific = "C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/viewernotification";
+			String wordlist = "C:/Users/-Felix/git/Nachrichtensuchmaschine/WordStatisticsLetter1";
+			
+			CreatorController cContr = new CreatorController(notific, wordlist, myIndex);
+			cContr.start("C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/rssfiles");
+		}
+		catch (Exception e) {
+			System.out.println("error: "+e);
+			//TODO
+		}
+		
+	}
+	
 	public int getNewsWithPage(int number) {
-		return ((currentPage-1)*10) + number;
+		return ((currentPage-1)*10) + number -1;
+	}
+	
+	public void nextPage() {
+		currentPage++;
+		mainWindow.showNews(result);
+		mainWindow.updatePageButton(currentPage);
+	}
+	
+	public void previousPage() {
+		if(currentPage>1==true) {
+			currentPage--;
+			mainWindow.showNews(result);
+			mainWindow.updatePageButton(currentPage);
+		} else {
+			//do nothing
+		}
+			
 	}
 	
 	//Entwurf 7. doSearch(...)
 	public void doSearch(String terms, String dates, String topics, String news, int n) {
 		System.out.println("@MainController: Incoming search from View:");
-		System.out.println("terms:"+terms + "dates:"+dates + "topics:"+topics + "news:"+news + "n:"+n);
-		result = search(terms, dates, topics, news, n);
+		System.out.println("terms:"+terms + ",dates:"+dates + ",topics:"+topics + ",news:"+news + ",n:"+n);
+		result = mySearch.search(terms, dates, topics, news, n);
 		currentPage = 1;
 		mainWindow.showNews(result);
 	}
@@ -75,22 +124,7 @@ public class MainController implements application.controller.search.Search {
 		this.mainWindow = mw;
 	}
 	
-	
-	@Override
-	public NewsResult search(String terms, String dates, String topics, String news, int n) {
-		System.out.println("Search with attributes: Stichwort: "+terms + " Thema: "+topics + " Zeitraum: "+dates + " Similar: "+news);
-		System.out.println("Max # of results:"+n);
-		
-		
-		
-		return null;
-	}
 
-	
-
-
-	
-	
 	
 	
 }

@@ -208,7 +208,7 @@ public class MainWindow {
     	this.mainController = mainController;
     }
     
-    //
+    //alle News Boxen unsichtbar machen
     public void setInitState() {
     	news_Box_1.setVisible(false);
 		news_Box_1.setManaged(false);
@@ -234,16 +234,16 @@ public class MainWindow {
     
     
     //Entwurf Seite 15 News Anzeigen
-    public void showNews(NewsResult result) {    	
+    public void showNews(NewsResult result) {
     	if(result.getNews(1)!=null) {
     		news_Box_1.setVisible(false);
     		news_Box_1.setManaged(false);
     	} else {
     		news_Box_1.setVisible(true);
     		news_Box_1.setManaged(true);
-    		title_label_1.setText(result.getNews(1).getTitle());
-    		quelle_label_1.setText(result.getNews(1).getSource());
-    		datum_label_1.setText(result.getNews(1).getPubDate());
+    		title_label_1.setText(result.getNews(mainController.getNewsWithPage(1)).getTitle());
+    		quelle_label_1.setText(result.getNews(mainController.getNewsWithPage(1)).getSource());
+    		datum_label_1.setText(result.getNews(mainController.getNewsWithPage(1)).getPubDate());
     	}
     	
     	if(result.getNews(2)!=null) {
@@ -252,9 +252,9 @@ public class MainWindow {
     	} else {
     		news_Box_2.setVisible(true);
     		news_Box_2.setManaged(true);
-    		title_label_2.setText(result.getNews(2).getTitle());
-    		quelle_label_2.setText(result.getNews(2).getSource());
-    		datum_label_2.setText(result.getNews(2).getPubDate());
+    		title_label_2.setText(result.getNews(mainController.getNewsWithPage(2)).getTitle());
+    		quelle_label_2.setText(result.getNews(mainController.getNewsWithPage(2)).getSource());
+    		datum_label_2.setText(result.getNews(mainController.getNewsWithPage(2)).getPubDate());
     	}
     	
     	if(result.getNews(3)!=null) {
@@ -263,9 +263,9 @@ public class MainWindow {
     	} else {
     		news_Box_3.setVisible(true);
     		news_Box_3.setManaged(true);
-    		title_label_3.setText(result.getNews(3).getTitle());
-    		quelle_label_3.setText(result.getNews(3).getSource());
-    		datum_label_3.setText(result.getNews(3).getPubDate());
+    		title_label_3.setText(result.getNews(mainController.getNewsWithPage(3)).getTitle());
+    		quelle_label_3.setText(result.getNews(mainController.getNewsWithPage(3)).getSource());
+    		datum_label_3.setText(result.getNews(mainController.getNewsWithPage(3)).getPubDate());
     	}
     	
     	if(result.getNews(4)!=null) {
@@ -274,9 +274,9 @@ public class MainWindow {
     	} else {
     		news_Box_4.setVisible(true);
     		news_Box_4.setManaged(true);
-    		title_label_4.setText(result.getNews(4).getTitle());
-    		quelle_label_4.setText(result.getNews(4).getSource());
-    		datum_label_4.setText(result.getNews(4).getPubDate());
+    		title_label_4.setText(result.getNews(mainController.getNewsWithPage(4)).getTitle());
+    		quelle_label_4.setText(result.getNews(mainController.getNewsWithPage(4)).getSource());
+    		datum_label_4.setText(result.getNews(mainController.getNewsWithPage(4)).getPubDate());
     	}
     	
     	if(result.getNews(5)!=null) {
@@ -285,20 +285,9 @@ public class MainWindow {
     	} else {
     		news_Box_5.setVisible(true);
     		news_Box_5.setManaged(true);
-    		title_label_5.setText(result.getNews(5).getTitle());
-    		quelle_label_5.setText(result.getNews(5).getSource());
-    		datum_label_5.setText(result.getNews(5).getPubDate());
-    	}
-    	
-    	if(result.getNews(5)!=null) {
-    		news_Box_5.setVisible(false);
-    		news_Box_5.setManaged(false);
-    	} else {
-    		news_Box_5.setVisible(true);
-    		news_Box_5.setManaged(true);
-    		title_label_5.setText(result.getNews(5).getTitle());
-    		quelle_label_5.setText(result.getNews(5).getSource());
-    		datum_label_5.setText(result.getNews(5).getPubDate());
+    		title_label_5.setText(result.getNews(mainController.getNewsWithPage(5)).getTitle());
+    		quelle_label_5.setText(result.getNews(mainController.getNewsWithPage(5)).getSource());
+    		datum_label_5.setText(result.getNews(mainController.getNewsWithPage(5)).getPubDate());
     	}
     	
     	if(result.getNews(6)!=null) {
@@ -307,9 +296,9 @@ public class MainWindow {
     	} else {
     		news_Box_6.setVisible(true);
     		news_Box_6.setManaged(true);
-    		title_label_6.setText(result.getNews(6).getTitle());
-    		quelle_label_6.setText(result.getNews(6).getSource());
-    		datum_label_6.setText(result.getNews(6).getPubDate());
+    		title_label_6.setText(result.getNews(mainController.getNewsWithPage(6)).getTitle());
+    		quelle_label_6.setText(result.getNews(mainController.getNewsWithPage(6)).getSource());
+    		datum_label_6.setText(result.getNews(mainController.getNewsWithPage(6)).getPubDate());
     	}
     	
     	if(result.getNews(7)!=null) {
@@ -318,9 +307,9 @@ public class MainWindow {
     	} else {
     		news_Box_7.setVisible(true);
     		news_Box_7.setManaged(true);
-    		title_label_7.setText(result.getNews(7).getTitle());
-    		quelle_label_7.setText(result.getNews(7).getSource());
-    		datum_label_7.setText(result.getNews(7).getPubDate());
+    		title_label_7.setText(result.getNews(mainController.getNewsWithPage(7)).getTitle());
+    		quelle_label_7.setText(result.getNews(mainController.getNewsWithPage(7)).getSource());
+    		datum_label_7.setText(result.getNews(mainController.getNewsWithPage(7)).getPubDate());
     	}
     	
     	if(result.getNews(8)!=null) {
@@ -329,9 +318,9 @@ public class MainWindow {
     	} else {
     		news_Box_8.setVisible(true);
     		news_Box_8.setManaged(true);
-    		title_label_8.setText(result.getNews(8).getTitle());
-    		quelle_label_8.setText(result.getNews(8).getSource());
-    		datum_label_8.setText(result.getNews(8).getPubDate());
+    		title_label_8.setText(result.getNews(mainController.getNewsWithPage(8)).getTitle());
+    		quelle_label_8.setText(result.getNews(mainController.getNewsWithPage(8)).getSource());
+    		datum_label_8.setText(result.getNews(mainController.getNewsWithPage(8)).getPubDate());
     	}
     	
     	if(result.getNews(9)!=null) {
@@ -340,9 +329,9 @@ public class MainWindow {
     	} else {
     		news_Box_9.setVisible(true);
     		news_Box_9.setManaged(true);
-    		title_label_9.setText(result.getNews(9).getTitle());
-    		quelle_label_9.setText(result.getNews(9).getSource());
-    		datum_label_9.setText(result.getNews(9).getPubDate());
+    		title_label_9.setText(result.getNews(mainController.getNewsWithPage(9)).getTitle());
+    		quelle_label_9.setText(result.getNews(mainController.getNewsWithPage(9)).getSource());
+    		datum_label_9.setText(result.getNews(mainController.getNewsWithPage(9)).getPubDate());
     	}
     	
     	if(result.getNews(10)!=null) {
@@ -351,9 +340,9 @@ public class MainWindow {
     	} else {
     		news_Box_10.setVisible(true);
     		news_Box_10.setManaged(true);
-    		title_label_10.setText(result.getNews(10).getTitle());
-    		quelle_label_10.setText(result.getNews(10).getSource());
-    		datum_label_10.setText(result.getNews(10).getPubDate());
+    		title_label_10.setText(result.getNews(mainController.getNewsWithPage(10)).getTitle());
+    		quelle_label_10.setText(result.getNews(mainController.getNewsWithPage(10)).getSource());
+    		datum_label_10.setText(result.getNews(mainController.getNewsWithPage(10)).getPubDate());
     	}
     	
     }
@@ -364,8 +353,8 @@ public class MainWindow {
     @FXML
     void add_source_press(ActionEvent event) {
     	//open new dialog window
-    	addSourceDialogController.setInitDialog();
-    	addSourceDialogStage.showAndWait();
+    	//addSourceDialogController.setInitDialog();
+    	//addSourceDialogStage.showAndWait();
     }
 
     
@@ -417,30 +406,39 @@ public class MainWindow {
     }
     @FXML
     void similar_button_2_press(ActionEvent event) {
+    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(2)).getReducedText(), 100);
     }
     @FXML
     void similar_button_3_press(ActionEvent event) {
+    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(3)).getReducedText(), 100);
     }
     @FXML
     void similar_button_4_press(ActionEvent event) {
+    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(4)).getReducedText(), 100);
     }
     @FXML
     void similar_button_5_press(ActionEvent event) {
+    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(5)).getReducedText(), 100);
     }
     @FXML
     void similar_button_6_press(ActionEvent event) {
+    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(6)).getReducedText(), 100);
     }
     @FXML
     void similar_button_7_press(ActionEvent event) {
+    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(7)).getReducedText(), 100);
     }
     @FXML
     void similar_button_8_press(ActionEvent event) {
+    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(8)).getReducedText(), 100);
     }
     @FXML
     void similar_button_9_press(ActionEvent event) {
+    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(9)).getReducedText(), 100);
     }
     @FXML
     void similar_button_10_press(ActionEvent event) {
+    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(10)).getReducedText(), 100);
     }
     
     
@@ -453,14 +451,21 @@ public class MainWindow {
 
     @FXML
     void page_button_current_press(ActionEvent event) {
+    	//do Nothing
+    }
+    
+    public void updatePageButton(int number) {
+    	page_button_current.setText(number+"");
     }
 
     @FXML
     void page_button_next_press(ActionEvent event) {
+    	mainController.nextPage();
     }
 
     @FXML
     void page_button_previous_press(ActionEvent event) {
+    	mainController.previousPage();
     }
     
     
