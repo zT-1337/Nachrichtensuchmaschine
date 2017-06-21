@@ -235,7 +235,7 @@ public class MainWindow {
     
     //Entwurf Seite 15 News Anzeigen
     public void showNews(NewsResult result) {
-    	if(result.getNews(1)!=null) {
+    	if(result.getNews(1)==null) {
     		news_Box_1.setVisible(false);
     		news_Box_1.setManaged(false);
     	} else {
@@ -246,7 +246,7 @@ public class MainWindow {
     		datum_label_1.setText(result.getNews(mainController.getNewsWithPage(1)).getPubDate());
     	}
     	
-    	if(result.getNews(2)!=null) {
+    	if(result.getNews(2)==null) {
     		news_Box_2.setVisible(false);
     		news_Box_2.setManaged(false);
     	} else {
@@ -257,7 +257,7 @@ public class MainWindow {
     		datum_label_2.setText(result.getNews(mainController.getNewsWithPage(2)).getPubDate());
     	}
     	
-    	if(result.getNews(3)!=null) {
+    	if(result.getNews(3)==null) {
     		news_Box_3.setVisible(false);
     		news_Box_3.setManaged(false);
     	} else {
@@ -268,7 +268,7 @@ public class MainWindow {
     		datum_label_3.setText(result.getNews(mainController.getNewsWithPage(3)).getPubDate());
     	}
     	
-    	if(result.getNews(4)!=null) {
+    	if(result.getNews(4)==null) {
     		news_Box_4.setVisible(false);
     		news_Box_4.setManaged(false);
     	} else {
@@ -279,7 +279,7 @@ public class MainWindow {
     		datum_label_4.setText(result.getNews(mainController.getNewsWithPage(4)).getPubDate());
     	}
     	
-    	if(result.getNews(5)!=null) {
+    	if(result.getNews(5)==null) {
     		news_Box_5.setVisible(false);
     		news_Box_5.setManaged(false);
     	} else {
@@ -290,7 +290,7 @@ public class MainWindow {
     		datum_label_5.setText(result.getNews(mainController.getNewsWithPage(5)).getPubDate());
     	}
     	
-    	if(result.getNews(6)!=null) {
+    	if(result.getNews(6)==null) {
     		news_Box_6.setVisible(false);
     		news_Box_6.setManaged(false);
     	} else {
@@ -301,7 +301,7 @@ public class MainWindow {
     		datum_label_6.setText(result.getNews(mainController.getNewsWithPage(6)).getPubDate());
     	}
     	
-    	if(result.getNews(7)!=null) {
+    	if(result.getNews(7)==null) {
     		news_Box_7.setVisible(false);
     		news_Box_7.setManaged(false);
     	} else {
@@ -312,7 +312,7 @@ public class MainWindow {
     		datum_label_7.setText(result.getNews(mainController.getNewsWithPage(7)).getPubDate());
     	}
     	
-    	if(result.getNews(8)!=null) {
+    	if(result.getNews(8)==null) {
     		news_Box_8.setVisible(false);
     		news_Box_8.setManaged(false);
     	} else {
@@ -323,7 +323,7 @@ public class MainWindow {
     		datum_label_8.setText(result.getNews(mainController.getNewsWithPage(8)).getPubDate());
     	}
     	
-    	if(result.getNews(9)!=null) {
+    	if(result.getNews(9)==null) {
     		news_Box_9.setVisible(false);
     		news_Box_9.setManaged(false);
     	} else {
@@ -334,7 +334,7 @@ public class MainWindow {
     		datum_label_9.setText(result.getNews(mainController.getNewsWithPage(9)).getPubDate());
     	}
     	
-    	if(result.getNews(10)!=null) {
+    	if(result.getNews(10)==null) {
     		news_Box_10.setVisible(false);
     		news_Box_10.setManaged(false);
     	} else {
