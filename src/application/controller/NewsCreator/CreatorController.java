@@ -63,6 +63,7 @@ public class CreatorController {
 			clearArrayList(newsContent);
 			clearArrayList(xmlFiles);
 			clearArrayList(notifications);
+			clearArrayList(newNewsList);
 			System.out.println("Listen geleert");
 			listener.newNotification(notifications);
 			Thread.sleep(2000);
