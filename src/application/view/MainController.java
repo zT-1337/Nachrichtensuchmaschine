@@ -130,6 +130,7 @@ public class MainController extends Thread {
 		System.out.println("@mainController: maxNumberOfPages: " + maxNumberOfPages);
 		
 		currentPage = 1;
+		mainWindow.updatePageButton(currentPage);
 		
 		mainWindow.showNews(result);
 	}
