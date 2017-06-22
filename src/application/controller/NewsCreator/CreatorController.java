@@ -33,10 +33,11 @@ public class CreatorController {
 	private NotificationReader reader;
 	private DirectoryListener listener;
 	
-	private ArrayList<String> newsContent;
-	private ArrayList<String> xmlFiles;
-	private ArrayList<String> notifications;
-	private ArrayList<News> createdNews;
+	private ArrayList<String> newsContent = new ArrayList<String>();
+	private ArrayList<String> xmlFiles = new ArrayList<String>();
+	private ArrayList<String> notifications = new ArrayList<String>();
+	private ArrayList<News> createdNews = new ArrayList<News>();
+	private ArrayList<News> newNewsList = new ArrayList<News>();
 	
 	private LuceneIndex index;
 	private NewsLuceneAdapter newNews;
@@ -50,25 +51,24 @@ public class CreatorController {
 		reader = new NotificationReader();
 		index = a_Index;
 		search = new LuceneSearch(a_Index);
-		newNews = null;
-		newsResult = null;
 		createWordlist(a_WordlistPath);
 	}
 	
 	public void start(String directory) throws InterruptedException, IOException{
 		while(true){
-			
+			System.out.println("Schleifenanfang");
 			clearArrayList(newsContent);
 			clearArrayList(xmlFiles);
 			clearArrayList(notifications);
-			
+			System.out.println("Listen geleert");
 			listener.newNotification(notifications);
-			
+			Thread.sleep(2000);
 			for(int i = 0; i < notifications.size(); i++){
 				reader.ReadFile(notifications.get(i), xmlFiles);
 			}
-			
+			System.out.println("Erstellte xml : " + xmlFiles.size());
 			for(int i = 0; i < xmlFiles.size(); i++){
+				clearArrayList(newsContent);
 				parser.parse(xmlFiles.get(i), newsContent);
 				newsContent.add(xmlFiles.get(i));
 				createDate(newsContent);
@@ -79,8 +79,11 @@ public class CreatorController {
 					createdNews.add(newNews);
 				}
 			}
-			
-			if(isExist(newNews)) index.addNews(createdNews);
+			for(int i = 0; i < createdNews.size(); i++){
+				if(!isExist(createdNews.get(i))) newNewsList.add(createdNews.get(i));
+			}
+			System.out.println(newNewsList.size());
+			if(newNewsList.size() > 0) index.addNews(newNewsList);
 			
 		}
 	}
@@ -146,8 +149,9 @@ public class CreatorController {
 		return news;
 	}
 	
-	private boolean isExist(NewsLuceneAdapter a_News){
-		newsResult = search.search(null, null, null, newNews.getReducedText(), 1);
+	private boolean isExist(News a_News){
+		System.out.println(a_News.getReducedText());
+		newsResult = search.search("", "", "", newNews.getReducedText(), 1);
 		if((newsResult.getSize() != 0) && (newsResult.getScore(0) >= 0.9f))return true;
 		
 		return false;
@@ -168,14 +172,16 @@ public class CreatorController {
 		String reduceText = "";
 		
 		while(tokenizer.hasMoreTokens()){
+			isExist = false;
 			token = tokenizer.nextToken();
+			//System.out.println(token);
 			for(int i = 0; i < allWords.size(); i++){
 				if(allWords.get(i).equals(token)) isExist = true;
 			}
 			
-			if(isExist)allWords.add(token);
+			if(!isExist)allWords.add(token);
 		}
-		
+		System.out.println("Enthaltene Woerter : " + allWords.size());
 		for(int i = 0; i < allWords.size(); i++){
 			allWords.set(i, allWords.get(i).toLowerCase());
 		}
@@ -183,16 +189,14 @@ public class CreatorController {
 		for(int i = 1; i < allWords.size(); i++){
 			String key = allWords.get(i);
 			
-			for(int j = i -1; j > -1; j--){
-				if(wordlist.get(key).intValue() < wordlist.get(allWords.get(j)).intValue()){
-					allWords.set(i, allWords.get(j));
-					allWords.set(j, key);
-				}
+			if((wordlist.get(allWords.get(i)) == null)||(wordlist.get(allWords.get(i)).intValue() == 250)){
+				reduceWords.add(allWords.get(i));
 			}
+			
 		}
 		
-		for(int i = 0; i < 10; i++){
-			reduceText.concat(allWords.get(i) + " ");
+		for(int i = 0; i < reduceWords.size(); i++){
+			reduceText.concat(reduceWords.get(i) + " ");
 		}
 		
 		return  reduceText;
