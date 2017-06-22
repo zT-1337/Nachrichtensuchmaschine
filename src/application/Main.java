@@ -54,7 +54,7 @@ public class Main extends Application {
 		    addSourceDialog.setMainController(mainController);
 		    
 		    //Set Initial (empty) window state
-		    //mainWindow.setInitState();
+		    mainWindow.setInitState();
 		    
 		    //Search Komponente an mainController weitergeben
 		    LuceneSearch mySearch = new LuceneSearch(myIndex);

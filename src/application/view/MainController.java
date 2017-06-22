@@ -58,8 +58,8 @@ public class MainController extends Thread {
 	}
 	
 	public void run() {
-		//Hier Crawler und co starten
-		System.out.println("@mainController: CreatorController Thread before Try Catch");
+		//Hier ird des NewsCreator gestartet
+		//System.out.println("@mainController: CreatorController Thread before Try Catch");
 		
 		String[] pathArray = new String[3];
 		
@@ -137,7 +137,7 @@ public class MainController extends Thread {
 	//Entwurf 7. doTextExtraction(...)
 	public void doTextExtraction(int number) {
 		String path = createFile();		
-		News news = result.getNews( ((currentPage-1)*10) + number );
+		News news = result.getNews(number);
 		System.out.println("@MainController: doTextExtraction");
 		UserFunctions.extractText(news, path);
 	}
@@ -170,7 +170,7 @@ public class MainController extends Thread {
 	
 	//Entwurf 7. doSourceOpen(...)
 	public void doSourceOpen(int number) {
-		News news = result.getNews( ((currentPage-1)*10) + number );
+		News news = result.getNews(number);
 		UserFunctions.openSource(news);
 	}
 
