@@ -122,14 +122,13 @@ public class LuceneIndex implements Index, Closeable {
 	 * Die erhaltenen Nachrichten werden zusammen mit dem Score zurückgelieftert
 	 * 
 	 * @param querry Die Query nach der Nachrichten gesucht werden.
-	 * @param n Die Anzahl der Nachrichten, welche als Ergebnis zurückgeliefert werden soll
+	 * @param n Die Anzahl der Nachrichten, welche als Ergebnis zurückgeliefert werden soll. Muss > 0 sein.
 	 * 
 	 * @return Die gefundenen Nachrichten und ihren jeweiligen Score.
 	 */
 	@Override
 	public NewsResult searchFor(Query query, int n) {
 		try {
-			//TODO test
 			if(updatet_.get()) {
 				initIndexSearcher();
 				updatet_.set(false);
