@@ -13,6 +13,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -60,12 +61,19 @@ public class LuceneIndex implements Index, Closeable {
 	private IndexSearcher searcher_;
 	
 	/**
+	 * Es wurde mindestens eine Nachricht geöffnet, seitdem der IndexSearcher initialisiert wurde
+	 */
+	private AtomicBoolean updatet_;
+	
+	/**
 	 * Erzeugt einen LuceneIndex mit dem Pfad "./Nachrichtensuchmaschine/index"
 	 */
 	public LuceneIndex() {
 			initDirectory();
 			initIndexWriter();		
 			initIndexSearcher();
+			
+			updatet_ = new AtomicBoolean(false);
 	}
 	
 	/**
@@ -100,6 +108,7 @@ public class LuceneIndex implements Index, Closeable {
 		
 		try {
 			writer_.commit();
+			updatet_ .set(true);
 			return ResultIndex.SUCCESS;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -121,7 +130,11 @@ public class LuceneIndex implements Index, Closeable {
 	public NewsResult searchFor(Query query, int n) {
 		try {
 			//TODO test
-			initIndexSearcher();
+			if(updatet_.get()) {
+				initIndexSearcher();
+				updatet_.set(false);
+			}
+			
 			TopDocs top = searcher_.search(query, n);
 			return initNewsResult(top);
 		} catch (IOException e) {
@@ -190,6 +203,9 @@ public class LuceneIndex implements Index, Closeable {
 	 */
 	private void initIndexSearcher() {
 		try {
+			if(searcher_ != null)
+				searcher_.getIndexReader().close();
+			
 			IndexReader reader = DirectoryReader.open(directory_);
 			searcher_ = new IndexSearcher(reader);
 		} catch (IOException e) {

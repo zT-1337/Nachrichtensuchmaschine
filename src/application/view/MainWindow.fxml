@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="927.0" prefWidth="1000.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.view.MainWindow">
+  <bottom>
+    <HBox fx:id="page_box" prefHeight="40.0" prefWidth="1000.0">
+      <children>
+        <Separator prefHeight="25.0" prefWidth="-1.0" visible="false" HBox.hgrow="ALWAYS" />
+        <Button id="page_button_1" fx:id="page_button_previous" minHeight="-1.0" minWidth="45.0" mnemonicParsing="false" onAction="#page_button_previous_press" prefHeight="-1.0" prefWidth="40.0" text="&lt;&lt;">
+          <font>
+            <Font size="14.0" fx:id="x4" />
+          </font>
+          <HBox.margin>
+            <Insets bottom="5.0" left="15.0" top="5.0" fx:id="x6" />
+          </HBox.margin>
+        </Button>
+        <Button id="page_button_1" fx:id="page_button_current" font="$x4" minHeight="-1.0" minWidth="45.0" mnemonicParsing="false" onAction="#page_button_current_press" prefHeight="-1.0" prefWidth="40.0" text="1" HBox.margin="$x6" />
+        <Button id="page_button_1" fx:id="page_button_next" font="$x4" minHeight="-1.0" minWidth="45.0" mnemonicParsing="false" onAction="#page_button_next_press" prefHeight="-1.0" prefWidth="40.0" text="&gt;&gt;" HBox.margin="$x6" />
+        <Separator prefHeight="25.0" prefWidth="-1.0" visible="false" HBox.hgrow="ALWAYS" />
+      </children>
+    </HBox>
+  </bottom>
+  <center>
+    <VBox prefHeight="200.0" prefWidth="100.0">
+      <children>
+        <HBox prefHeight="40.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+          <children>
+            <Label text="Suche">
+              <font>
+                <Font name="System Bold" size="20.0" />
+              </font>
+              <HBox.margin>
+                <Insets left="15.0" top="5.0" />
+              </HBox.margin>
+            </Label>
+            <Separator prefWidth="200.0" visible="false" HBox.hgrow="ALWAYS" />
+            <Button id="cancel" font="$x4" minHeight="25.0" mnemonicParsing="false" onAction="#help" text="?">
+              <HBox.margin>
+                <Insets right="5.0" top="5.0" />
+              </HBox.margin>
+            </Button>
+          </children>
+        </HBox>
+        <GridPane gridLinesVisible="false" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" prefWidth="-1.0">
+          <children>
+            <Label alignment="CENTER_LEFT" contentDisplay="LEFT" maxWidth="1.7976931348623157E308" text="Stichwort:" textAlignment="LEFT" textOverrun="WORD_ELLIPSIS" underline="false" GridPane.columnIndex="0" GridPane.rowIndex="0">
+              <font>
+                <Font size="16.0" fx:id="x1" />
+              </font>
+              <GridPane.margin>
+                <Insets left="15.0" fx:id="x2" />
+              </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER_LEFT" contentDisplay="LEFT" font="$x1" maxWidth="1.7976931348623157E308" text="Thema:" textAlignment="LEFT" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="1" />
+            <Label alignment="BOTTOM_LEFT" font="$x1" maxWidth="1.7976931348623157E308" text="Zeitraum:" GridPane.columnIndex="0" GridPane.margin="$x2" GridPane.rowIndex="2" />
+            <TextField id="stichwort_label" fx:id="stichwort_tf" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0">
+              <GridPane.margin>
+                <Insets left="10.0" right="10.0" fx:id="x3" />
+              </GridPane.margin>
+            </TextField>
+            <TextField id="thema_label" fx:id="thema_tf" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.margin="$x3" GridPane.rowIndex="1" />
+            <TextField id="zeitraum_label" fx:id="zeitraum_tf" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.margin="$x3" GridPane.rowIndex="2" />
+            <Button id="suche_button" fx:id="search_button_press" font="$x1" minHeight="55.0" minWidth="70.0" mnemonicParsing="false" onAction="#search_button_press" prefHeight="80.0" text="Suche" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+          </children>
+          <columnConstraints>
+            <ColumnConstraints hgrow="NEVER" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="813.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="87.0" minWidth="80.0" prefWidth="87.0" />
+          </columnConstraints>
+          <padding>
+            <Insets bottom="5.0" />
+          </padding>
+          <rowConstraints>
+            <RowConstraints maxHeight="25.0" minHeight="20.0" prefHeight="25.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="25.0" minHeight="20.0" prefHeight="25.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="25.0" minHeight="20.0" prefHeight="25.0" vgrow="ALWAYS" />
+          </rowConstraints>
+        </GridPane>
+        <ScrollPane fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="577.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+          <content>
+            <VBox prefHeight="-1.0" prefWidth="-1.0">
+              <children>
+                <VBox id="VBox" fx:id="news_Box_1" disable="false" fillWidth="true" prefHeight="70.0" prefWidth="970.0" style="-fx-border-color: black;&#10;-fx-border-radius: 10px;&#10;-fx-border-width: 2px;" VBox.vgrow="NEVER">
+                  <children>
+                    <Label id="tital_label_1" fx:id="title_label_1" onMouseClicked="#title_label_1_click" prefHeight="-1.0" text="Titel des Artikels WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW">
+                      <font>
+                        <Font size="18.0" fx:id="x5" />
+                      </font>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="10.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="25.0" prefWidth="200.0">
+                      <children>
+                        <Label fx:id="quelle_label_1" font="$x4" text="Quelle">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </Label>
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
+                        <Label fx:id="datum_label_1" font="$x4" minWidth="77.0" text="TT.MM.2000" />
+                        <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
+                        <Button id="silimar_button_1" fx:id="similar_button_1" font="$x4" graphicTextGap="4.0" maxHeight="-1.0" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#similar_button_1_press" prefHeight="-1.0" prefWidth="75.0" style="" text="Similar" />
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
+                        <Button fx:id="cache_button_1" alignment="CENTER" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_1_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                      </children>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" />
+                      </VBox.margin>
+                    </HBox>
+                  </children>
+                  <VBox.margin>
+                    <Insets bottom="3.0" left="10.0" right="10.0" />
+                  </VBox.margin>
+                </VBox>
+                <VBox id="VBox" fx:id="news_Box_2" disable="false" fillWidth="true" prefHeight="70.0" prefWidth="970.0" style="-fx-border-color: black;&#10;-fx-border-radius: 10px;&#10;-fx-border-width: 2px;" VBox.vgrow="NEVER">
+                  <children>
+                    <Label id="tital_label_1" fx:id="title_label_2" font="$x5" onMouseClicked="#title_label_2_click" prefHeight="-1.0" text="Titel des Artikels WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="10.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="25.0" prefWidth="200.0">
+                      <children>
+                        <Label id="quelle_label_1" fx:id="quelle_label_2" font="$x4" text="Quelle">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </Label>
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
+                        <Label id="datum_label_1" fx:id="datum_label_2" font="$x4" minWidth="77.0" text="TT.MM.2000" />
+                        <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
+                        <Button id="silimar_button_1" fx:id="similar_button_2" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#similar_button_2_press" prefWidth="75.0" text="Similar" />
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
+                        <Button id="cache_button_1" fx:id="cache_button_2" alignment="CENTER" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_2_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                      </children>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" />
+                      </VBox.margin>
+                    </HBox>
+                  </children>
+                  <VBox.margin>
+                    <Insets bottom="3.0" left="10.0" right="10.0" />
+                  </VBox.margin>
+                </VBox>
+                <VBox id="VBox" fx:id="news_Box_3" disable="false" fillWidth="true" prefHeight="70.0" prefWidth="970.0" style="-fx-border-color: black;&#10;-fx-border-radius: 10px;&#10;-fx-border-width: 2px;" VBox.vgrow="NEVER">
+                  <children>
+                    <Label id="tital_label_1" fx:id="title_label_3" font="$x5" onMouseClicked="#title_label_3_click" prefHeight="-1.0" text="Titel des Artikels WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="10.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="25.0" prefWidth="200.0">
+                      <children>
+                        <Label id="quelle_label_1" fx:id="quelle_label_3" font="$x4" text="Quelle">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </Label>
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
+                        <Label id="datum_label_1" fx:id="datum_label_3" font="$x4" minWidth="77.0" text="TT.MM.2000" />
+                        <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
+                        <Button id="silimar_button_1" fx:id="similar_button_3" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#similar_button_3_press" prefWidth="75.0" text="Similar" />
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
+                        <Button id="cache_button_1" fx:id="cache_button_3" alignment="CENTER" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_3_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                      </children>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" />
+                      </VBox.margin>
+                    </HBox>
+                  </children>
+                  <VBox.margin>
+                    <Insets bottom="3.0" left="10.0" right="10.0" />
+                  </VBox.margin>
+                </VBox>
+                <VBox id="VBox" fx:id="news_Box_4" disable="false" fillWidth="true" prefHeight="70.0" prefWidth="970.0" style="-fx-border-color: black;&#10;-fx-border-radius: 10px;&#10;-fx-border-width: 2px;" VBox.vgrow="NEVER">
+                  <children>
+                    <Label id="tital_label_1" fx:id="title_label_4" font="$x5" onMouseClicked="#title_label_4_click" prefHeight="-1.0" text="Titel des Artikels WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="10.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="25.0" prefWidth="200.0">
+                      <children>
+                        <Label id="quelle_label_1" fx:id="quelle_label_4" font="$x4" text="Quelle">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </Label>
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
+                        <Label id="datum_label_1" fx:id="datum_label_4" font="$x4" minWidth="77.0" text="TT.MM.2000" />
+                        <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
+                        <Button id="silimar_button_1" fx:id="similar_button_4" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#similar_button_4_press" prefWidth="75.0" text="Similar" />
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
+                        <Button id="cache_button_1" fx:id="cache_button_4" alignment="CENTER" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_4_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                      </children>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" />
+                      </VBox.margin>
+                    </HBox>
+                  </children>
+                  <VBox.margin>
+                    <Insets bottom="3.0" left="10.0" right="10.0" />
+                  </VBox.margin>
+                </VBox>
+                <VBox id="VBox" fx:id="news_Box_5" disable="false" fillWidth="true" prefHeight="70.0" prefWidth="970.0" style="-fx-border-color: black;&#10;-fx-border-radius: 10px;&#10;-fx-border-width: 2px;" VBox.vgrow="NEVER">
+                  <children>
+                    <Label id="tital_label_1" fx:id="title_label_5" font="$x5" onMouseClicked="#title_label_5_click" prefHeight="-1.0" text="Titel des Artikels WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="10.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="25.0" prefWidth="200.0">
+                      <children>
+                        <Label id="quelle_label_1" fx:id="quelle_label_5" font="$x4" text="Quelle">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </Label>
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
+                        <Label id="datum_label_1" fx:id="datum_label_5" font="$x4" minWidth="77.0" text="TT.MM.2000" />
+                        <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
+                        <Button id="silimar_button_1" fx:id="similar_button_5" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#similar_button_5_press" prefWidth="75.0" text="Similar" />
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
+                        <Button id="cache_button_1" fx:id="cache_button_5" alignment="CENTER" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_5_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                      </children>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" />
+                      </VBox.margin>
+                    </HBox>
+                  </children>
+                  <VBox.margin>
+                    <Insets bottom="3.0" left="10.0" right="10.0" />
+                  </VBox.margin>
+                </VBox>
+                <VBox id="VBox" fx:id="news_Box_6" disable="false" fillWidth="true" prefHeight="70.0" prefWidth="970.0" style="-fx-border-color: black;&#10;-fx-border-radius: 10px;&#10;-fx-border-width: 2px;" VBox.vgrow="NEVER">
+                  <children>
+                    <Label id="tital_label_1" fx:id="title_label_6" font="$x5" onMouseClicked="#title_label_6_click" prefHeight="-1.0" text="Titel des Artikels WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="10.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="25.0" prefWidth="200.0">
+                      <children>
+                        <Label id="quelle_label_1" fx:id="quelle_label_6" font="$x4" text="Quelle">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </Label>
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
+                        <Label id="datum_label_1" fx:id="datum_label_6" font="$x4" minWidth="77.0" text="TT.MM.2000" />
+                        <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
+                        <Button id="silimar_button_1" fx:id="similar_button_6" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#similar_button_6_press" prefWidth="75.0" text="Similar" />
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
+                        <Button id="cache_button_1" fx:id="cache_button_6" alignment="CENTER" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_6_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                      </children>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" />
+                      </VBox.margin>
+                    </HBox>
+                  </children>
+                  <VBox.margin>
+                    <Insets bottom="3.0" left="10.0" right="10.0" />
+                  </VBox.margin>
+                </VBox>
+                <VBox id="VBox" fx:id="news_Box_7" disable="false" fillWidth="true" prefHeight="70.0" prefWidth="970.0" style="-fx-border-color: black;&#10;-fx-border-radius: 10px;&#10;-fx-border-width: 2px;" VBox.vgrow="NEVER">
+                  <children>
+                    <Label id="tital_label_1" fx:id="title_label_7" font="$x5" onMouseClicked="#title_label_7_click" prefHeight="-1.0" text="Titel des Artikels WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="10.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="25.0" prefWidth="200.0">
+                      <children>
+                        <Label id="quelle_label_1" fx:id="quelle_label_7" font="$x4" text="Quelle">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </Label>
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
+                        <Label id="datum_label_1" fx:id="datum_label_7" font="$x4" minWidth="77.0" text="TT.MM.2000" />
+                        <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
+                        <Button id="silimar_button_1" fx:id="similar_button_7" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#similar_button_7_press" prefWidth="75.0" text="Similar" />
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
+                        <Button id="cache_button_1" fx:id="cache_button_7" alignment="CENTER" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_7_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                      </children>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" />
+                      </VBox.margin>
+                    </HBox>
+                  </children>
+                  <VBox.margin>
+                    <Insets bottom="3.0" left="10.0" right="10.0" />
+                  </VBox.margin>
+                </VBox>
+                <VBox id="VBox" fx:id="news_Box_8" disable="false" fillWidth="true" prefHeight="70.0" prefWidth="970.0" style="-fx-border-color: black;&#10;-fx-border-radius: 10px;&#10;-fx-border-width: 2px;" VBox.vgrow="NEVER">
+                  <children>
+                    <Label id="tital_label_1" fx:id="title_label_8" font="$x5" onMouseClicked="#title_label_8_click" prefHeight="-1.0" text="Titel des Artikels WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="10.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="25.0" prefWidth="200.0">
+                      <children>
+                        <Label id="quelle_label_1" fx:id="quelle_label_8" font="$x4" text="Quelle">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </Label>
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
+                        <Label id="datum_label_1" fx:id="datum_label_8" font="$x4" minWidth="77.0" text="TT.MM.2000" />
+                        <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
+                        <Button id="silimar_button_1" fx:id="similar_button_8" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#similar_button_8_press" prefWidth="75.0" text="Similar" />
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
+                        <Button id="cache_button_1" fx:id="cache_button_8" alignment="CENTER" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_8_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                      </children>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" />
+                      </VBox.margin>
+                    </HBox>
+                  </children>
+                  <VBox.margin>
+                    <Insets bottom="3.0" left="10.0" right="10.0" />
+                  </VBox.margin>
+                </VBox>
+                <VBox id="VBox" fx:id="news_Box_9" disable="false" fillWidth="true" prefHeight="70.0" prefWidth="970.0" style="-fx-border-color: black;&#10;-fx-border-radius: 10px;&#10;-fx-border-width: 2px;" VBox.vgrow="NEVER">
+                  <children>
+                    <Label id="tital_label_1" fx:id="title_label_9" font="$x5" onMouseClicked="#title_label_9_click" prefHeight="-1.0" text="Titel des Artikels WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="10.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="25.0" prefWidth="200.0">
+                      <children>
+                        <Label id="quelle_label_1" fx:id="quelle_label_9" font="$x4" text="Quelle">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </Label>
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
+                        <Label id="datum_label_1" fx:id="datum_label_9" font="$x4" minWidth="77.0" text="TT.MM.2000" />
+                        <Separator minHeight="-1.0" minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
+                        <Button id="silimar_button_1" fx:id="similar_button_9" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#similar_button_9_press" prefWidth="75.0" text="Similar" />
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
+                        <Button id="cache_button_1" fx:id="cache_button_9" alignment="CENTER" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_9_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                      </children>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" />
+                      </VBox.margin>
+                    </HBox>
+                  </children>
+                  <VBox.margin>
+                    <Insets bottom="3.0" left="10.0" right="10.0" />
+                  </VBox.margin>
+                </VBox>
+                <VBox id="VBox" fx:id="news_Box_10" disable="false" fillWidth="true" prefHeight="70.0" prefWidth="970.0" style="-fx-border-color: black;&#10;-fx-border-radius: 10px;&#10;-fx-border-width: 2px;" VBox.vgrow="NEVER">
+                  <children>
+                    <Label id="tital_label_1" fx:id="title_label_10" font="$x5" onMouseClicked="#title_label_10_click" prefHeight="-1.0" text="Titel des Artikels WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW">
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="10.0" right="7.0" top="7.0" />
+                      </VBox.margin>
+                    </Label>
+                    <HBox prefHeight="25.0" prefWidth="200.0">
+                      <children>
+                        <Label id="quelle_label_1" fx:id="quelle_label_10" font="$x4" text="Quelle">
+                          <HBox.margin>
+                            <Insets left="10.0" />
+                          </HBox.margin>
+                        </Label>
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" />
+                        <Label id="datum_label_1" fx:id="datum_label_10" font="$x4" minWidth="77.0" text="TT.MM.2000" />
+                        <Separator minWidth="10.0" prefHeight="21.0" prefWidth="70.0" visible="false" HBox.hgrow="SOMETIMES" />
+                        <Button id="silimar_button_1" fx:id="similar_button_10" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#similar_button_10_press" prefWidth="75.0" text="Similar" />
+                        <Separator prefHeight="25.0" prefWidth="10.0" visible="false" HBox.hgrow="NEVER" />
+                        <Button id="cache_button_1" fx:id="cache_button_10" alignment="CENTER" font="$x4" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#cache_button_10_press" prefWidth="75.0" text="Cache" textAlignment="CENTER" />
+                      </children>
+                      <VBox.margin>
+                        <Insets bottom="7.0" left="7.0" right="7.0" />
+                      </VBox.margin>
+                    </HBox>
+                  </children>
+                  <VBox.margin>
+                    <Insets bottom="3.0" left="10.0" right="10.0" />
+                  </VBox.margin>
+                </VBox>
+              </children>
+            </VBox>
+          </content>
+        </ScrollPane>
+      </children>
+    </VBox>
+  </center>
+  <top>
+    <MenuBar disable="false" useSystemMenuBar="false" visible="true">
+      <menus>
+        <Menu mnemonicParsing="false" text="Datei">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#add_source_press" text="Quelle Hinzufügen" fx:id="add_source" />
+            <MenuItem mnemonicParsing="false" onAction="#quit" text="Beenden" fx:id="quit_programm" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </top>
+</BorderPane>

@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanClause.Occur;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.BooleanQuery.Builder;
 import org.apache.lucene.search.Query;
 
@@ -69,21 +70,34 @@ public class LuceneSearch implements Search {
 	@Override
 	public NewsResult search(String terms, String dates, String topics, String news, int n) {
 		// TODO Auto-generated method stub		
-		Builder builder = new Builder();
+		Builder outerBuilder = new Builder();
 		
-		if(terms.length() != 0)
-			builder.add(createTermsClause(terms, isComparingNews(news)));
+		if(terms == null)
+			terms = "";
+		
+		if(dates == null)
+			dates = "";
+		
+		if(topics == null)
+			topics = "";
+		
+		if(news == null)
+			news = "";
+		
+		if(terms.length() != 0) {
+			outerBuilder.add(createTermsClause(terms.toLowerCase(), isComparingNews(news)));
+		}
 		
 		if(dates.length() != 0)
-			builder.add(createDatesClause(dates));
+			outerBuilder.add(createDatesClause(dates.toLowerCase()));
 		
 		if(topics.length() != 0)
-			builder.add(createTopicsClause(topics));
+			outerBuilder.add(createTopicsClause(topics.toLowerCase()));
 		
 		if(news.length() != 0)
-			builder.add(createNewsClause(news));
+			outerBuilder.add(createNewsClause(news.toLowerCase()));
 		
-		return index_.searchFor(builder.build(), n);
+		return index_.searchFor(outerBuilder.build(), n);
 	}
 	
 	/**
@@ -182,8 +196,10 @@ public class LuceneSearch implements Search {
 	 */
 	
 	private BooleanClause createBooleanClause(String str, String field, QueryCreator creator, Occur occurBoolean, Occur occurSubQuerys) {		
-		Builder builder = new Builder();
-		builder.setMinimumNumberShouldMatch(LuceneSearch.minimum);
+		Builder innerBuilder = new Builder();
+		
+		if(occurSubQuerys == Occur.SHOULD)
+			innerBuilder.setMinimumNumberShouldMatch(LuceneSearch.minimum);
 		
 		StringTokenizer st = new StringTokenizer(str);
 		
@@ -191,11 +207,10 @@ public class LuceneSearch implements Search {
 			Query query = creator.create(field, st.nextToken());
 			
 			if(query != null)
-				builder.add(query, occurSubQuerys);
+				innerBuilder.add(query, occurSubQuerys);
 		}
 		
-		
-		return new BooleanClause(builder.build(), occurBoolean);
+		return new BooleanClause(innerBuilder.build(), occurBoolean);
 	}
 
 }
