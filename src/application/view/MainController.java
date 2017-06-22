@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,6 +30,8 @@ public class MainController extends Thread {
 	
 	private LuceneIndex myIndex;
 	private LuceneSearch mySearch;
+	
+	private CreatorController cContr;
 	
 	Stage fileStage;
 	
@@ -58,18 +61,9 @@ public class MainController extends Thread {
 		//Hier Crawler und co starten
 		System.out.println("@mainController: CreatorController Thread before Try Catch");
 		
-		Path path = Paths.get("./src/application/config.txt");
 		String[] pathArray = new String[3];
 		
-		try (BufferedReader reader = Files.newBufferedReader(path)) {
-		    String line = null;
-		    int i = 0;
-		    while ((line = reader.readLine()) != null) {
-		        pathArray[i++] = line;
-		    }
-		} catch (IOException x) {
-		    System.err.format("IOException: %s%n", x);
-		}
+		pathArray = getPaths();
 		
 		pathArray[0] = pathArray[0].replace("notification path:","");
 		pathArray[1] = pathArray[1].replace("wordlist path:","");
@@ -83,7 +77,7 @@ public class MainController extends Thread {
 			String notific = pathArray[0];
 			String wordlist = pathArray[1];
 			
-			CreatorController cContr = new CreatorController(notific, wordlist, myIndex);
+			cContr = new CreatorController(notific, wordlist, myIndex);
 			cContr.start(pathArray[2]);
 		}
 		catch (Exception e) {
@@ -186,7 +180,72 @@ public class MainController extends Thread {
 		this.mainWindow = mw;
 	}
 	
+	public String[] getPaths() {
+		Path path = Paths.get("./src/application/config.txt");
+		String[] pathArray = new String[3];
+		
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
+		    String line = null;
+		    int i = 0;
+		    while ((line = reader.readLine()) != null) {
+		        pathArray[i++] = line;
+		    }
+		} catch (IOException x) {
+		    System.err.format("IOException: %s%n", x);
+		}
+		
+		return pathArray;
+	}
+	
+	public void startCrawler() {
+		String[] pathArray = new String[3];
+		pathArray = getPaths();
+		
+		String rssPath = pathArray[2];
+		rssPath = rssPath.replace("RSS/rssfiles/","");
+		rssPath = rssPath.replace("rssCrawler path:","\"");
+		rssPath += "ServerRSS.jar\"";
+		System.out.println("string to serverRSS: " + rssPath);
+		
+		try {
+			ProcessBuilder pb = new ProcessBuilder("java", "-jar", rssPath);
+			Process p = pb.start();
+			System.out.println("@mainController: RSScrawler gestartet");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void stopCrawler() {
+		String[] pathArray = new String[3];
+		pathArray = getPaths();
+		
+		String path = pathArray[2];
+		path = path.replace("rssCrawler path:","");
+		int index = path.indexOf('/', 9);
+		path = path.substring(0,index+1);
+		path = path + "stop";
+		
+		File f = new File(path);
+		if (f != null) {
+    		try {
+        		FileWriter fw = new java.io.FileWriter(f);
+        		fw.flush();
+				fw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+	}
 
+	
+	public void stopCController() {
+		if(cContr!=null) {
+			cContr.closeCreator();
+		}
+	}
 	
 	
 }

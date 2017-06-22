@@ -69,7 +69,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 		
-	
+		mainController.startCrawler();
 		
 	}
 	
@@ -85,6 +85,14 @@ public class Main extends Application {
 	    //Index schlieﬂen
 	    mainController.closeIndex();
 	    System.out.println("@Main: Index closed.");
+	    
+	    //Crawler beenden
+	    mainController.stopCrawler();
+	    System.out.println("Crawler gestoppt");
+	    
+	    //NewsCreator beenden
+	    mainController.stopCController();
+	    System.out.println("Creator Controller Stopped");
 	}
 	
 }
