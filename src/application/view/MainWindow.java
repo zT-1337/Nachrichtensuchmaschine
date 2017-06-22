@@ -350,43 +350,43 @@ public class MainWindow {
     //Cache Buttons
     @FXML
     void cache_button_1_press(ActionEvent event) {
-    	mainController.doTextExtraction(1);
+    	mainController.doTextExtraction(mainController.getNewsWithPage(1));
     }
     @FXML
     void cache_button_2_press(ActionEvent event) {
-    	mainController.doTextExtraction(2);
+    	mainController.doTextExtraction(mainController.getNewsWithPage(2));
     }    
     @FXML
     void cache_button_3_press(ActionEvent event) {
-    	mainController.doTextExtraction(3);
+    	mainController.doTextExtraction(mainController.getNewsWithPage(3));
     }    
     @FXML
     void cache_button_4_press(ActionEvent event) {
-    	mainController.doTextExtraction(4);
+    	mainController.doTextExtraction(mainController.getNewsWithPage(4));
     }    
     @FXML
     void cache_button_5_press(ActionEvent event) {
-    	mainController.doTextExtraction(5);
+    	mainController.doTextExtraction(mainController.getNewsWithPage(5));
     }    
     @FXML
     void cache_button_6_press(ActionEvent event) {
-    	mainController.doTextExtraction(6);
+    	mainController.doTextExtraction(mainController.getNewsWithPage(6));
     }    
     @FXML
     void cache_button_7_press(ActionEvent event) {
-    	mainController.doTextExtraction(7);
+    	mainController.doTextExtraction(mainController.getNewsWithPage(7));
     }    
     @FXML
     void cache_button_8_press(ActionEvent event) {
-    	mainController.doTextExtraction(8);
+    	mainController.doTextExtraction(mainController.getNewsWithPage(8));
     }    
     @FXML
     void cache_button_9_press(ActionEvent event) {
-    	mainController.doTextExtraction(9);
+    	mainController.doTextExtraction(mainController.getNewsWithPage(9));
     }    
     @FXML
     void cache_button_10_press(ActionEvent event) {
-    	mainController.doTextExtraction(10);
+    	mainController.doTextExtraction(mainController.getNewsWithPage(10));
     }    
     
     @FXML
