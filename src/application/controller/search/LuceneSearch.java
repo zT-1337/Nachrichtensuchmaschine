@@ -9,6 +9,7 @@ package application.controller.search;
 
 import java.util.StringTokenizer;
 
+import org.apache.lucene.document.Document;
 import org.apache.lucene.search.BooleanClause;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery.Builder;
@@ -16,7 +17,9 @@ import org.apache.lucene.search.Query;
 
 import application.model.index.Index;
 import application.model.news.NewsFields;
+import application.model.news.NewsSimilarity;
 import application.model.newsresult.NewsResult;
+import application.model.newsresult.NewsResultLuceneAdapter;
 
 /**
  * Das Suchen von Nachrichten mittels Lucene.
@@ -65,7 +68,6 @@ public class LuceneSearch implements Search {
 	/**
 	 * 
 	 */
-	
 	@Override
 	public NewsResult search(String terms, String dates, String topics, String news, int n) {
 		// TODO Auto-generated method stub		
@@ -96,7 +98,39 @@ public class LuceneSearch implements Search {
 		if(news.length() != 0)
 			outerBuilder.add(createNewsClause(news.toLowerCase()));
 		
-		return index_.searchFor(outerBuilder.build(), n);
+		NewsResult result = index_.searchFor(outerBuilder.build(), n);
+		
+		if(isComparingNews(news))
+			return filterSimilarNews(result);
+		
+		return result;
+	}
+	
+	/**
+	 * TODO
+	 * @param result
+	 * @return
+	 */
+	private NewsResult filterSimilarNews(NewsResult result) {
+		int n = 0;
+		
+		for(int i = 0; i < result.getSize(); ++i) {
+			if(result.getScore(i) < NewsSimilarity.similar)
+				break;
+			
+			++n;
+		}
+		
+		Document[] docs = new Document[n];
+		float[] scores = new float[n];
+		
+		for(int i = 0; i < n; ++i) {
+			docs[i] = (Document) result.getNews(i).getDataStructure();
+			scores[i] = result.getScore(i);
+		}
+		
+		return new NewsResultLuceneAdapter(docs, scores);
+			
 	}
 	
 	/**
