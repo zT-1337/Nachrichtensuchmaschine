@@ -1,7 +1,7 @@
 /*
  * NewsLuceneAdapter
  * 
- * Version: 1.0
+ * Version: 1.1
  * 
  * Datum: 23.05.2017
  */
@@ -11,6 +11,8 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 
+import application.util.date.DateConverter;
+
 /**
  * Diese Klasse repräsentiert eine News mittels Lucene Bibliothek.
  * Die Datenstruktur mit der eine Nachricht gespeichert wird, ist der Datentyp Document aus der Lucene Bibliothek.
@@ -18,7 +20,7 @@ import org.apache.lucene.document.TextField;
  * Diese Klasse funktioniert als ein Adapter zwischen Lucene und der restlichen Software.
  * 
  * @author Thomas Zerr
- * @version 1.0
+ * @version 1.1
  * @see <a href="https://lucene.apache.org/core/6_5_0/core/org/apache/lucene/document/Document.html">Document</a>
  * @see <a href="https://lucene.apache.org/core/6_5_0/core/index.html?org/apache/lucene/document/TextField.html">TextField</a>
  * @see <a href="https://lucene.apache.org/core/6_5_0/core/index.html?org/apache/lucene/document/StringField.html">StringField</a>
@@ -33,10 +35,16 @@ public class NewsLuceneAdapter implements News {
 	private Document doc_;
 	
 	/**
+	 * Konvertiert das übergebene Datum beim setzen der PubDate in das richtige Format
+	 */
+	private DateConverter converter_;
+	
+	/**
 	 * Erzeugt eine leere Nachricht. Keine der Felder enthält einen Wert.
 	 */
 	public NewsLuceneAdapter() {
 		doc_ = new Document();
+		converter_ = new DateConverter();
 	}
 	
 	/**
@@ -46,6 +54,7 @@ public class NewsLuceneAdapter implements News {
 	 */
 	public NewsLuceneAdapter(Document doc) {
 		doc_ = doc;
+		converter_ = new DateConverter();
 	}
 
 	/**
@@ -168,13 +177,16 @@ public class NewsLuceneAdapter implements News {
 	/**
 	 * Setzten des Publikationsdatums der Nachricht.
 	 * Das Publikationsdatum wird als ein StringField im Document gespeichert.
-	 * 
-	 * @param value Das Publikationsdatum der Nachricht als String
 	 */
 	@Override
 	public void setPubDate(String value) {
 		// TODO Auto-generated method stub
-		StringField pubdate = new StringField(NewsFields.PUBDATE, value, Field.Store.YES);
+		String date = converter_.dateToNumber(value);
+		
+		if(date == null)
+			date = "";
+		
+		StringField pubdate = new StringField(NewsFields.PUBDATE, date, Field.Store.YES);
 		doc_.add(pubdate);
 	}
 

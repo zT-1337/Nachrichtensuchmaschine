@@ -1,31 +1,107 @@
 package application.view;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+import application.controller.NewsCreator.CreatorController;
+import application.controller.search.LuceneSearch;
+import application.model.index.LuceneIndex;
 import application.model.news.News;
 import application.model.newsresult.NewsResult;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class MainController implements application.controller.search.Search {
+
+
+public class MainController extends Thread {
 	
 	private MainWindow mainWindow;
 	private NewsResult result;
 	private int currentPage = 1;
 	
+	private LuceneIndex myIndex;
+	private LuceneSearch mySearch;
+	
 	Stage fileStage;
 	
+	public void setSearch(LuceneSearch search) {
+		mySearch = search;
+	}
+	
+	public void setIndex(LuceneIndex index) {
+		myIndex = index;
+	}
+	
+	public void run() {
+		//Hier Crawler und co starten
+		System.out.println("NewsCreator Thread before Try Catch");
+		
+		Path path = Paths.get("./src/application/config.txt");
+		String[] pathArray = new String[3];
+		
+		try (BufferedReader reader = Files.newBufferedReader(path)) {
+		    String line = null;
+		    int i = 0;
+		    while ((line = reader.readLine()) != null) {
+		        pathArray[i++] = line;
+		    }
+		} catch (IOException x) {
+		    System.err.format("IOException: %s%n", x);
+		}
+		
+		pathArray[0] = pathArray[0].replace("notification path:","");
+		pathArray[1] = pathArray[1].replace("wordlist path:","");
+		pathArray[2] = pathArray[2].replace("rssCrawler path:","");
+		
+		System.out.println("notifications Path: "+pathArray[0]);
+		System.out.println("wordlist path: "+pathArray[1]);
+		System.out.println("rssCrawler path: "+pathArray[2]);
+		
+		try {
+			String notific = pathArray[0];
+			String wordlist = pathArray[1];
+			
+			CreatorController cContr = new CreatorController(notific, wordlist, myIndex);
+			cContr.start(pathArray[2]);
+		}
+		catch (Exception e) {
+			System.out.println("error: "+e.getStackTrace());
+			//TODO
+		}
+		
+	}
+	
 	public int getNewsWithPage(int number) {
-		return ((currentPage-1)*10) + number;
+		return ((currentPage-1)*10) + number -1;
+	}
+	
+	public void nextPage() {
+		currentPage++;
+		mainWindow.showNews(result);
+		mainWindow.updatePageButton(currentPage);
+	}
+	
+	public void previousPage() {
+		if(currentPage>1==true) {
+			currentPage--;
+			mainWindow.showNews(result);
+			mainWindow.updatePageButton(currentPage);
+		} else {
+			//do nothing
+		}
+			
 	}
 	
 	//Entwurf 7. doSearch(...)
 	public void doSearch(String terms, String dates, String topics, String news, int n) {
 		System.out.println("@MainController: Incoming search from View:");
-		System.out.println("terms:"+terms + "dates:"+dates + "topics:"+topics + "news:"+news + "n:"+n);
-		result = search(terms, dates, topics, news, n);
+		System.out.println("terms:"+terms + ",dates:"+dates + ",topics:"+topics + ",news:"+news + ",n:"+n);
+		result = mySearch.search(terms, dates, topics, news, n);
 		currentPage = 1;
 		mainWindow.showNews(result);
 	}
@@ -75,22 +151,7 @@ public class MainController implements application.controller.search.Search {
 		this.mainWindow = mw;
 	}
 	
-	
-	@Override
-	public NewsResult search(String terms, String dates, String topics, String news, int n) {
-		System.out.println("Search with attributes: Stichwort: "+terms + " Thema: "+topics + " Zeitraum: "+dates + " Similar: "+news);
-		System.out.println("Max # of results:"+n);
-		
-		
-		
-		return null;
-	}
 
-	
-
-
-	
-	
 	
 	
 }

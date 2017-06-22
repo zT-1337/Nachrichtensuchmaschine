@@ -1,7 +1,7 @@
 /*
  * Index
  * 
- * Version: 1.0
+ * Version: 1.1
  * 
  * Date: 22.01.2017
  * 

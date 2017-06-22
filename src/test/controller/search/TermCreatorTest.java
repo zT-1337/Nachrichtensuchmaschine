@@ -4,88 +4,85 @@ import static org.junit.Assert.*;
 
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TermQuery;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import application.controller.search.TermCreator;
+import application.model.news.NewsFields;
 
 public class TermCreatorTest {
 
-	private TermCreator creator_ = new TermCreator();
+	private TermCreator creator_;
 	
-	@Test
-	public void EmptyField() {
-		String field = "";
-		String value = "Term";
+	@Before
+	public void setUp() {
+		creator_ = new TermCreator();
+	}
+	
+	@After
+	public void tearDown() {
 		
-		Query result = creator_.create(field, value);
-		
-		assertNull(result);
 	}
 	
 	@Test
-	public void EmptyValue() {
-		String field = "field";
-		String value = "";
+	public void testValidTerms() {
+		String field = NewsFields.TEXT;
+		String terms;
+		Query result;
+		TermQuery termQuery;
 		
-		Query result = creator_.create(field, value);
-		
-		assertNull(result);
-	}
-	
-	@Test
-	public void EmptyParams() {
-		String field = "";
-		String value = "";
-		
-		Query result = creator_.create(field, value);
-		
-		assertNull(result);
-	}
-	
-	@Test
-	public void NullField() {
-		String field = null;
-		String value = "Term";
-		
-		Query result = creator_.create(field, value);
-		
-		assertNull(result);
-	}
-	
-	@Test
-	public void NullValue() {
-		String field = "field";
-		String value = null;
-		
-		Query result = creator_.create(field, value);
-		
-		assertNull(result);
-	}
-	
-	@Test
-	public void NullParams() {
-		String field = null;
-		String value = null;
-		
-		Query result = creator_.create(field, value);
-		
-		assertNull(result);
-	}
-	
-	@Test
-	public void BothParamsValid() {
-		String field = "field";
-		String value = "Term";
-		
-		Query result = creator_.create(field, value);
-		
+		terms = "term";
+		result = creator_.create(field, terms);
 		assertTrue(result instanceof TermQuery);
+		termQuery = (TermQuery) result;
+		assertTrue(termQuery.getTerm().field().equals(field));
+		assertTrue(termQuery.getTerm().text().equals(terms));
 		
-		TermQuery queryResult = (TermQuery) result;
+		terms = "Term";
+		result = creator_.create(field, terms);
+		assertTrue(result instanceof TermQuery);
+		termQuery = (TermQuery) result;
+		assertTrue(termQuery.getTerm().field().equals(field));
+		assertTrue(termQuery.getTerm().text().equals(terms));
 		
-		assertTrue(queryResult.getTerm().text().equals(value));
-		assertTrue(queryResult.getTerm().field().equals(field));
+		terms = "TermA TermB";
+		result = creator_.create(field, terms);
+		assertTrue(result instanceof TermQuery);
+		termQuery = (TermQuery) result;
+		assertTrue(termQuery.getTerm().field().equals(field));
+		assertTrue(termQuery.getTerm().text().equals(terms));
+		
 		
 	}
-
+	
+	@Test
+	public void testInvalidTerms() {
+		String field = NewsFields.TEXT;
+		String terms;
+		Query result;
+		
+		terms = null;
+		result = creator_.create(field, terms);
+		assertNull(result);
+		
+		terms = "";
+		result = creator_.create(field, terms);
+		assertNull(result);
+	}
+	
+	@Test
+	public void testInvalidField() {
+		String field;
+		String terms = "term";
+		Query result;
+		
+		field = null;
+		result = creator_.create(field, terms);
+		assertNull(result);
+		
+		field = "";
+		result = creator_.create(field, terms);
+		assertNull(result);
+	}
 }

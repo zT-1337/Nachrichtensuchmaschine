@@ -1,0 +1,3 @@
+notification path:/home/zt/rssArchiv/RSS/viewernotification
+wordlist path:./WordStatisticsLetter1
+rssCrawler /home/zt/rssArchiv/RSS/rssfiles
