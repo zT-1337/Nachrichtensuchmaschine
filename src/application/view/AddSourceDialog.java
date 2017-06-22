@@ -64,7 +64,7 @@ public class AddSourceDialog {
     		Alert alert = new Alert(AlertType.ERROR, "Alle Felder sind Pflichtfelder");
     		alert.showAndWait();
     	} else {
-    		mainController.doSourceAdd(name_tf.getText(), thema_tf.getText(), sprache_tf.getText(), land_tf.getText(), link_tf.getText());
+    		//mainController.doSourceAdd(name_tf.getText(), thema_tf.getText(), sprache_tf.getText(), land_tf.getText(), link_tf.getText());
         	myStage.hide();
     	}
     }

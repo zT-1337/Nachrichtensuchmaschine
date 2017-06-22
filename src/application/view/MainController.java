@@ -91,6 +91,7 @@ public class MainController extends Thread {
 	}
 	
 	public void nextPage() {
+		System.out.println("@MainController: Button Next page");
 		if(currentPage<maxNumberOfPages) {
 			currentPage++;
 			mainWindow.showNews(result);
@@ -102,6 +103,7 @@ public class MainController extends Thread {
 	}
 	
 	public void previousPage() {
+		System.out.println("@MainController: Button Previous page");
 		if(currentPage>1) {
 			currentPage--;
 			mainWindow.showNews(result);
@@ -123,13 +125,15 @@ public class MainController extends Thread {
 		
 		currentPage = 1;
 		mainWindow.showNews(result);
+		if(result!=null) System.out.println("@MainController: got a result");
 	}
 	
 	//Entwurf 7. doTextExtraction(...)
 	public void doTextExtraction(int number) {
 		String path = createFile();		
 		News news = result.getNews( ((currentPage-1)*10) + number );
-		UserFunctions.extractText(news, path);		
+		System.out.println("@MainController: doTextExtraction");
+		UserFunctions.extractText(news, path);
 	}
 	
 	private String createFile() {
