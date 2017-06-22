@@ -70,6 +70,7 @@ public class CreatorController {
 			for(int i = 0; i < xmlFiles.size(); i++){
 				clearArrayList(newsContent);
 				parser.parse(xmlFiles.get(i), newsContent);
+				System.out.println(xmlFiles.get(i));
 				newsContent.add(xmlFiles.get(i));
 				createDate(newsContent);
 				if(newsContent.size() == 6){
@@ -124,13 +125,16 @@ public class CreatorController {
 	}
 	
 	private void createTopic(String a_String){
-		Pattern topicRegEx = Pattern.compile( "(/Archive(/\\w*){2}/)\\w*");
-		Matcher matcher = topicRegEx.matcher(a_String);
+		Pattern topicRegEx = Pattern.compile( "((/\\w*){3}/)\\w*");
+		String reverse = new StringBuilder(a_String).reverse().toString();
+		Matcher matcher = topicRegEx.matcher(reverse);
 		String topic = null;
 		if(matcher.find()){
-			topic = matcher.group();
-			topic = topic.substring(topic.lastIndexOf('/')+1, topic.length());
+			reverse = matcher.group();
+			reverse = new StringBuilder(reverse).reverse().toString();
+			topic = reverse.substring(0, reverse.indexOf('/'));
 		}
+		System.out.println(topic);
 		newsContent.add(topic);
 		
 	}
@@ -194,11 +198,11 @@ public class CreatorController {
 			}
 			
 		}
-		
+		//System.out.println("Reduzierten Wörter : " + reduceWords.size());
 		for(int i = 0; i < reduceWords.size(); i++){
-			reduceText.concat(reduceWords.get(i) + " ");
+			reduceText = reduceText + reduceWords.get(i) + " ";
 		}
-		
+		//System.out.println(reduceText);
 		return  reduceText;
 	}
 	
