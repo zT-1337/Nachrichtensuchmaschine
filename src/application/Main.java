@@ -92,7 +92,6 @@ public class Main extends Application {
 	    
 	    //NewsCreator beenden
 	    mainController.stopCController();
-	    System.out.println("Creator Controller Stopped");
 	}
 	
 }

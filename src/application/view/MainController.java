@@ -244,6 +244,7 @@ public class MainController extends Thread {
 	public void stopCController() {
 		if(cContr!=null) {
 			cContr.closeCreator();
+			System.out.println("Creator Controller Stopped");
 		}
 	}
 	
