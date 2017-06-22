@@ -1,9 +1,7 @@
 package application;
 
 import application.view.*;
-import application.controller.NewsCreator.*;
 import application.controller.search.LuceneSearch;
-import application.model.index.Index;
 import application.model.index.LuceneIndex;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -45,8 +43,8 @@ public class Main extends Application {
 		    dialogStage.setScene(new Scene((VBox) dialogLoader.load()));
 		    
 		    AddSourceDialog addSourceDialog = (AddSourceDialog) dialogLoader.getController();
-		    mainWindow.setAddSourceDialogStage(dialogStage);
-		    mainWindow.setAddSourceDialogController(addSourceDialog);
+		    //mainWindow.setAddSourceDialogStage(dialogStage);
+		    //mainWindow.setAddSourceDialogController(addSourceDialog);
 		    addSourceDialog.setStage(dialogStage);
 		    
 		    //Controller und co.

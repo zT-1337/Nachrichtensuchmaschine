@@ -1,13 +1,9 @@
 package application.view;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.model.newsresult.NewsResult;
-import application.view.AddSourceDialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,19 +13,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 
 public class MainWindow {
 	
-	private Stage addSourceDialogStage;
+	//private Stage addSourceDialogStage;
 	private MainController mainController;
-	private AddSourceDialog addSourceDialogController;
+	//private AddSourceDialog addSourceDialogController;
 	
 	private NewsResult result;
 	
-	private Stage fileStage;
 
     @FXML
     private ResourceBundle resources;
@@ -196,13 +189,13 @@ public class MainWindow {
     
     
     //View and Controller Setup
-    public void setAddSourceDialogStage(Stage addSourceDialogStage) {
-    	this.addSourceDialogStage = addSourceDialogStage;
-    }
-
-    public void setAddSourceDialogController(AddSourceDialog addSourceDialogController) {
-    	this.addSourceDialogController = addSourceDialogController;
-    }
+//    public void setAddSourceDialogStage(Stage addSourceDialogStage) {
+//    	this.addSourceDialogStage = addSourceDialogStage;
+//    }
+//
+//    public void setAddSourceDialogController(AddSourceDialog addSourceDialogController) {
+//    	this.addSourceDialogController = addSourceDialogController;
+//    }
     
     public void setMainController(MainController mainController) {
     	this.mainController = mainController;
