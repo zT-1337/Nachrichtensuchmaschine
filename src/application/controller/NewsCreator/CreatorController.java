@@ -125,7 +125,7 @@ public class CreatorController {
 	}
 	
 	private void createTopic(String a_String){
-		Pattern topicRegEx = Pattern.compile( "((/\\w*){3}/)\\w*");
+		Pattern topicRegEx = Pattern.compile( "((/\\w*){4}/)\\w*");
 		String reverse = new StringBuilder(a_String).reverse().toString();
 		Matcher matcher = topicRegEx.matcher(reverse);
 		String topic = null;
