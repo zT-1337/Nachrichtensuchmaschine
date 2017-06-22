@@ -17,6 +17,7 @@ import javafx.scene.layout.*;
 public class Main extends Application {
 	
 	LuceneIndex myIndex;
+	MainController mainController;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -49,7 +50,7 @@ public class Main extends Application {
 		    addSourceDialog.setStage(dialogStage);
 		    
 		    //Controller und co.
-		    MainController mainController = new MainController();
+		    mainController = new MainController();
 		    mainWindow.setMainController(mainController);
 		    mainController.setMainWindow(mainWindow);
 		    addSourceDialog.setMainController(mainController);
@@ -78,5 +79,13 @@ public class Main extends Application {
 		launch(args);
 	}
 	
+	@Override
+	public void stop(){
+	    System.out.println("Stage is closing");
+	    
+	    
+	    //Index schlieﬂen
+	    mainController.closeIndex();
+	}
 	
 }

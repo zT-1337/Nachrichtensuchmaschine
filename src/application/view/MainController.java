@@ -37,6 +37,15 @@ public class MainController extends Thread {
 		myIndex = index;
 	}
 	
+	public void closeIndex() {
+		try {
+			myIndex.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void run() {
 		//Hier Crawler und co starten
 		System.out.println("NewsCreator Thread before Try Catch");
