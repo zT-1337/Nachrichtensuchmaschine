@@ -53,7 +53,8 @@ public class UserFunctions {
 	
 	//Entwurf 9. openSource(...)
 	public static void openSource(News news) {
-		String source = news.getSource();
+		String source = news.getURL();
+		System.out.println("@UserFunctions: opening source: " + source);
 		
 		if(Desktop.isDesktopSupported())
 		{

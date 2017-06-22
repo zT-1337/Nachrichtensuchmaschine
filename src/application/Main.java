@@ -84,6 +84,7 @@ public class Main extends Application {
 	    
 	    //Index schlieﬂen
 	    mainController.closeIndex();
+	    System.out.println("@Main: Index closed.");
 	}
 	
 }

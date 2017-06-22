@@ -98,7 +98,7 @@ public class LuceneSearch implements Search {
 		if(news.length() != 0)
 			outerBuilder.add(createNewsClause(news.toLowerCase()));
 		
-		System.out.println("Hello");
+		//System.out.println("Hello");
 		NewsResult result = index_.searchFor(outerBuilder.build(), n);
 		
 		if(isComparingNews(news))

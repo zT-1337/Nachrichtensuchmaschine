@@ -228,7 +228,7 @@ public class MainWindow {
     
     //Entwurf Seite 15 News Anzeigen
     public void showNews(NewsResult result) {
-    	if(result.getNews(1)==null) {
+    	if(result.getNews(mainController.getNewsWithPage(1))==null) {
     		news_Box_1.setVisible(false);
     		news_Box_1.setManaged(false);
     	} else {
@@ -239,7 +239,7 @@ public class MainWindow {
     		datum_label_1.setText(result.getNews(mainController.getNewsWithPage(1)).getPubDate());
     	}
     	
-    	if(result.getNews(2)==null) {
+    	if(result.getNews(mainController.getNewsWithPage(2))==null) {
     		news_Box_2.setVisible(false);
     		news_Box_2.setManaged(false);
     	} else {
@@ -250,7 +250,7 @@ public class MainWindow {
     		datum_label_2.setText(result.getNews(mainController.getNewsWithPage(2)).getPubDate());
     	}
     	
-    	if(result.getNews(3)==null) {
+    	if(result.getNews(mainController.getNewsWithPage(3))==null) {
     		news_Box_3.setVisible(false);
     		news_Box_3.setManaged(false);
     	} else {
@@ -261,7 +261,7 @@ public class MainWindow {
     		datum_label_3.setText(result.getNews(mainController.getNewsWithPage(3)).getPubDate());
     	}
     	
-    	if(result.getNews(4)==null) {
+    	if(result.getNews(mainController.getNewsWithPage(4))==null) {
     		news_Box_4.setVisible(false);
     		news_Box_4.setManaged(false);
     	} else {
@@ -272,7 +272,7 @@ public class MainWindow {
     		datum_label_4.setText(result.getNews(mainController.getNewsWithPage(4)).getPubDate());
     	}
     	
-    	if(result.getNews(5)==null) {
+    	if(result.getNews(mainController.getNewsWithPage(5))==null) {
     		news_Box_5.setVisible(false);
     		news_Box_5.setManaged(false);
     	} else {
@@ -283,7 +283,7 @@ public class MainWindow {
     		datum_label_5.setText(result.getNews(mainController.getNewsWithPage(5)).getPubDate());
     	}
     	
-    	if(result.getNews(6)==null) {
+    	if(result.getNews(mainController.getNewsWithPage(6))==null) {
     		news_Box_6.setVisible(false);
     		news_Box_6.setManaged(false);
     	} else {
@@ -294,7 +294,7 @@ public class MainWindow {
     		datum_label_6.setText(result.getNews(mainController.getNewsWithPage(6)).getPubDate());
     	}
     	
-    	if(result.getNews(7)==null) {
+    	if(result.getNews(mainController.getNewsWithPage(7))==null) {
     		news_Box_7.setVisible(false);
     		news_Box_7.setManaged(false);
     	} else {
@@ -305,7 +305,7 @@ public class MainWindow {
     		datum_label_7.setText(result.getNews(mainController.getNewsWithPage(7)).getPubDate());
     	}
     	
-    	if(result.getNews(8)==null) {
+    	if(result.getNews(mainController.getNewsWithPage(8))==null) {
     		news_Box_8.setVisible(false);
     		news_Box_8.setManaged(false);
     	} else {
@@ -316,7 +316,7 @@ public class MainWindow {
     		datum_label_8.setText(result.getNews(mainController.getNewsWithPage(8)).getPubDate());
     	}
     	
-    	if(result.getNews(9)==null) {
+    	if(result.getNews(mainController.getNewsWithPage(9))==null) {
     		news_Box_9.setVisible(false);
     		news_Box_9.setManaged(false);
     	} else {
@@ -327,7 +327,7 @@ public class MainWindow {
     		datum_label_9.setText(result.getNews(mainController.getNewsWithPage(9)).getPubDate());
     	}
     	
-    	if(result.getNews(10)==null) {
+    	if(result.getNews(mainController.getNewsWithPage(10))==null) {
     		news_Box_10.setVisible(false);
     		news_Box_10.setManaged(false);
     	} else {
@@ -391,43 +391,45 @@ public class MainWindow {
     
     @FXML
     void similar_button_1_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(1)).getReducedText(), 100);
+    	System.out.println("HIER");
+    	System.out.println("similar search extracted text: " + mainController.getNews(1).getReducedText());
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(1).getReducedText(), 100);
     }
     @FXML
     void similar_button_2_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(2)).getReducedText(), 100);
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(2).getReducedText(), 100);
     }
     @FXML
     void similar_button_3_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(3)).getReducedText(), 100);
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(3).getReducedText(), 100);
     }
     @FXML
     void similar_button_4_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(4)).getReducedText(), 100);
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(4).getReducedText(), 100);
     }
     @FXML
     void similar_button_5_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(5)).getReducedText(), 100);
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(5).getReducedText(), 100);
     }
     @FXML
     void similar_button_6_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(6)).getReducedText(), 100);
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(6).getReducedText(), 100);
     }
     @FXML
     void similar_button_7_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(7)).getReducedText(), 100);
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(7).getReducedText(), 100);
     }
     @FXML
     void similar_button_8_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(8)).getReducedText(), 100);
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(8).getReducedText(), 100);
     }
     @FXML
     void similar_button_9_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(9)).getReducedText(), 100);
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(9).getReducedText(), 100);
     }
     @FXML
     void similar_button_10_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), result.getNews(mainController.getNewsWithPage(10)).getReducedText(), 100);
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(10).getReducedText(), 100);
     }
     
     
@@ -464,43 +466,39 @@ public class MainWindow {
 
     @FXML
     void search_button_press(ActionEvent event) {
-    	mainController.doSearch(stichwort_tf.getText(), thema_tf.getText(), zeitraum_tf.getText(), "", 100);
+    	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), "", 100);
     }
-
-    
-
-    
 
     @FXML
     void title_label_1_click(MouseEvent event) {
-    	mainController.doSourceOpen(1);}
+    	mainController.doSourceOpen(mainController.getNewsWithPage(1));}
     @FXML
     void title_label_2_click(MouseEvent event) {
-    	mainController.doSourceOpen(2);}
+    	mainController.doSourceOpen(mainController.getNewsWithPage(2));}
     @FXML
     void title_label_3_click(MouseEvent event) {
-    	mainController.doSourceOpen(3);}
+    	mainController.doSourceOpen(mainController.getNewsWithPage(3));}
     @FXML
     void title_label_4_click(MouseEvent event) {
-    	mainController.doSourceOpen(4);}
+    	mainController.doSourceOpen(mainController.getNewsWithPage(4));}
     @FXML
     void title_label_5_click(MouseEvent event) {
-    	mainController.doSourceOpen(5);}
+    	mainController.doSourceOpen(mainController.getNewsWithPage(5));}
     @FXML
     void title_label_6_click(MouseEvent event) {
-    	mainController.doSourceOpen(6);}
+    	mainController.doSourceOpen(mainController.getNewsWithPage(6));}
     @FXML
     void title_label_7_click(MouseEvent event) {
-    	mainController.doSourceOpen(7);}
+    	mainController.doSourceOpen(mainController.getNewsWithPage(7));}
     @FXML
     void title_label_8_click(MouseEvent event) {
-    	mainController.doSourceOpen(8);}
+    	mainController.doSourceOpen(mainController.getNewsWithPage(8));}
     @FXML
     void title_label_9_click(MouseEvent event) {
-    	mainController.doSourceOpen(9);}
+    	mainController.doSourceOpen(mainController.getNewsWithPage(9));}
     @FXML
     void title_label_10_click(MouseEvent event) {
-    	mainController.doSourceOpen(10);}
+    	mainController.doSourceOpen(mainController.getNewsWithPage(10));}
 
     @FXML
     void initialize() {

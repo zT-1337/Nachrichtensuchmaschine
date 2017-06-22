@@ -49,9 +49,14 @@ public class MainController extends Thread {
 		}
 	}
 	
+	public News getNews(int number) {
+		int newsNumber = getNewsWithPage(number);
+		return result.getNews(newsNumber);
+	}
+	
 	public void run() {
 		//Hier Crawler und co starten
-		System.out.println("NewsCreator Thread before Try Catch");
+		System.out.println("@mainController: CreatorController Thread before Try Catch");
 		
 		Path path = Paths.get("./src/application/config.txt");
 		String[] pathArray = new String[3];
@@ -85,6 +90,7 @@ public class MainController extends Thread {
 			e.printStackTrace();
 			//TODO
 		}
+		System.out.println("@mainController: CreatorController started");
 		
 	}
 	
@@ -119,22 +125,19 @@ public class MainController extends Thread {
 	//Entwurf 7. doSearch(...)
 	public void doSearch(String terms, String dates, String topics, String news, int n) {
 		
-		
-		
 		System.out.println("@MainController: Incoming search from View:");
 		System.out.println("    terms:"+terms + ",dates:"+dates + ",topics:"+topics + ",news:"+news + ",n:"+n);
 		result = mySearch.search(terms, dates, topics, news, n);
 		
 		int numberOfNews = result.getSize();
+		
+		System.out.println("@mainController: number of news: " + numberOfNews);
 		maxNumberOfPages = (numberOfNews+9)/10;
+		System.out.println("@mainController: maxNumberOfPages: " + maxNumberOfPages);
 		
 		currentPage = 1;
-		if(result!=null) System.out.println("gor a result");
-		if(result.getSize()==0) System.out.println("but its empty");
-		else System.out.println("and its not empty");
+		
 		mainWindow.showNews(result);
-		if(result!=null) System.out.println("@MainController: got a result");
-		if(result.getNews(1)==null) System.out.println("@MainController: but its empty");
 	}
 	
 	//Entwurf 7. doTextExtraction(...)
