@@ -148,6 +148,7 @@ public class CreatorController {
 	}
 	
 	private boolean isExist(NewsLuceneAdapter a_News){
+		System.out.println(a_News.getReducedText());
 		newsResult = search.search("", "", "", newNews.getReducedText(), 1);
 		if((newsResult.getSize() != 0) && (newsResult.getScore(0) >= 0.9f))return true;
 		
@@ -169,14 +170,16 @@ public class CreatorController {
 		String reduceText = "";
 		
 		while(tokenizer.hasMoreTokens()){
+			isExist = false;
 			token = tokenizer.nextToken();
+			System.out.println(token);
 			for(int i = 0; i < allWords.size(); i++){
 				if(allWords.get(i).equals(token)) isExist = true;
 			}
 			
-			if(isExist)allWords.add(token);
+			if(!isExist)allWords.add(token);
 		}
-		
+		System.out.println("Enthaltene Woerter : " + allWords.size());
 		for(int i = 0; i < allWords.size(); i++){
 			allWords.set(i, allWords.get(i).toLowerCase());
 		}
@@ -184,16 +187,14 @@ public class CreatorController {
 		for(int i = 1; i < allWords.size(); i++){
 			String key = allWords.get(i);
 			
-			for(int j = i -1; j > -1; j--){
-				if(wordlist.get(key).intValue() < wordlist.get(allWords.get(j)).intValue()){
-					allWords.set(i, allWords.get(j));
-					allWords.set(j, key);
-				}
+			if((wordlist.get(allWords.get(i)) == null)||(wordlist.get(allWords.get(i)).intValue() == 250)){
+				reduceWords.add(allWords.get(i));
 			}
+			
 		}
 		
-		for(int i = 0; i < 10; i++){
-			reduceText.concat(allWords.get(i) + " ");
+		for(int i = 0; i < reduceWords.size(); i++){
+			reduceText.concat(reduceWords.get(i) + " ");
 		}
 		
 		return  reduceText;
