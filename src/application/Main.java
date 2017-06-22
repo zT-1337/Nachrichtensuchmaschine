@@ -64,7 +64,7 @@ public class Main extends Application {
 		    System.out.println("@Main: View Started and Controller initialized");
 		    
 		    //NewsCreator starten
-		    (new Thread(new MainController())).start();
+		    (new Thread(mainController)).start();
 			
 		} catch(Exception e) {
 			e.printStackTrace();

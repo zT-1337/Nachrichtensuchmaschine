@@ -37,6 +37,7 @@ public class CreatorController {
 	private ArrayList<String> xmlFiles = new ArrayList<String>();
 	private ArrayList<String> notifications = new ArrayList<String>();
 	private ArrayList<News> createdNews = new ArrayList<News>();
+	private ArrayList<News> newNewsList = new ArrayList<News>();
 	
 	private LuceneIndex index;
 	private NewsLuceneAdapter newNews;
@@ -50,8 +51,6 @@ public class CreatorController {
 		reader = new NotificationReader();
 		index = a_Index;
 		search = new LuceneSearch(a_Index);
-		newNews = null;
-		newsResult = null;
 		createWordlist(a_WordlistPath);
 	}
 	
@@ -80,8 +79,11 @@ public class CreatorController {
 					createdNews.add(newNews);
 				}
 			}
-			
-			if(isExist(newNews)) index.addNews(createdNews);
+			for(int i = 0; i < createdNews.size(); i++){
+				if(!isExist(createdNews.get(i))) newNewsList.add(createdNews.get(i));
+			}
+			System.out.println(newNewsList.size());
+			if(newNewsList.size() > 0) index.addNews(newNewsList);
 			
 		}
 	}
@@ -147,7 +149,7 @@ public class CreatorController {
 		return news;
 	}
 	
-	private boolean isExist(NewsLuceneAdapter a_News){
+	private boolean isExist(News a_News){
 		System.out.println(a_News.getReducedText());
 		newsResult = search.search("", "", "", newNews.getReducedText(), 1);
 		if((newsResult.getSize() != 0) && (newsResult.getScore(0) >= 0.9f))return true;
@@ -172,7 +174,7 @@ public class CreatorController {
 		while(tokenizer.hasMoreTokens()){
 			isExist = false;
 			token = tokenizer.nextToken();
-			System.out.println(token);
+			//System.out.println(token);
 			for(int i = 0; i < allWords.size(); i++){
 				if(allWords.get(i).equals(token)) isExist = true;
 			}

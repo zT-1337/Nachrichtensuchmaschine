@@ -7,11 +7,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import application.controller.NewsCreator.CreatorController;
 import application.controller.search.LuceneSearch;
 import application.model.index.LuceneIndex;
 import application.model.news.News;
+import application.model.news.NewsLuceneAdapter;
 import application.model.newsresult.NewsResult;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -99,10 +101,16 @@ public class MainController extends Thread {
 	
 	//Entwurf 7. doSearch(...)
 	public void doSearch(String terms, String dates, String topics, String news, int n) {
+		
+		
+		
 		System.out.println("@MainController: Incoming search from View:");
 		System.out.println("terms:"+terms + ",dates:"+dates + ",topics:"+topics + ",news:"+news + ",n:"+n);
 		result = mySearch.search(terms, dates, topics, news, n);
 		currentPage = 1;
+		if(result!=null) System.out.println("gor a result");
+		if(result.getSize()==0) System.out.println("but its empty");
+		else System.out.println("and its not empty");
 		mainWindow.showNews(result);
 	}
 	
