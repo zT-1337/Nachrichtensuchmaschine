@@ -1,3 +1,3 @@
-notification path:/home/zt/rssArchiv/RSS/viewernotification
-wordlist path:./WordStatisticsLetter1
-rssCrawler /home/zt/rssArchiv/RSS/rssfiles
+notification path:C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/viewernotification/
+wordlist path:C:/Users/-Felix/git/Nachrichtensuchmaschine/WordStatisticsLetter1
+rssCrawler path:C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/rssfiles/

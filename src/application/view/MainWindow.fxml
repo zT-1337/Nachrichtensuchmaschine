@@ -402,7 +402,7 @@
       <menus>
         <Menu mnemonicParsing="false" text="Datei">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#add_source_press" text="Quelle Hinzufügen" fx:id="add_source" />
+            <MenuItem mnemonicParsing="false" onAction="#load_archive_press" text="Lade Archiv" fx:id="load_archive" />
             <MenuItem mnemonicParsing="false" onAction="#quit" text="Beenden" fx:id="quit_programm" />
           </items>
         </Menu>

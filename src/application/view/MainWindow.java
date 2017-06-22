@@ -38,7 +38,7 @@ public class MainWindow {
     private URL location;
 
     @FXML
-    private MenuItem add_source;
+    private MenuItem load_archive;
     @FXML
     private MenuItem quit_programm;
     
@@ -348,13 +348,9 @@ public class MainWindow {
     }
     
     
-    
-    //Quelle hinzufügen
+    //Archiv laden
     @FXML
-    void add_source_press(ActionEvent event) {
-    	//open new dialog window
-    	//addSourceDialogController.setInitDialog();
-    	//addSourceDialogStage.showAndWait();
+    void load_archive_press(ActionEvent event) {
     }
 
     
@@ -515,7 +511,6 @@ public class MainWindow {
 
     @FXML
     void initialize() {
-        assert add_source != null : "fx:id=\"add_source\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert cache_button_1 != null : "fx:id=\"cache_button_1\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert cache_button_10 != null : "fx:id=\"cache_button_10\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert cache_button_2 != null : "fx:id=\"cache_button_2\" was not injected: check your FXML file 'MainWindow.fxml'.";
@@ -536,6 +531,7 @@ public class MainWindow {
         assert datum_label_7 != null : "fx:id=\"datum_label_7\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert datum_label_8 != null : "fx:id=\"datum_label_8\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert datum_label_9 != null : "fx:id=\"datum_label_9\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert load_archive != null : "fx:id=\"load_archive\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert news_Box_1 != null : "fx:id=\"news_Box_1\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert news_Box_10 != null : "fx:id=\"news_Box_10\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert news_Box_2 != null : "fx:id=\"news_Box_2\" was not injected: check your FXML file 'MainWindow.fxml'.";
