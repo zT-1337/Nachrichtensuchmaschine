@@ -1,9 +1,7 @@
 package application;
 
 import application.view.*;
-import application.controller.NewsCreator.*;
 import application.controller.search.LuceneSearch;
-import application.model.index.Index;
 import application.model.index.LuceneIndex;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +15,7 @@ import javafx.scene.layout.*;
 public class Main extends Application {
 	
 	LuceneIndex myIndex;
+	MainController mainController;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -44,12 +43,12 @@ public class Main extends Application {
 		    dialogStage.setScene(new Scene((VBox) dialogLoader.load()));
 		    
 		    AddSourceDialog addSourceDialog = (AddSourceDialog) dialogLoader.getController();
-		    mainWindow.setAddSourceDialogStage(dialogStage);
-		    mainWindow.setAddSourceDialogController(addSourceDialog);
+		    //mainWindow.setAddSourceDialogStage(dialogStage);
+		    //mainWindow.setAddSourceDialogController(addSourceDialog);
 		    addSourceDialog.setStage(dialogStage);
 		    
 		    //Controller und co.
-		    MainController mainController = new MainController();
+		    mainController = new MainController();
 		    mainWindow.setMainController(mainController);
 		    mainController.setMainWindow(mainWindow);
 		    addSourceDialog.setMainController(mainController);
@@ -64,7 +63,7 @@ public class Main extends Application {
 		    System.out.println("@Main: View Started and Controller initialized");
 		    
 		    //NewsCreator starten
-		    (new Thread(new MainController())).start();
+		    //(new Thread(new MainController())).start();
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -78,5 +77,13 @@ public class Main extends Application {
 		launch(args);
 	}
 	
+	@Override
+	public void stop(){
+	    System.out.println("Stage is closing");
+	    
+	    
+	    //Index schlieﬂen
+	    mainController.closeIndex();
+	}
 	
 }

@@ -23,6 +23,7 @@ public class MainController extends Thread {
 	private MainWindow mainWindow;
 	private NewsResult result;
 	private int currentPage = 1;
+	private int maxNumberOfPages;
 	
 	private LuceneIndex myIndex;
 	private LuceneSearch mySearch;
@@ -35,6 +36,15 @@ public class MainController extends Thread {
 	
 	public void setIndex(LuceneIndex index) {
 		myIndex = index;
+	}
+	
+	public void closeIndex() {
+		try {
+			myIndex.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void run() {
@@ -81,13 +91,20 @@ public class MainController extends Thread {
 	}
 	
 	public void nextPage() {
-		currentPage++;
-		mainWindow.showNews(result);
-		mainWindow.updatePageButton(currentPage);
+		System.out.println("@MainController: Button Next page");
+		if(currentPage<maxNumberOfPages) {
+			currentPage++;
+			mainWindow.showNews(result);
+			mainWindow.updatePageButton(currentPage);
+		} else {
+			//do nothing
+		}
+		
 	}
 	
 	public void previousPage() {
-		if(currentPage>1==true) {
+		System.out.println("@MainController: Button Previous page");
+		if(currentPage>1) {
 			currentPage--;
 			mainWindow.showNews(result);
 			mainWindow.updatePageButton(currentPage);
@@ -100,17 +117,24 @@ public class MainController extends Thread {
 	//Entwurf 7. doSearch(...)
 	public void doSearch(String terms, String dates, String topics, String news, int n) {
 		System.out.println("@MainController: Incoming search from View:");
-		System.out.println("terms:"+terms + ",dates:"+dates + ",topics:"+topics + ",news:"+news + ",n:"+n);
+		System.out.println("    terms:"+terms + ",dates:"+dates + ",topics:"+topics + ",news:"+news + ",n:"+n);
 		result = mySearch.search(terms, dates, topics, news, n);
+		
+		int numberOfNews = result.getSize();
+		maxNumberOfPages = (numberOfNews+9)/10;
+		
 		currentPage = 1;
 		mainWindow.showNews(result);
+		if(result!=null) System.out.println("@MainController: got a result");
+		if(result.getNews(1)==null) System.out.println("@MainController: but its empty");
 	}
 	
 	//Entwurf 7. doTextExtraction(...)
 	public void doTextExtraction(int number) {
 		String path = createFile();		
 		News news = result.getNews( ((currentPage-1)*10) + number );
-		UserFunctions.extractText(news, path);		
+		System.out.println("@MainController: doTextExtraction");
+		UserFunctions.extractText(news, path);
 	}
 	
 	private String createFile() {
@@ -134,10 +158,10 @@ public class MainController extends Thread {
 	}
 	
 	//Entwurf 7. doSourceAdd(...)
-	public void doSourceAdd(String name, String thema, String sprache, String land, String link) {
-		System.out.println("@MainController: Add Source with attributes: ");
-		UserFunctions.addSource(name, thema, sprache, land, link);
-	}
+//	public void doSourceAdd(String name, String thema, String sprache, String land, String link) {
+//		System.out.println("@MainController: Add Source with attributes: ");
+//		UserFunctions.addSource(name, thema, sprache, land, link);
+//	}
 	
 	//Entwurf 7. doSourceOpen(...)
 	public void doSourceOpen(int number) {

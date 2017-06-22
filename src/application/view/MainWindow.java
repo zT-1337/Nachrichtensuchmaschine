@@ -1,13 +1,9 @@
 package application.view;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.model.newsresult.NewsResult;
-import application.view.AddSourceDialog;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,19 +13,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 
 public class MainWindow {
 	
-	private Stage addSourceDialogStage;
+	//private Stage addSourceDialogStage;
 	private MainController mainController;
-	private AddSourceDialog addSourceDialogController;
+	//private AddSourceDialog addSourceDialogController;
 	
 	private NewsResult result;
 	
-	private Stage fileStage;
 
     @FXML
     private ResourceBundle resources;
@@ -38,7 +31,7 @@ public class MainWindow {
     private URL location;
 
     @FXML
-    private MenuItem add_source;
+    private MenuItem load_archive;
     @FXML
     private MenuItem quit_programm;
     
@@ -196,13 +189,13 @@ public class MainWindow {
     
     
     //View and Controller Setup
-    public void setAddSourceDialogStage(Stage addSourceDialogStage) {
-    	this.addSourceDialogStage = addSourceDialogStage;
-    }
-
-    public void setAddSourceDialogController(AddSourceDialog addSourceDialogController) {
-    	this.addSourceDialogController = addSourceDialogController;
-    }
+//    public void setAddSourceDialogStage(Stage addSourceDialogStage) {
+//    	this.addSourceDialogStage = addSourceDialogStage;
+//    }
+//
+//    public void setAddSourceDialogController(AddSourceDialog addSourceDialogController) {
+//    	this.addSourceDialogController = addSourceDialogController;
+//    }
     
     public void setMainController(MainController mainController) {
     	this.mainController = mainController;
@@ -348,13 +341,9 @@ public class MainWindow {
     }
     
     
-    
-    //Quelle hinzufügen
+    //Archiv laden
     @FXML
-    void add_source_press(ActionEvent event) {
-    	//open new dialog window
-    	//addSourceDialogController.setInitDialog();
-    	//addSourceDialogStage.showAndWait();
+    void load_archive_press(ActionEvent event) {
     }
 
     
@@ -515,7 +504,6 @@ public class MainWindow {
 
     @FXML
     void initialize() {
-        assert add_source != null : "fx:id=\"add_source\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert cache_button_1 != null : "fx:id=\"cache_button_1\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert cache_button_10 != null : "fx:id=\"cache_button_10\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert cache_button_2 != null : "fx:id=\"cache_button_2\" was not injected: check your FXML file 'MainWindow.fxml'.";
@@ -536,6 +524,7 @@ public class MainWindow {
         assert datum_label_7 != null : "fx:id=\"datum_label_7\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert datum_label_8 != null : "fx:id=\"datum_label_8\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert datum_label_9 != null : "fx:id=\"datum_label_9\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert load_archive != null : "fx:id=\"load_archive\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert news_Box_1 != null : "fx:id=\"news_Box_1\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert news_Box_10 != null : "fx:id=\"news_Box_10\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert news_Box_2 != null : "fx:id=\"news_Box_2\" was not injected: check your FXML file 'MainWindow.fxml'.";
