@@ -107,9 +107,11 @@ public class LuceneSearch implements Search {
 	}
 	
 	/**
-	 * TODO
-	 * @param result
-	 * @return
+	 * Liefert einen NewsResult, indem lediglich ähnliche Nachrichtten gespeichert sind.
+	 * Es wird davon ausgegangen, dass der übergebene NewsResult aus einer Suche nach ähnlichen Nachrichten stammt.
+	 * 
+	 * @param result Die NewsResult aus der die ähnlichen Nachrichten gefiltert werden
+	 * @return NewsResult, welcher ausschließlich ähnliche Nachrichten enthält
 	 */
 	private NewsResult filterSimilarNews(NewsResult result) {
 		int n = 0;
