@@ -95,7 +95,29 @@ public class DateCreatorTest {
 	
 	@Test
 	public void testTwoInvalidDates() {
+		String field = NewsFields.PUBDATE;
+		String dates;
+		Query query;
 		
+		dates = "01.01.1997 01.01.2000";
+		query = creator.create(field, dates);
+		assertNull(query);
+		
+		dates = "01.01.1997/01.01.2000";
+		query = creator.create(field, dates);
+		assertNull(query);
+		
+		dates = "01.01.1997.01.01.2000";
+		query = creator.create(field, dates);
+		assertNull(query);
+		
+		dates = "01.01.97-01.01.2000";
+		query = creator.create(field, dates);
+		assertNull(query);
+		
+		dates = "01.01.1997 01.01.00";
+		query = creator.create(field, dates);
+		assertNull(query);
 	}
 	
 	@Test

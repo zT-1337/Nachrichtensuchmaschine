@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.Query;
@@ -23,10 +24,20 @@ import application.model.newsresult.NewsResult;
 public class LuceneIndexTest {
 
 	LuceneIndex index;
+	News n;
+	News newsWrongType;
+	List<News> listOfNews;
 	
 	@Before
 	public void initIndex() {
 		index = new LuceneIndex();
+		
+		n = new NewsLuceneAdapter();
+		n.setText("Kevin the Lord Kaufmann");
+		
+		newsWrongType = new TestNewsClass();
+		
+		listOfNews = new ArrayList<News>();
 	}
 
 	@After
@@ -41,5 +52,77 @@ public class LuceneIndexTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void testAddingInvalidNews() {
+		ResultIndex result;
+		
+		listOfNews.add(newsWrongType);
+		result = index.addNews(listOfNews);
+		if(result == ResultIndex.IOEXCEPTION)
+			fail("Beim Hinzufügen kam es zu einer IOException");
+		assertTrue(result == ResultIndex.WRONGNEWSTYPE);
+		listOfNews.clear();
+		
+		//-----------------------------------------------------------------------
+		
+		listOfNews.add(n);
+		listOfNews.add(newsWrongType);
+		result = index.addNews(listOfNews);
+		if(result == ResultIndex.IOEXCEPTION)
+			fail("Beim Hinzufügen kam es zu einer IOException");
+		assertTrue(result == ResultIndex.WRONGNEWSTYPE);
+		listOfNews.clear();
+		
+		//-----------------------------------------------------------------------
+		
+		listOfNews.add(n);
+		listOfNews.add(newsWrongType);
+		listOfNews.add(n);
+		result = index.addNews(listOfNews);
+		if(result == ResultIndex.IOEXCEPTION)
+			fail("Beim Hinzufügen kam es zu einer IOException");
+		assertTrue(result == ResultIndex.WRONGNEWSTYPE);
+		listOfNews.clear();
+		
+		//-----------------------------------------------------------------------
+	
+		listOfNews.add(null);
+		result = index.addNews(listOfNews);
+		if(result == ResultIndex.IOEXCEPTION)
+			fail("Beim Hinzufügen kam es zu einer IOException");
+		assertTrue(result == ResultIndex.NULLPARAM);
+		listOfNews.clear();
+		
+		//-----------------------------------------------------------------------
+		
+		listOfNews.add(n);
+		listOfNews.add(null);
+		result = index.addNews(listOfNews);
+		if(result == ResultIndex.IOEXCEPTION)
+			fail("Beim Hinzufügen kam es zu einer IOException");
+		assertTrue(result == ResultIndex.NULLPARAM);
+		listOfNews.clear();
+		
+		//-----------------------------------------------------------------------
+		
+		listOfNews.add(n);
+		listOfNews.add(null);
+		listOfNews.add(n);
+		result = index.addNews(listOfNews);
+		if(result == ResultIndex.IOEXCEPTION)
+			fail("Beim Hinzufügen kam es zu einer IOException");
+		assertTrue(result == ResultIndex.NULLPARAM);
+		listOfNews.clear();
+		
+		//-----------------------------------------------------------------------
+		
+		
+	}
+
+	@Test
+	public void testAddingSearchingValidNews() {
+		
 	}
 }

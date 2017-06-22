@@ -304,7 +304,7 @@ public class LuceneSearchTest {
 	}
 	
 	@After
-	public void cleanUp() {
+	public void tearDown() {
 		try {
 			index.close();
 			File indexFolder = new File("./index");
