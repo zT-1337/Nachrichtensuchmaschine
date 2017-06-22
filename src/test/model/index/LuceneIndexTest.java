@@ -24,16 +24,35 @@ import application.model.newsresult.NewsResult;
 public class LuceneIndexTest {
 
 	LuceneIndex index;
-	News n;
+	
+	String newsText1;
+	News n1;
+	
+	String newsText2;
+	News n2;
+	
+	String newsText3;
+	News n3;
+	
 	News newsWrongType;
+	
 	List<News> listOfNews;
 	
 	@Before
-	public void initIndex() {
+	public void setUp() {
 		index = new LuceneIndex();
 		
-		n = new NewsLuceneAdapter();
-		n.setText("Kevin the Lord Kaufmann");
+		newsText1 = "Java ist auch eine Insel";
+		n1 = new NewsLuceneAdapter();
+		n1.setText(newsText1);
+		
+		newsText2 = "Java ist auch eine Programmiersprache";
+		n2 = new NewsLuceneAdapter();
+		n2.setText(newsText2);
+		
+		newsText3 = "Etwas ganz anderes";
+		n3 = new NewsLuceneAdapter();
+		n3.setText(newsText3);
 		
 		newsWrongType = new TestNewsClass();
 		
@@ -67,7 +86,7 @@ public class LuceneIndexTest {
 		
 		//-----------------------------------------------------------------------
 		
-		listOfNews.add(n);
+		listOfNews.add(n1);
 		listOfNews.add(newsWrongType);
 		result = index.addNews(listOfNews);
 		if(result == ResultIndex.IOEXCEPTION)
@@ -77,9 +96,9 @@ public class LuceneIndexTest {
 		
 		//-----------------------------------------------------------------------
 		
-		listOfNews.add(n);
+		listOfNews.add(n1);
 		listOfNews.add(newsWrongType);
-		listOfNews.add(n);
+		listOfNews.add(n1);
 		result = index.addNews(listOfNews);
 		if(result == ResultIndex.IOEXCEPTION)
 			fail("Beim Hinzufügen kam es zu einer IOException");
@@ -97,7 +116,7 @@ public class LuceneIndexTest {
 		
 		//-----------------------------------------------------------------------
 		
-		listOfNews.add(n);
+		listOfNews.add(n1);
 		listOfNews.add(null);
 		result = index.addNews(listOfNews);
 		if(result == ResultIndex.IOEXCEPTION)
@@ -107,9 +126,9 @@ public class LuceneIndexTest {
 		
 		//-----------------------------------------------------------------------
 		
-		listOfNews.add(n);
+		listOfNews.add(n1);
 		listOfNews.add(null);
-		listOfNews.add(n);
+		listOfNews.add(n1);
 		result = index.addNews(listOfNews);
 		if(result == ResultIndex.IOEXCEPTION)
 			fail("Beim Hinzufügen kam es zu einer IOException");
@@ -122,7 +141,62 @@ public class LuceneIndexTest {
 	}
 
 	@Test
-	public void testAddingSearchingValidNews() {
+	public void testAddingSearchingOneValidNews() {
+		String term;
+		ResultIndex rc;
+		NewsResult result;
+		TermQuery termQuery;
+		
+		listOfNews.add(n1);
+		listOfNews.add(n2);
+		listOfNews.add(n3);
+		rc = index.addNews(listOfNews);
+		
+		if(rc == ResultIndex.IOEXCEPTION)
+			fail("Beim Hinzufügen der Nachrichten kam es zu einer IOException");
+		
+		term = "insel";
+		termQuery = new TermQuery(new Term(NewsFields.TEXT, term));
+		result = index.searchFor(termQuery, 3);
+		assertTrue(result.getSize() == 1);
+		assertTrue(result.getNews(0).getText().equals(newsText1));
+		
+		//----------------------------------------------------------------
+		
+		term = "programmiersprache";
+		termQuery = new TermQuery(new Term(NewsFields.TEXT, term));
+		result = index.searchFor(termQuery, 3);
+		assertTrue(result.getSize() == 1);
+		assertTrue(result.getNews(0).getText().equals(newsText2));
+		
+		//----------------------------------------------------------------
+		
+		term = "anderes";
+		termQuery = new TermQuery(new Term(NewsFields.TEXT, term));
+		result = index.searchFor(termQuery, 3);
+		assertTrue(result.getSize() == 1);
+		assertTrue(result.getNews(0).getText().equals(newsText3));
+		
+		//----------------------------------------------------------------
+		
+		term = "java";
+		termQuery = new TermQuery(new Term(NewsFields.TEXT, term));
+		result = index.searchFor(termQuery, 3);
+		assertTrue(result.getSize() == 2);
+		assertTrue(result.getNews(0).getText().equals(newsText1));
+		assertTrue(result.getNews(1).getText().equals(newsText2));
+		assertTrue(result.getScore(0) >= result.getScore(1));
+		
+		//----------------------------------------------------------------
+		
+		term = "java";
+		termQuery = new TermQuery(new Term(NewsFields.TEXT, term));
+		result = index.searchFor(termQuery, 1);
+		assertTrue(result.getSize() == 1);
+		assertTrue(result.getNews(0).getText().equals(newsText1));
+		
+		//----------------------------------------------------------------
+		
 		
 	}
 }
