@@ -126,6 +126,7 @@ public class MainController extends Thread {
 		currentPage = 1;
 		mainWindow.showNews(result);
 		if(result!=null) System.out.println("@MainController: got a result");
+		if(result.getNews(1)==null) System.out.println("@MainController: but its empty");
 	}
 	
 	//Entwurf 7. doTextExtraction(...)
