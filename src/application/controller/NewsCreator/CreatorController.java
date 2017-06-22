@@ -25,8 +25,10 @@ import application.model.newsresult.NewsResultLuceneAdapter;
 
 public class CreatorController {
 	
+	
 	private String directory;
 	private Map<String,AtomicInteger> wordlist;
+	private volatile boolean alive;
 	
 	private NewsLuceneAdapter news;
 	private XML_Parser parser;
@@ -52,10 +54,11 @@ public class CreatorController {
 		index = a_Index;
 		search = new LuceneSearch(a_Index);
 		createWordlist(a_WordlistPath);
+		alive = true;
 	}
 	
 	public void start(String directory) throws InterruptedException, IOException{
-		while(true){
+		while(alive){
 			System.out.println("Schleifenanfang");
 			clearArrayList(newsContent);
 			clearArrayList(xmlFiles);
@@ -204,6 +207,23 @@ public class CreatorController {
 		}
 		//System.out.println(reduceText);
 		return  reduceText;
+	}
+	
+	public void closeCreator(){
+		alive = false;
+		parser = null;
+		index = null;
+		listener = null;
+		search = null;
+		wordlist = null;
+		news = null;
+		newsContent = null;
+		xmlFiles = null;
+		notifications = null;
+		newNews = null;
+		newsResult = null;
+		createdNews = null;
+		newNewsList = null;
 	}
 	
 }
