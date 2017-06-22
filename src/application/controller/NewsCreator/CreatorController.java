@@ -64,6 +64,7 @@ public class CreatorController {
 			clearArrayList(xmlFiles);
 			clearArrayList(notifications);
 			clearArrayList(newNewsList);
+			clearArrayList(createdNews);
 			System.out.println("Listen geleert");
 			listener.newNotification(notifications);
 			Thread.sleep(2000);
@@ -88,7 +89,10 @@ public class CreatorController {
 				if(!isExist(createdNews.get(i))) newNewsList.add(createdNews.get(i));
 			}
 			System.out.println(newNewsList.size());
-			if(newNewsList.size() > 0) index.addNews(newNewsList);
+			if(newNewsList.size() > 0) {
+				index.addNews(newNewsList);
+				System.out.println("Hinzugefuegt " + newNewsList.size());
+			}
 			
 		}
 	}
