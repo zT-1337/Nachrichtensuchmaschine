@@ -33,10 +33,10 @@ public class CreatorController {
 	private NotificationReader reader;
 	private DirectoryListener listener;
 	
-	private ArrayList<String> newsContent;
-	private ArrayList<String> xmlFiles;
-	private ArrayList<String> notifications;
-	private ArrayList<News> createdNews;
+	private ArrayList<String> newsContent = new ArrayList<String>();
+	private ArrayList<String> xmlFiles = new ArrayList<String>();
+	private ArrayList<String> notifications = new ArrayList<String>();
+	private ArrayList<News> createdNews = new ArrayList<News>();
 	
 	private LuceneIndex index;
 	private NewsLuceneAdapter newNews;
@@ -57,18 +57,19 @@ public class CreatorController {
 	
 	public void start(String directory) throws InterruptedException, IOException{
 		while(true){
-			
+			System.out.println("Schleifenanfang");
 			clearArrayList(newsContent);
 			clearArrayList(xmlFiles);
 			clearArrayList(notifications);
-			
+			System.out.println("Listen geleert");
 			listener.newNotification(notifications);
-			
+			Thread.sleep(2000);
 			for(int i = 0; i < notifications.size(); i++){
 				reader.ReadFile(notifications.get(i), xmlFiles);
 			}
-			
+			System.out.println("Erstellte xml : " + xmlFiles.size());
 			for(int i = 0; i < xmlFiles.size(); i++){
+				clearArrayList(newsContent);
 				parser.parse(xmlFiles.get(i), newsContent);
 				newsContent.add(xmlFiles.get(i));
 				createDate(newsContent);
@@ -147,7 +148,7 @@ public class CreatorController {
 	}
 	
 	private boolean isExist(NewsLuceneAdapter a_News){
-		newsResult = search.search(null, null, null, newNews.getReducedText(), 1);
+		newsResult = search.search("", "", "", newNews.getReducedText(), 1);
 		if((newsResult.getSize() != 0) && (newsResult.getScore(0) >= 0.9f))return true;
 		
 		return false;

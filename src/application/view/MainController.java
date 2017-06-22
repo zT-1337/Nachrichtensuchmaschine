@@ -70,7 +70,7 @@ public class MainController extends Thread {
 			cContr.start(pathArray[2]);
 		}
 		catch (Exception e) {
-			System.out.println("error: "+e.getStackTrace());
+			e.printStackTrace();
 			//TODO
 		}
 		
