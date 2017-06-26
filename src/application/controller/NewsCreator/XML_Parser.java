@@ -18,7 +18,8 @@ public class XML_Parser {
 	private DocumentBuilderFactory factory;
 	private DocumentBuilder builder;
 	private Document document;
-	private NodeList nList;
+	private NodeList nList_Channel;
+	private NodeList nList_Item;
 	
 	public XML_Parser() throws ParserConfigurationException{
 		factory = DocumentBuilderFactory.newInstance();
@@ -29,19 +30,23 @@ public class XML_Parser {
 		
 		try {
 			document = builder.parse(a_Path);
-			nList = document.getElementsByTagName("channel");
+			nList_Channel = document.getElementsByTagName("channel");
+			nList_Item = document.getElementsByTagName("item");
 			
-			for(int i = 0; i < nList.getLength(); i++){
-				Node item = nList.item(i);
+			for(int i = 0; i < nList_Channel.getLength(); i++){
+				Node item = nList_Channel.item(i);
 				Element element = (Element) item;
 				
 				a_List.add(extractContent("title",element,0));
-				a_List.add(extractContent("pubDate",element,1));
-				a_List.add(extractContent("ExtractedText", element, 0));
-				a_List.add(extractContent("title",element,2));
-				a_List.add(extractContent("guid",element,0));
 			}
-
+			for(int i = 0; i < nList_Item.getLength(); i++){
+				Node item = nList_Item.item(i);
+				Element element = (Element) item;
+				a_List.add(extractContent("title",element,0) );
+				a_List.add(extractContent("link" ,element, 0));
+				a_List.add(extractContent("pubDate", element, 0));
+				a_List.add(extractContent("ExtractedText", element, 0));
+			}
 		} catch (SAXException | IOException | NullPointerException e) {
 		
 		}

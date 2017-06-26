@@ -151,10 +151,10 @@ public class CreatorController {
 		news = new NewsLuceneAdapter();
 		
 		news.setSource(a_List.get(0));
-		news.setPubDate(a_List.get(1));
-		news.setText(a_List.get(2));
-		news.setTitle(a_List.get(3));
-		news.setURL(a_List.get(4));
+		news.setPubDate(a_List.get(3));
+		news.setText(a_List.get(4));
+		news.setTitle(a_List.get(1));
+		news.setURL(a_List.get(2));
 		news.setReducedText(a_List.get(6));
 		news.setTopic(a_List.get(7));
 		
@@ -229,6 +229,7 @@ public class CreatorController {
 		newsResult = null;
 		createdNews = null;
 		newNewsList = null;
+		Thread.currentThread().interrupt();
 	}
 	
 }
