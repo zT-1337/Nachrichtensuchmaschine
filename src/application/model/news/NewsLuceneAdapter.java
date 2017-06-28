@@ -66,7 +66,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
 		return doc_.get(NewsFields.TITLE);
 	}
 	
@@ -79,7 +78,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public String getTopic() {
-		// TODO Auto-generated method stub
 		return doc_.get(NewsFields.TOPIC);
 	}
 
@@ -92,7 +90,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public String getPubDate() {
-		// TODO Auto-generated method stub
 		return doc_.get(NewsFields.PUBDATE);
 	}
 
@@ -105,7 +102,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public String getSource() {
-		// TODO Auto-generated method stub
 		return doc_.get(NewsFields.SOURCE);
 	}
 
@@ -118,7 +114,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public String getURL() {
-		// TODO Auto-generated method stub
 		return doc_.get(NewsFields.URL);
 	}
 
@@ -131,7 +126,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
 		return doc_.get(NewsFields.TEXT);
 	}
 
@@ -144,7 +138,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public String getReducedText() {
-		// TODO Auto-generated method stub
 		return doc_.get(NewsFields.REDUCEDTEXT);
 	}
 
@@ -156,7 +149,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public void setTitle(String value) {
-		// TODO Auto-generated method stub
 		TextField titel = new TextField(NewsFields.TITLE, value, Field.Store.YES);
 		doc_.add(titel);
 	}
@@ -169,7 +161,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public void setTopic(String value) {
-		// TODO Auto-generated method stub
 		StringField topic = new StringField(NewsFields.TOPIC, value, Field.Store.YES);
 		doc_.add(topic);
 	}
@@ -180,9 +171,10 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public void setPubDate(String value) {
-		// TODO Auto-generated method stub
+		//Das übergebene value muss ins richtige Format konvertiert werden
 		String date = converter_.dateToNumber(value);
 		
+		//Ob value konvertiert werden konnte, wenn nicht soll das Datum leer sein
 		if(date == null)
 			date = "";
 		
@@ -198,7 +190,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public void setSource(String value) {
-		// TODO Auto-generated method stub
 		StringField source = new StringField(NewsFields.SOURCE, value, Field.Store.YES);
 		doc_.add(source);
 	}
@@ -211,7 +202,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public void setURL(String value) {
-		// TODO Auto-generated method stub
 		StringField url = new StringField(NewsFields.URL, value, Field.Store.YES);
 		doc_.add(url);
 	}
@@ -224,7 +214,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public void setText(String value) {
-		// TODO Auto-generated method stub
 		TextField text = new TextField(NewsFields.TEXT, value, Field.Store.YES);
 		doc_.add(text);
 	}
@@ -237,7 +226,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public void setReducedText(String value) {
-		// TODO Auto-generated method stub
 		TextField reducedText = new TextField(NewsFields.REDUCEDTEXT, value, Field.Store.YES);
 		doc_.add(reducedText);
 	}
@@ -251,7 +239,6 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public Object getDataStructure() {
-		// TODO Auto-generated method stub
 		return doc_;
 	}
 

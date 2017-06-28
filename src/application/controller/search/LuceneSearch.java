@@ -70,9 +70,9 @@ public class LuceneSearch implements Search {
 	 */
 	@Override
 	public NewsResult search(String terms, String dates, String topics, String news, int n) {
-		// TODO Auto-generated method stub		
 		Builder outerBuilder = new Builder();
 		
+		//Überprüfung ob statt einen leeren String, null überliefert wurde
 		if(terms == null)
 			terms = "";
 		
@@ -85,6 +85,7 @@ public class LuceneSearch implements Search {
 		if(news == null)
 			news = "";
 		
+		//Falls der Paramter übergeben wurde, wird eine entsprechende BooleanClause erzeugt
 		if(terms.length() != 0) {
 			outerBuilder.add(createTermsClause(terms.toLowerCase(), isComparingNews(news)));
 		}
@@ -98,9 +99,9 @@ public class LuceneSearch implements Search {
 		if(news.length() != 0)
 			outerBuilder.add(createNewsClause(news.toLowerCase()));
 		
-		//System.out.println("Hello");
 		NewsResult result = index_.searchFor(outerBuilder.build(), n);
 		
+		//Falls nach ähnlichen Nachrichten gesucht wird, sollen auch nur Nachrichten zurückgeliefert werden, welche ähnlich sind
 		if(isComparingNews(news))
 			return filterSimilarNews(result);
 		
@@ -117,6 +118,7 @@ public class LuceneSearch implements Search {
 	private NewsResult filterSimilarNews(NewsResult result) {
 		int n = 0;
 		
+		//Zählt wie viele ähnliche Nachrichten vorhanden sind
 		for(int i = 0; i < result.getSize(); ++i) {
 			if(result.getScore(i) < NewsSimilarity.similar)
 				break;
@@ -124,6 +126,7 @@ public class LuceneSearch implements Search {
 			++n;
 		}
 		
+		//Erzeugen des neuen NewsResult
 		Document[] docs = new Document[n];
 		float[] scores = new float[n];
 		
@@ -162,6 +165,7 @@ public class LuceneSearch implements Search {
 	private BooleanClause createTermsClause(String terms, boolean comparingNews) {
 		Occur occur;
 		
+		//Sollte man ähnliche achrichten suchen, dürfen die Begriffe keinen Einfluss auf das Scoring haben
 		if(comparingNews)
 			occur = Occur.FILTER;
 		else
@@ -181,6 +185,7 @@ public class LuceneSearch implements Search {
 	 */
 	
 	private BooleanClause createDatesClause(String dates) {
+		//Es reicht wenn ein Zeitraum matched. Ein Datum darf kein Einfluss auf das Scoring haben
 		Occur occurBoolean = Occur.FILTER;
 		Occur occurTerm = Occur.SHOULD;
 		
@@ -198,6 +203,7 @@ public class LuceneSearch implements Search {
 	 */
 	
 	private BooleanClause createTopicsClause(String topics) {
+		//Es reicht wenn ein Thema matched. Ein Thema darf kein Einfluss auf das Scoring haben
 		Occur occurBoolean = Occur.FILTER;
 		Occur occurTerm = Occur.SHOULD;
 		
@@ -214,6 +220,7 @@ public class LuceneSearch implements Search {
 	 */
 	
 	private BooleanClause createNewsClause(String news) {
+		//Es müssen nicht alle Begriffe des Reduzierten Textes matchen, es muss aber Einfluss auf das Scoring haben.
 		Occur occurBoolean = Occur.MUST;
 		Occur occurTerms = Occur.SHOULD;
 		
@@ -234,6 +241,7 @@ public class LuceneSearch implements Search {
 	private BooleanClause createBooleanClause(String str, String field, QueryCreator creator, Occur occurBoolean, Occur occurSubQuerys) {		
 		Builder innerBuilder = new Builder();
 		
+		//setMinimumNumberShouldMatch darf nur gesetzt werden, falls auch eine Shouldclause dabei ist.
 		if(occurSubQuerys == Occur.SHOULD)
 			innerBuilder.setMinimumNumberShouldMatch(LuceneSearch.minimum);
 		

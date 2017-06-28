@@ -25,6 +25,7 @@ public class TermCreator implements QueryCreator {
 	 */
 	@Override
 	public Query create(String field, String value) {
+		//Überprüfung ob field und value gültig sind
 		if(field == null || value == null)
 			return null;
 		

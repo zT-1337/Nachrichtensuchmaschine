@@ -57,13 +57,14 @@ public class NewsResultLuceneAdapter implements NewsResult {
 	 */
 	@Override
 	public News getNews(int index) {
-		// TODO Auto-generated method stub
+		//Überprüfung ob index Position vorhanden ist
 		if(getSize() == 0)
 			return null;
 		
 		if(index < 0 || index > getSize()-1)
 			return null;
 		
+		//Wurde die News an Position Index noch nicht erzeugt, soll es Erzeugt werden
 		if(news_[index] == null) {
 			news_[index] = new NewsLuceneAdapter(docs_[index]);
 		}
@@ -76,7 +77,7 @@ public class NewsResultLuceneAdapter implements NewsResult {
 	 */
 	@Override
 	public float getScore(int index) {
-		// TODO Auto-generated method stub
+		//Überprüfung ob index Position vorhanden ist
 		if(index > -1 && index < scores_.length)
 			return scores_[index];
 		
@@ -88,7 +89,6 @@ public class NewsResultLuceneAdapter implements NewsResult {
 	 */
 	@Override
 	public int getSize() {
-		// TODO Auto-generated method stub
 		return docs_.length;
 	}
 }

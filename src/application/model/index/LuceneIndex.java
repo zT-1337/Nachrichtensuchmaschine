@@ -69,6 +69,7 @@ public class LuceneIndex implements Index, Closeable {
 	 * Erzeugt einen LuceneIndex mit dem Pfad "./Nachrichtensuchmaschine/index"
 	 */
 	public LuceneIndex() {
+			//Initialisierung der Membervariablen
 			initDirectory();
 			initIndexWriter();		
 			initIndexSearcher();
@@ -89,6 +90,8 @@ public class LuceneIndex implements Index, Closeable {
 	 */
 	@Override
 	public ResultIndex addNews(List<News> news) {
+		//Überprüfe für jedes Element, ob es ungleich null und vom richtigen Typ ist
+		//Ist das der Fall, wird dieses Element zu dem Index hinzugefügt
 		for(News n : news) {
 			if( n == null)
 				return ResultIndex.NULLPARAM;
@@ -96,6 +99,8 @@ public class LuceneIndex implements Index, Closeable {
 			if(!(n instanceof NewsLuceneAdapter))
 				return ResultIndex.WRONGNEWSTYPE;
 			
+			//Der Lucene Index speichert Objekte vom Typ Index
+			//Ist n vom richtigen Typ, wird getDataStructure ein Document als ein Object liefern
 			Document doc = (Document) n.getDataStructure();
 			
 			try {
@@ -106,6 +111,8 @@ public class LuceneIndex implements Index, Closeable {
 			}
 		}
 		
+		//Index aktualisieren und das updatet_ Flag auf true setzten, 
+		//damit der InderxSearcher weiß, dass sich der Index, seit seinem letzten öffnen, verändert hat
 		try {
 			writer_.commit();
 			updatet_ .set(true);
@@ -128,6 +135,7 @@ public class LuceneIndex implements Index, Closeable {
 	 */
 	@Override
 	public NewsResult searchFor(Query query, int n) {
+		//Neu öffnen des IndexSearcher, falls eine veränderung im Index vorliegt, seit der letzten Öffnung
 		try {
 			if(updatet_.get()) {
 				initIndexSearcher();
@@ -188,6 +196,7 @@ public class LuceneIndex implements Index, Closeable {
 		
 		try {
 			writer_ = new IndexWriter(directory_, conf);
+			//Der IndexWriter muss nachdem öffnen commited werden, damit der IndexSearcher funktioniert
 			writer_.commit();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -202,6 +211,8 @@ public class LuceneIndex implements Index, Closeable {
 	 */
 	private void initIndexSearcher() {
 		try {
+			//Falls ein Searcher bereits existierte, muss der von ihm verwendete IndexReader geschlossen werden,
+			//bevor ein neuer IndexSearcher instanziiert wird.
 			if(searcher_ != null)
 				searcher_.getIndexReader().close();
 			
@@ -223,7 +234,6 @@ public class LuceneIndex implements Index, Closeable {
 	 * 
 	 */
 	private NewsResult initNewsResult(TopDocs top) throws IOException {
-		//TODO Auto-generated method stub
 		int n = top.scoreDocs.length;
 		Document[] docs = new Document[n];
 		float[] scores = new float[n];

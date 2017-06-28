@@ -61,7 +61,10 @@ public class DateCreator implements QueryCreator {
 	public DateCreator() {
 		matcher = new DatePatternMatcher();
 		converter = new DateConverter();
+		
+		//Es wird davon ausgegangen das ein Datum 10 Zeichen lang ist
 		lengthDate = 10;
+		
 		includeLower = true;
 		includeUpper = true;
 		termCreator = new TermCreator();
@@ -72,6 +75,7 @@ public class DateCreator implements QueryCreator {
 	 */
 	@Override
 	public Query create(String field, String value) {
+		//Überprüfung ob field und value gültig sind
 		if(field == null || value == null)
 			return null;
 		if(field.length() == 0 || value.length() == 0)
@@ -95,6 +99,7 @@ public class DateCreator implements QueryCreator {
 	 * @return Query ist eine TermQuery mit den übergebenen Daten
 	 */
 	private Query createTermQuery(String field, String value) {
+		//Datum wird ins richtige Format konvertiert
 		return termCreator.create(field, converter.dateToNumber(value));
 	}
 	
@@ -105,7 +110,10 @@ public class DateCreator implements QueryCreator {
 	 * @return TermRangeQuery mit den übergebenen Daten
 	 */
 	private TermRangeQuery createTermRangeQuery(String field, String value) {
+		//01.06.1997-03.06.1997
+		//firstDate soll "01.06.1997" entsprechen
 		String firstDate = converter.dateToNumber(value.substring(0, lengthDate));	
+		//secondDate sol "03.06.1997" entsprechen
 		String secondDate = converter.dateToNumber(value.substring(lengthDate+1, lengthDate*2+1));
 		
 		return TermRangeQuery.newStringRange(field, firstDate, secondDate, includeLower, includeUpper);
