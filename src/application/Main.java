@@ -5,9 +5,7 @@ import application.controller.search.LuceneSearch;
 import application.model.index.LuceneIndex;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 
@@ -31,27 +29,11 @@ public class Main extends Application {
 		    primaryStage.setTitle("Nachrichtensuchmaschine");
 		    MainWindow mainWindow = (MainWindow) loader.getController();
 		    primaryStage.show();
-			
-			
-		    //Add-Source Stage
-		    Stage dialogStage = new Stage(StageStyle.UTILITY);
-		    dialogStage.initOwner(primaryStage);      
-		    dialogStage.initModality(Modality.WINDOW_MODAL);
-		    
-		    dialogStage.setTitle("Quelle Hinzufügen");      
-		    FXMLLoader dialogLoader = new FXMLLoader(AddSourceDialog.class.getResource("AddSourceDialog.fxml"));
-		    dialogStage.setScene(new Scene((VBox) dialogLoader.load()));
-		    
-		    AddSourceDialog addSourceDialog = (AddSourceDialog) dialogLoader.getController();
-		    //mainWindow.setAddSourceDialogStage(dialogStage);
-		    //mainWindow.setAddSourceDialogController(addSourceDialog);
-		    addSourceDialog.setStage(dialogStage);
 		    
 		    //Controller und co.
 		    mainController = new MainController();
 		    mainWindow.setMainController(mainController);
 		    mainController.setMainWindow(mainWindow);
-		    addSourceDialog.setMainController(mainController);
 		    
 		    //Set Initial (empty) window state
 		    mainWindow.setInitState();
@@ -79,8 +61,7 @@ public class Main extends Application {
 	
 	@Override
 	public void stop(){
-	    System.out.println("Stage is closing");
-	    
+	    System.out.println("@Main: Stage is closing");
 	    
 	    //Index schließen
 	    mainController.closeIndex();
@@ -88,11 +69,10 @@ public class Main extends Application {
 	    
 	    //Crawler beenden
 	    mainController.stopCrawler();
-	    System.out.println("Crawler gestoppt");
+	    System.out.println("@Main: Crawler gestoppt");
 	    
 	    //NewsCreator beenden
 	    mainController.stopCController();
-	    System.out.println("Creator Controller Stopped");
 	}
 	
 }

@@ -4,17 +4,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 import application.controller.NewsCreator.CreatorController;
 import application.controller.search.LuceneSearch;
 import application.model.index.LuceneIndex;
 import application.model.news.News;
-import application.model.news.NewsLuceneAdapter;
 import application.model.newsresult.NewsResult;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -58,7 +55,7 @@ public class MainController extends Thread {
 	}
 	
 	public void run() {
-		//Hier ird des NewsCreator gestartet
+		//Hier wird des NewsCreator gestartet
 		//System.out.println("@mainController: CreatorController Thread before Try Catch");
 		
 		String[] pathArray = new String[3];
@@ -130,6 +127,7 @@ public class MainController extends Thread {
 		System.out.println("@mainController: maxNumberOfPages: " + maxNumberOfPages);
 		
 		currentPage = 1;
+		mainWindow.updatePageButton(currentPage);
 		
 		mainWindow.showNews(result);
 	}
@@ -161,12 +159,6 @@ public class MainController extends Thread {
 	        
 	    	return null;
 	}
-	
-	//Entwurf 7. doSourceAdd(...)
-//	public void doSourceAdd(String name, String thema, String sprache, String land, String link) {
-//		System.out.println("@MainController: Add Source with attributes: ");
-//		UserFunctions.addSource(name, thema, sprache, land, link);
-//	}
 	
 	//Entwurf 7. doSourceOpen(...)
 	public void doSourceOpen(int number) {
@@ -209,7 +201,7 @@ public class MainController extends Thread {
 		
 		try {
 			ProcessBuilder pb = new ProcessBuilder("java", "-jar", rssPath);
-			Process p = pb.start();
+			pb.start();
 			System.out.println("@mainController: RSScrawler gestartet");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -244,6 +236,7 @@ public class MainController extends Thread {
 	public void stopCController() {
 		if(cContr!=null) {
 			cContr.closeCreator();
+			System.out.println("Creator Controller Stopped");
 		}
 	}
 	

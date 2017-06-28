@@ -14,11 +14,13 @@ public class UserFunctions {
 	//Entwurf 9. extractText(...)
 	public static void extractText(News news, String path) {
 		try {
-			FileWriter fw = new FileWriter(new File(path));
-			String text = news.getText();
-			fw.write(text,0,text.length());
-			fw.flush();
-			fw.close();
+			if(path != null) {
+				FileWriter fw = new FileWriter(new File(path));
+				String text = news.getText();
+				fw.write(text,0,text.length());
+				fw.flush();
+				fw.close();
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

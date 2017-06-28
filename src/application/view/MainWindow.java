@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -17,23 +16,13 @@ import javafx.scene.layout.VBox;
 
 public class MainWindow {
 	
-	//private Stage addSourceDialogStage;
-	private MainController mainController;
-	//private AddSourceDialog addSourceDialogController;
-	
-	private NewsResult result;
-	
+	private MainController mainController;	
 
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
-
-    @FXML
-    private MenuItem load_archive;
-    @FXML
-    private MenuItem quit_programm;
     
     @FXML
     private Button search_button_press;
@@ -184,19 +173,6 @@ public class MainWindow {
     private TextField zeitraum_tf;
     
     
-    
-
-    
-    
-    //View and Controller Setup
-//    public void setAddSourceDialogStage(Stage addSourceDialogStage) {
-//    	this.addSourceDialogStage = addSourceDialogStage;
-//    }
-//
-//    public void setAddSourceDialogController(AddSourceDialog addSourceDialogController) {
-//    	this.addSourceDialogController = addSourceDialogController;
-//    }
-    
     public void setMainController(MainController mainController) {
     	this.mainController = mainController;
     }
@@ -340,11 +316,6 @@ public class MainWindow {
     	
     }
     
-    
-    //Archiv laden
-    @FXML
-    void load_archive_press(ActionEvent event) {
-    }
 
     
     //Cache Buttons
@@ -389,10 +360,10 @@ public class MainWindow {
     	mainController.doTextExtraction(mainController.getNewsWithPage(10));
     }    
     
+    
+    //Similar Buttons
     @FXML
     void similar_button_1_press(ActionEvent event) {
-    	System.out.println("HIER");
-    	System.out.println("similar search extracted text: " + mainController.getNews(1).getReducedText());
     	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(1).getReducedText(), 100);
     }
     @FXML
@@ -435,9 +406,9 @@ public class MainWindow {
     
     @FXML
     void help(ActionEvent event) {
-    	stichwort_tf.setText("ein paar tolle Stichwörter");
-    	thema_tf.setText("career");
-    	zeitraum_tf.setText("TODO zeitraum");
+    	stichwort_tf.setText("ein paar tolle Stichwörter für die Suche");
+    	thema_tf.setText("computer");
+    	zeitraum_tf.setText("01.05.2017-20.05.2017");
     }
 
     @FXML
@@ -459,15 +430,12 @@ public class MainWindow {
     	mainController.previousPage();
     }
     
-    
-    @FXML
-    void quit(ActionEvent event) {
-    }
 
     @FXML
     void search_button_press(ActionEvent event) {
     	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), "", 100);
     }
+    
 
     @FXML
     void title_label_1_click(MouseEvent event) {
@@ -522,7 +490,6 @@ public class MainWindow {
         assert datum_label_7 != null : "fx:id=\"datum_label_7\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert datum_label_8 != null : "fx:id=\"datum_label_8\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert datum_label_9 != null : "fx:id=\"datum_label_9\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert load_archive != null : "fx:id=\"load_archive\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert news_Box_1 != null : "fx:id=\"news_Box_1\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert news_Box_10 != null : "fx:id=\"news_Box_10\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert news_Box_2 != null : "fx:id=\"news_Box_2\" was not injected: check your FXML file 'MainWindow.fxml'.";
@@ -547,7 +514,6 @@ public class MainWindow {
         assert quelle_label_7 != null : "fx:id=\"quelle_label_7\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert quelle_label_8 != null : "fx:id=\"quelle_label_8\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert quelle_label_9 != null : "fx:id=\"quelle_label_9\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert quit_programm != null : "fx:id=\"quit_programm\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert search_button_press != null : "fx:id=\"search_button_press\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert similar_button_1 != null : "fx:id=\"similar_button_1\" was not injected: check your FXML file 'MainWindow.fxml'.";
         assert similar_button_10 != null : "fx:id=\"similar_button_10\" was not injected: check your FXML file 'MainWindow.fxml'.";
