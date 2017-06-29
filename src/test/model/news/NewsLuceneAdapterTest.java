@@ -38,7 +38,7 @@ public class NewsLuceneAdapterTest {
 		 assertTrue("Erwartet wurde ein Document", news.getDataStructure() instanceof Document);
 		 Document doc = (Document) news.getDataStructure();
 		 IndexableField field = doc.getField(NewsFields.TITLE);
-		 assertTrue("Erwartet wurde ein StringField", field instanceof StringField);
+		 assertTrue("Erwartet wurde ein TextField", field instanceof TextField);
 	 }
 	 
 	 @Test
@@ -58,7 +58,7 @@ public class NewsLuceneAdapterTest {
 	 @Test
 	 public void testValidPubDate() {
 		 String pubDate = "01.06.1997";
-		 String answer = "19970601";
+		 String answer = "01.06.1997";
 		 
 		 news.setPubDate(pubDate);
 		 
