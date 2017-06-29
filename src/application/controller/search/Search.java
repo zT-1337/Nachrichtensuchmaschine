@@ -7,6 +7,7 @@
  */
 package application.controller.search;
 
+import application.model.news.News;
 import application.model.newsresult.NewsResult;
 
 /**
@@ -34,4 +35,12 @@ public interface Search {
 	 */
 	public NewsResult search(String terms, String dates, 
 								 String topics, String news, int n);
+
+	/**
+	 * Überprüft ob eine Nachricht bereits im Index ist.
+	 * 
+	 * @param n
+	 * @return Ob sich die Nachricht im Index befindet.
+	 */
+	public boolean isExisting(News n);
 }

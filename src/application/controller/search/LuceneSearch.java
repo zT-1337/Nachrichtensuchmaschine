@@ -16,6 +16,7 @@ import org.apache.lucene.search.BooleanQuery.Builder;
 import org.apache.lucene.search.Query;
 
 import application.model.index.Index;
+import application.model.news.News;
 import application.model.news.NewsFields;
 import application.model.news.NewsSimilarity;
 import application.model.newsresult.NewsResult;
@@ -255,6 +256,19 @@ public class LuceneSearch implements Search {
 		}
 		
 		return new BooleanClause(innerBuilder.build(), occurBoolean);
+	}
+	
+	/**
+	 * 
+	 */
+	public boolean isExisting(News n) {
+		NewsResult result = search("", "", "", n.getReducedText(), 1);
+		
+		if(result.getSize() == 0) {
+			return false;
+		}
+		
+		return result.getScore(0) >= NewsSimilarity.equal;
 	}
 
 }
