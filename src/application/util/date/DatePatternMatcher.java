@@ -19,12 +19,12 @@ import java.util.regex.Pattern;
 public class DatePatternMatcher {
 
 	/**
-	 * Regex-Muster das einem Datum entspricht
+	 * Regex-Muster das einem Datum entspricht (dd.mm.yyyy)
 	 */
 	private String oneDate;
 	
 	/**
-	 * Regex_Muster das einem Zeitraum aus zwei Daten entspricht
+	 * Regex_Muster das einem Zeitraum aus zwei Daten entspricht (dd.mm.yyyy-dd.mm.yyyy)
 	 */
 	private String twoDate;
 	
