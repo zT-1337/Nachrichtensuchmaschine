@@ -90,7 +90,12 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public String getPubDate() {
-		return doc_.get(NewsFields.PUBDATE);
+		String result = converter_.numberToDate(doc_.get(NewsFields.PUBDATE));
+		
+		if(result == null)
+			return "";
+		
+		return result;
 	}
 
 	/**
