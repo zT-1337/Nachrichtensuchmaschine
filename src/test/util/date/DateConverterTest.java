@@ -84,5 +84,55 @@ public class DateConverterTest {
 		result = converter.dateToNumber(date);
 		assertNull("Result sollte null sein, ist aber " + result, result);
 	}
+	
+	@Test
+	public void testValidNumber() {
+		String number;
+		String result;
+		String answer;
+		
+		number = "19970601";
+		result = converter.numberToDate(number);
+		answer = "01.06.1997";
+		assertTrue("Result sollte " + answer + "sein, ist aber " + result, result.equals(answer));
+		
+		number = "20000101";
+		result = converter.numberToDate(number);
+		answer = "01.01.2000";
+		assertTrue("Result sollte " + answer + "sein, ist aber " + result, result.equals(answer));
+		
+		number = "20121224";
+		result = converter.numberToDate(number);
+		answer = "24.12.2012";
+		assertTrue("Result sollte " + answer + "sein, ist aber " + result, result.equals(answer));
+	}
+	
+	@Test
+	public void testInvalidNumber() {
+		String number;
+		String result;
+		
+		number = null;
+		result = converter.numberToDate(number);
+		assertNull("Result sollte null sein, ist aber " + result, result);
+		
+		number = "";
+		result = converter.numberToDate(number);
+		assertNull("Result sollte null sein, ist aber " + result, result);
+		
+		number = "1";
+		result = converter.numberToDate(number);
+		assertNull("Result sollte null sein, ist aber " + result, result);
+		
+		number = "1234";
+		result = converter.numberToDate(number);
+		assertNull("Result sollte null sein, ist aber " + result, result);
+		
+		number = "123456789";
+		result = converter.numberToDate(number);
+		assertNull("Result sollte null sein, ist aber " + result, result);
+		
+		
+	}
 
 }
