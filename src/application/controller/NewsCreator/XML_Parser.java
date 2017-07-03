@@ -1,3 +1,11 @@
+/**
+ * XML_Parser
+ * 
+ * Version: 1.0
+ * 
+ * Datum: 03.07.2016
+ */
+
 package application.controller.NewsCreator;
 
 import java.io.IOException;
@@ -13,19 +21,56 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ * Parser zum extrahieren aller, fuer eine News, relevanten Informationen.
+ * 
+ * @author Kevin Kaufmann
+ * 
+ * @version 1.0
+ */
 public class XML_Parser {
 
+	/**
+	 * Referenz einer DocumentBuilderFactory
+	 */
 	private DocumentBuilderFactory factory;
+	
+	/**
+	 * Referent eines DocumentBuilder
+	 */
 	private DocumentBuilder builder;
+	
+	/**
+	 * Speicher für die zu parsende Datei
+	 */
 	private Document document;
+	
+	/**
+	 * NodeList fuer das channel-attribut.
+	 */
 	private NodeList nList_Channel;
+	
+	/**
+	 * NodeList fuer das Item-attribut.
+	 */
 	private NodeList nList_Item;
 	
+	/**
+	 * Erzeugt einen neuen XML_Parser
+	 * 
+	 * @throws ParserConfigurationException
+	 */
 	public XML_Parser() throws ParserConfigurationException{
 		factory = DocumentBuilderFactory.newInstance();
 		builder = factory.newDocumentBuilder();
 	}
 	
+	/**
+	 * Methode zum parsen einer Datei
+	 * 
+	 * @param a_Path Der Dateipfad der zu parsenden XML-Datei
+	 * @param a_List Die Liste in der die News-relevanten Informationen geschrieben werden.
+	 */
 	public void parse(String a_Path, ArrayList<String> a_List){
 		
 		try {
@@ -52,6 +97,13 @@ public class XML_Parser {
 		}
 	}
 	
+	/**
+	 * Funktion zum extrahieren einer Information in einen String
+	 * @param TagName Das Attribut das extrahiert werden soll.
+	 * @param a_element das uebergebende element das extrahier werden soll.
+	 * @param Knoten Der Knoten mit dem TagNamen der extrahiert werden soll.
+	 * @return
+	 */
 	private String extractContent(String TagName, Element a_element, int Knoten){
 		return a_element.getElementsByTagName(TagName).item(Knoten).getTextContent();
 	}
