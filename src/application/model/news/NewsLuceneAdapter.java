@@ -166,7 +166,7 @@ public class NewsLuceneAdapter implements News {
 	 */
 	@Override
 	public void setTopic(String value) {
-		StringField topic = new StringField(NewsFields.TOPIC, value, Field.Store.YES);
+		StringField topic = new StringField(NewsFields.TOPIC, value.toLowerCase(), Field.Store.YES);
 		doc_.add(topic);
 	}
 
