@@ -57,7 +57,7 @@ public class NotificationReader {
 			
 			while(input.ready()){
 				a_List.add(input.readLine());
-				System.out.println("Neue notification : " + a_List.size());
+				//System.out.println("Neue notification : " + a_List.size());
 			}
 		}catch(FileNotFoundException e){
 			e.printStackTrace();

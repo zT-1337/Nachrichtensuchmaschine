@@ -343,20 +343,7 @@ public class CreatorController {
 	 * Stopt das hinzufürgen neuer Newsobjekte.
 	 */
 	public void closeCreator(){
-		alive = false;
-		parser = null;
-		index = null;
-		listener = null;
-		search = null;
-		wordlist = null;
-		news = null;
-		newsContent = null;
-		xmlFiles = null;
-		notifications = null;
-		newNews = null;
-		newsResult = null;
-		createdNews = null;
-		newNewsList = null;
+		
 		alive = false;
 	}
 	
