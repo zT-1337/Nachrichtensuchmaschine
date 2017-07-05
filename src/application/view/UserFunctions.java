@@ -8,10 +8,20 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import application.model.news.News;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 public class UserFunctions {
 	
 	//Entwurf 9. extractText(...)
+	/**
+	 * This method takes a News-object and a static path to create a file at the specified path.
+	 * The content of the file is the full-length text extracted from the News-object.
+	 * 
+	 * @param news	a News Object
+	 * @param path	the static path where to save the file
+	 */
 	public static void extractText(News news, String path) {
 		try {
 			if(path != null) {
@@ -22,70 +32,49 @@ public class UserFunctions {
 				fw.close();
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	//Entwurf 9. addSource(...)
-	public static void addSource(String name, String thema, String sprache, String land, String link) {
-		try {
-			FileWriter fw = new FileWriter(new File("C:/Users/-Felix/Desktop/"+name+".xml"));
-			
-			String textToWrite;
-			textToWrite = "<?xml version=\"1.0\" encoding=\"ASCII\"?>"+System.lineSeparator()
-					+ System.lineSeparator()
-					+ "<sites"+System.lineSeparator()
-					+ "  xmlns=\"http://www.iisys.de/mmis/rssapp\""+System.lineSeparator()
-					+ "  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""+System.lineSeparator()
-					+ "  xsi:schemaLocation=\"http://www.iisys.de/mmis/rssapp RSSFeeds.xsd\">"+System.lineSeparator()
-					+ ""+System.lineSeparator()
-					+ "  <address ttl=\"2\" topic=\""+thema+"\" country=\""+land+"\" language=\""+sprache+"\" link=\""+link+"\"/>"		
-					+ ""+System.lineSeparator()
-					+ "</sites>";
-			
-			fw.write(textToWrite);
-			fw.flush();
-			fw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			Alert alert = new Alert(AlertType.ERROR, "Beim schreiben der Datei ist etwas fehlgschlagen.\n"
+					+ e.getMessage(), ButtonType.OK);
+			alert.showAndWait();
 			e.printStackTrace();
 		}
 	}
 	
 	//Entwurf 9. openSource(...)
+	/**
+	 * Windows: Takes a News-Object and opens its source in the users' standard browser via the Desktop {@link java.awt.Desktop.getDesktop()#desktop} class.
+	 * <p>
+	 * Linux: Takes a News-Object and opens its source in the users' standard browser via the 'xdg-open' command.
+	 * 
+	 * @param news	a single News-object
+	 */
 	public static void openSource(News news) {
 		String source = news.getURL();
 		System.out.println("@UserFunctions: opening source: " + source);
-		
-//		if(Desktop.isDesktopSupported())
-//		{
-//			try {
-//				Desktop.getDesktop().browse(new URI(source));
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (URISyntaxException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
 		
 		if(Desktop.isDesktopSupported()){
             Desktop desktop = Desktop.getDesktop();
             try {
                 desktop.browse(new URI(source));
-            } catch (IOException | URISyntaxException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            } catch (IOException e) {
+            	Alert alert = new Alert(AlertType.ERROR, "Beim öffnen der Quelle ist etwas fehlgeschlagen.\n"
+            			+ e.getMessage(), ButtonType.OK);
+    			alert.showAndWait();
+    			e.printStackTrace();
+            } catch(URISyntaxException e) {
+            	Alert alert = new Alert(AlertType.ERROR, "Beim öffnen der Quelle ist etwas fehlgeschlagen.\n"
+            			+ e.getMessage(), ButtonType.OK);
+    			alert.showAndWait();
+    			e.printStackTrace();
             }
-        }else{
+        } else {
             Runtime runtime = Runtime.getRuntime();
             try {
                 runtime.exec("xdg-open " + source);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+            	Alert alert = new Alert(AlertType.ERROR, "Beim öffnen der Quelle ist etwas fehlgeschlagen.\n"
+            			+ e.getMessage(), ButtonType.OK);
+    			alert.showAndWait();
+    			e.printStackTrace();
             }
         }
 	}

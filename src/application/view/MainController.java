@@ -16,8 +16,6 @@ import application.model.newsresult.NewsResult;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-
-
 public class MainController extends Thread {
 	
 	private MainWindow mainWindow;
@@ -44,7 +42,7 @@ public class MainController extends Thread {
 		try {
 			myIndex.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("@MainController: Falied to close Index.");
 			e.printStackTrace();
 		}
 	}
@@ -78,8 +76,8 @@ public class MainController extends Thread {
 			cContr.start(pathArray[2]);
 		}
 		catch (Exception e) {
+			System.out.println("@MainController: Falied to Start NewsCreator.");
 			e.printStackTrace();
-			//TODO
 		}
 		System.out.println("@mainController: CreatorController started");
 		
@@ -151,7 +149,7 @@ public class MainController extends Thread {
 	        		fw.flush();
 					fw.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					System.out.println("@MainController: Failed to create file. Are you missing permissions?");
 					e.printStackTrace();
 				}
 	    		return file.getPath();
@@ -204,7 +202,8 @@ public class MainController extends Thread {
 			pb.start();
 			System.out.println("@mainController: RSScrawler gestartet");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.println("@MainController: Failed to start RSSCrawlwler with following command:\n"
+					+ "java -jar " + rssPath);
 			e.printStackTrace();
 		}
 	}
@@ -226,7 +225,8 @@ public class MainController extends Thread {
         		fw.flush();
 				fw.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				System.out.println("@MainController: Failed to write \"stop\" file to stop RSSCrawler.\n"
+						+ "Please stop RSSCrawler manually by creating a file names \"stop\" in you users folder.");
 				e.printStackTrace();
 			}
     	}
