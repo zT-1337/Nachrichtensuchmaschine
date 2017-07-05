@@ -13,7 +13,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-
+/**
+*
+* @author  Felix Bahr
+*/
 public class MainWindow {
 	
 	private MainController mainController;	
@@ -172,12 +175,20 @@ public class MainWindow {
     @FXML
     private TextField zeitraum_tf;
     
-    
+    /**
+	 * Sets the local variable {@link #mainController} with the parameter "mainController" for later use.
+	 * 
+	 * @param mainController an instance of MainController
+	 * 
+	 * @see MainController application.view.MainWindow.mainController
+	 */
     public void setMainController(MainController mainController) {
     	this.mainController = mainController;
     }
     
-    //alle News Boxen unsichtbar machen
+    /**
+     * This method prepares the main window by hiding unneeded elements.
+     */
     public void setInitState() {
     	news_Box_1.setVisible(false);
 		news_Box_1.setManaged(false);
@@ -203,6 +214,11 @@ public class MainWindow {
     
     
     //Entwurf Seite 15 News Anzeigen
+    /**
+     * This method displays news in the main window.
+     * 
+     * @param result the result of a search
+     */
     public void showNews(NewsResult result) {
     	if(result.getNews(mainController.getNewsWithPage(1))==null) {
     		news_Box_1.setVisible(false);
@@ -319,6 +335,11 @@ public class MainWindow {
 
     
     //Cache Buttons
+    /**
+     * Prompts the mainControler to do a text extraction on the specified news.
+     * @param event JavaFX event
+     * @see MainController application.view.MainWindow.mainController
+     */
     @FXML
     void cache_button_1_press(ActionEvent event) {
     	mainController.doTextExtraction(mainController.getNewsWithPage(1));
@@ -362,6 +383,11 @@ public class MainWindow {
     
     
     //Similar Buttons
+    /**
+     * Prompts the mainControler to do a similar search on the specified news.
+     * @param event JavaFX event
+     * @see MainController application.view.MainWindow.mainController
+     */
     @FXML
     void similar_button_1_press(ActionEvent event) {
     	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), mainController.getNews(1).getReducedText(), 100);
@@ -405,6 +431,11 @@ public class MainWindow {
     
     
     @FXML
+    /**
+     * Fills the text fields for the search with some examples.
+     * 
+     * @param event JavaFX event
+     */
     void help(ActionEvent event) {
     	stichwort_tf.setText("ein paar tolle Stichwörter für die Suche");
     	thema_tf.setText("computer");
@@ -412,31 +443,57 @@ public class MainWindow {
     }
 
     @FXML
+    /**
+     * Not in use.
+     * @param event JavaFX event
+     */
     void page_button_current_press(ActionEvent event) {
     	//do Nothing
     }
     
+    /**
+     * Updates the number on the {@link #page_button_current} with "number".
+     * @param number the number to be displayed by the button
+     */
     public void updatePageButton(int number) {
     	page_button_current.setText(number+"");
     }
-
+    
+    /**
+     * Prompts the mainControler to display the next page of news.
+     * @param event JavaFX event
+     * @see MainController application.view.MainWindow.mainController
+     */
     @FXML
     void page_button_next_press(ActionEvent event) {
     	mainController.nextPage();
     }
-
+    
+    /**
+     * Prompts the mainControler to display the previous page of news.
+     * @param event JavaFX event
+     * @see MainController application.view.MainWindow.mainController
+     */
     @FXML
     void page_button_previous_press(ActionEvent event) {
     	mainController.previousPage();
     }
     
-
+    /**
+     * Prompts the mainControler to search by the values in the text fields {@link #stichwort_tf}, {@link #zeitraum_tf} and {@link #thema_tf}.
+     * @param event JavaFX event
+     * @see MainController application.view.MainWindow.mainController
+     */
     @FXML
     void search_button_press(ActionEvent event) {
     	mainController.doSearch(stichwort_tf.getText(), zeitraum_tf.getText(), thema_tf.getText(), "", 100);
     }
     
-
+    /**
+     * Prompts the mainControler to open the source page on the specified news.
+     * @param event JavaFX event
+     * @see MainController application.view.MainWindow.mainController
+     */
     @FXML
     void title_label_1_click(MouseEvent event) {
     	mainController.doSourceOpen(mainController.getNewsWithPage(1));}
@@ -467,7 +524,10 @@ public class MainWindow {
     @FXML
     void title_label_10_click(MouseEvent event) {
     	mainController.doSourceOpen(mainController.getNewsWithPage(10));}
-
+    
+    /**
+     * Auto generated JavaFX method.
+     */
     @FXML
     void initialize() {
         assert cache_button_1 != null : "fx:id=\"cache_button_1\" was not injected: check your FXML file 'MainWindow.fxml'.";

@@ -13,9 +13,17 @@ import application.controller.search.LuceneSearch;
 import application.model.index.LuceneIndex;
 import application.model.news.News;
 import application.model.newsresult.NewsResult;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
+/**
+*
+* @author  Felix Bahr
+*/
 public class MainController extends Thread {
 	
 	private MainWindow mainWindow;
@@ -30,31 +38,94 @@ public class MainController extends Thread {
 	
 	Stage fileStage;
 	
+	/**
+	 * Sets the local variable {@link #mySearch} with the parameter "search" for later use.
+	 * 
+	 * @param search an instance of LuceneSearch
+	 * 
+	 * @see LuceneSearch application.view.MainController.mySearch
+	 */
 	public void setSearch(LuceneSearch search) {
 		mySearch = search;
 	}
 	
+	/**
+	 * Sets the local variable {@link #myIndex} with the parameter "index" for later use.
+	 * 
+	 * @param index instance of LuceneIndex
+	 * 
+	 * @see LuceneIndex application.view.MainController.myIndex
+	 */
 	public void setIndex(LuceneIndex index) {
 		myIndex = index;
 	}
 	
+	/**
+	 * Sets the local variable {@link #mainWindow} with the parameter "nw" for later use.
+	 * 
+	 * @param mw instance of MainWindow
+	 * 
+	 * @see MainWindow application.view.MainController.mainWindow
+	 */
+	public void setMainWindow(MainWindow mw) {
+		this.mainWindow = mw;
+	}
+	
+	/**
+	 * Signals the instance of LuceneIndex {@link #myIndex} to close.
+	 */
 	public void closeIndex() {
 		try {
 			myIndex.close();
 		} catch (IOException e) {
-			System.out.println("@MainController: Falied to close Index.");
+			Alert alert = new Alert(AlertType.ERROR, "Beim schlieﬂen des Index' ist etwas fehlgeschlagen.\n"
+        			+ e.getMessage(), ButtonType.OK);
+			alert.showAndWait();
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Returns a news-object at the designated index "number".
+	 * <p>
+	 * "number" is relative to page number
+	 * example: first news, first page: number = 1
+	 * second page, first news: number = 1
+	 * 
+	 * @param number the relative index of the news to be returned (first news has index 1!)
+	 * @return an instance of News
+	 * 
+	 * @see application.model.news.News
+	 */
 	public News getNews(int number) {
 		int newsNumber = getNewsWithPage(number);
 		return result.getNews(newsNumber);
 	}
 	
+	/**
+	 * Returns the absolute index of the news pointed at by "number".
+	 * <p>
+	 * example:
+	 * currentPage = 2
+	 * number = 1
+	 * return = 10
+	 * 
+	 * @param number the relative index of the news (first news has index 1!)
+	 * @return	absolute index of news
+	 */
+	public int getNewsWithPage(int number) {
+		return ((currentPage-1)*10) + number -1;
+	}
+	
+	/**
+	 * This method starts the NewsCreator.
+	 * 
+	 * Firstly the config file is read and the paths contained are extracted.
+	 * After that the CreatorController {@link #cContr} will be initialized and started.
+	 * 
+	 * @see application.controller.NewsCreator.CreatorController#start(String)
+	 */
 	public void run() {
-		//Hier wird des NewsCreator gestartet
-		//System.out.println("@mainController: CreatorController Thread before Try Catch");
 		
 		String[] pathArray = new String[3];
 		
@@ -76,17 +147,19 @@ public class MainController extends Thread {
 			cContr.start(pathArray[2]);
 		}
 		catch (Exception e) {
-			System.out.println("@MainController: Falied to Start NewsCreator.");
+			Alert alert = new Alert(AlertType.ERROR, "Beim Starten des CreatorControllers ist etwas fehlgeschlagen.\n"
+        			+ e.getMessage(), ButtonType.OK);
+			alert.showAndWait();
 			e.printStackTrace();
 		}
-		System.out.println("@mainController: CreatorController started");
+		System.out.println("@mainController: told CreatorController to start");
 		
 	}
 	
-	public int getNewsWithPage(int number) {
-		return ((currentPage-1)*10) + number -1;
-	}
 	
+	/**
+	 * Flips to the next page of news and refreshes page.
+	 */
 	public void nextPage() {
 		System.out.println("@MainController: Button Next page");
 		if(currentPage<maxNumberOfPages) {
@@ -99,6 +172,9 @@ public class MainController extends Thread {
 		
 	}
 	
+	/**
+	 * Flips to the previous page of news and refreshes page.
+	 */
 	public void previousPage() {
 		System.out.println("@MainController: Button Previous page");
 		if(currentPage>1) {
@@ -111,7 +187,15 @@ public class MainController extends Thread {
 			
 	}
 	
-	//Entwurf 7. doSearch(...)
+	/**
+	 * Takes in the parameters from the view and send them to {@link #mySearch} to search for a news.
+	 * 
+	 * @param terms keyword(s) to be searched for
+	 * @param dates perid to be searched for
+	 * @param topics topics to be searched for
+	 * @param news news which contains the extracted text
+	 * @param n maximum number of news that should be returned
+	 */
 	public void doSearch(String terms, String dates, String topics, String news, int n) {
 		
 		System.out.println("@MainController: Incoming search from View:");
@@ -130,7 +214,13 @@ public class MainController extends Thread {
 		mainWindow.showNews(result);
 	}
 	
-	//Entwurf 7. doTextExtraction(...)
+	/**
+	 * Sends the call to do a text extraction to UserFuntions.
+	 * 
+	 * @param number index of news where the text is to be extracted
+	 * 
+	 * @see application.view.UserFunctions
+	 */
 	public void doTextExtraction(int number) {
 		String path = createFile();		
 		News news = result.getNews(number);
@@ -138,6 +228,12 @@ public class MainController extends Thread {
 		UserFunctions.extractText(news, path);
 	}
 	
+	/**
+	 * Helping methof to create a file with the FileChooser and return the path of the newly created file.
+	 * @return path of the newly created file
+	 * 
+	 * @see javafx.stage.FileChooser
+	 */
 	private String createFile() {
 	    FileChooser fileChooser = new FileChooser();
 	    fileChooser.setTitle("Text Extrahieren");
@@ -149,8 +245,10 @@ public class MainController extends Thread {
 	        		fw.flush();
 					fw.close();
 				} catch (IOException e) {
-					System.out.println("@MainController: Failed to create file. Are you missing permissions?");
-					e.printStackTrace();
+					Alert alert = new Alert(AlertType.ERROR, "Beim Erstellen einer Datei ist etwas fehlgeschlagen.\n"
+	            			+ e.getMessage(), ButtonType.OK);
+	    			alert.showAndWait();
+	    			e.printStackTrace();
 				}
 	    		return file.getPath();
 	    	}
@@ -158,18 +256,23 @@ public class MainController extends Thread {
 	    	return null;
 	}
 	
-	//Entwurf 7. doSourceOpen(...)
+	/**
+	 * Sends the call to open a source to UserFuntions.
+	 * 
+	 * @param number index of news to be opened
+	 * 
+	 * @see application.view.UserFunctions
+	 */
 	public void doSourceOpen(int number) {
 		News news = result.getNews(number);
 		UserFunctions.openSource(news);
 	}
 
-	
-	
-	public void setMainWindow(MainWindow mw) {
-		this.mainWindow = mw;
-	}
-	
+	/**
+	 * This method reads the config.txt file and writes its contents into an array of strings.
+	 * 
+	 * @return a String-array with the contents of config.txt
+	 */
 	public String[] getPaths() {
 		Path path = Paths.get("./src/application/config.txt");
 		String[] pathArray = new String[3];
@@ -180,13 +283,21 @@ public class MainController extends Thread {
 		    while ((line = reader.readLine()) != null) {
 		        pathArray[i++] = line;
 		    }
-		} catch (IOException x) {
-		    System.err.format("IOException: %s%n", x);
+		} catch (IOException e) {
+			Alert alert = new Alert(AlertType.ERROR, "Beim Lesen der config-Datei ist etwas fehlgeschlagen.\n"
+        			+ e.getMessage(), ButtonType.OK);
+			alert.showAndWait();
+			e.printStackTrace();		
 		}
 		
 		return pathArray;
 	}
 	
+	/**
+	 * This method starts the RSSCrawler in a new process.
+	 * 
+	 * @see java.lang.ProcessBuilder
+	 */
 	public void startCrawler() {
 		String[] pathArray = new String[3];
 		pathArray = getPaths();
@@ -202,12 +313,17 @@ public class MainController extends Thread {
 			pb.start();
 			System.out.println("@mainController: RSScrawler gestartet");
 		} catch (Exception e) {
-			System.out.println("@MainController: Failed to start RSSCrawlwler with following command:\n"
-					+ "java -jar " + rssPath);
+			Alert alert = new Alert(AlertType.ERROR, "Beim Starten des RSSCrawlers mit folgendem Kommando ist etwas fehlgeschlagen:\n"
+					+ "java -jar " + rssPath + "\n"
+        			+ e.getMessage(), ButtonType.OK);
+			alert.showAndWait();
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * This method creates a new file called "stop" in the user directory to stop the RSSCrawler.
+	 */
 	public void stopCrawler() {
 		String[] pathArray = new String[3];
 		pathArray = getPaths();
@@ -225,14 +341,19 @@ public class MainController extends Thread {
         		fw.flush();
 				fw.close();
 			} catch (IOException e) {
-				System.out.println("@MainController: Failed to write \"stop\" file to stop RSSCrawler.\n"
-						+ "Please stop RSSCrawler manually by creating a file names \"stop\" in you users folder.");
-				e.printStackTrace();
+				Alert alert = new Alert(AlertType.ERROR, "Beim Erstellen der stop-Datei ist etwas fehlgeschlagen.\n"
+						+ "Um de RSSCrawler manuell zu beenden muss ein Datei mit Namen \"stop\" im Nutzerverzeichnis erstellt werden.", ButtonType.OK);
+    			alert.showAndWait();
+    			e.printStackTrace();
 			}
     	}
 	}
 
-	
+	/**
+	 * This method tells the Creator controller to quit itself.
+	 * 
+	 * @see CreatorController application.view.MainController.cContr
+	 */
 	public void stopCController() {
 		if(cContr!=null) {
 			cContr.closeCreator();
