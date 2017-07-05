@@ -16,8 +16,14 @@ import application.model.index.LuceneIndex;
 import application.model.index.ResultIndex;
 import application.model.news.News;
 import application.model.news.NewsLuceneAdapter;
+import application.model.news.NewsSimilarity;
 import application.model.newsresult.NewsResult;
 
+/**
+ * 
+ * @author Thomas Zerr
+ *
+ */
 public class LuceneSearchTest {
 
 	LuceneIndex index;
@@ -43,12 +49,18 @@ public class LuceneSearchTest {
 		
 		n1.setText(testText1);
 		n1.setPubDate("01.06.1997");
+		n1.setTopic("it");
+		n1.setReducedText("Java Insel");
 		
 		n2.setText(testText2);
 		n2.setPubDate("01.06.2017");
+		n2.setTopic("IT");
+		n2.setReducedText("Java Programmiersprache");
 		
 		n3.setText(testText3);
 		n3.setPubDate("01.06.2000");
+		n3.setTopic("Anders");
+		n3.setReducedText("anderes");
 		
 		//Adding news to the Index
 		List<News> list = new ArrayList<News>();
@@ -154,6 +166,9 @@ public class LuceneSearchTest {
 		assertTrue("Sollte 0 sein, ist aber " + result.getScore(0), result.getScore(0) == 0);
 		assertTrue("Text soll " + testText1 + "entsprechen, ist aber:" + result.getNews(0).getText(),
 				result.getNews(0).getText().equals(testText1));
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis eine Nachricht mit der Suchanfrage:
 		//Date:01.06.2017
@@ -164,6 +179,9 @@ public class LuceneSearchTest {
 		assertTrue("Sollte 0 sein, ist aber " + result.getScore(0), result.getScore(0) == 0);
 		assertTrue("Text soll " + testText2 + "entsprechen, ist aber:" + result.getNews(0).getText(),
 				result.getNews(0).getText().equals(testText2));
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis eine mit der Suchanfrage:
 		//Date:01.06.2000
@@ -174,6 +192,9 @@ public class LuceneSearchTest {
 		assertTrue("Sollte 0 sein, ist aber " + result.getScore(0), result.getScore(0) == 0);
 		assertTrue("Text soll " + testText3 + "entsprechen, ist aber:" + result.getNews(0).getText(),
 				result.getNews(0).getText().equals(testText3));
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//---------------------------------------------------------------------------------------------
 		
@@ -183,6 +204,9 @@ public class LuceneSearchTest {
 		date = "01.06.1997-01.06.2017";
 		result = search.search(null, date, null, null, 3);
 		assertTrue("Sollte 3 sein, ist aber " + result.getSize(), result.getSize() == 3);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 	
 		//Ergebnis zwei Nachrichten mit der Suchanfrage:
 		//Date:01.06.1997-01.06.2017
@@ -190,6 +214,9 @@ public class LuceneSearchTest {
 		date = "01.06.1997-01.06.2017";
 		result = search.search(null, date, null, null, 2);
 		assertTrue("Sollte 2 sein, ist aber " + result.getSize(), result.getSize() == 2);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis eine Nachricht mit der Suchanfrage:
 		//Date:01.06.1997-01.06.2017
@@ -197,6 +224,9 @@ public class LuceneSearchTest {
 		date = "01.06.1997-01.06.2017";
 		result = search.search(null, date, null, null, 1);
 		assertTrue("Sollte 1 sein, ist aber " + result.getSize(), result.getSize() == 1);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//---------------------------------------------------------------------------------------------
 		
@@ -206,6 +236,9 @@ public class LuceneSearchTest {
 		date = "01.06.1997-01.06.2000";
 		result = search.search(null, date, null, null, 3);
 		assertTrue("Sollte 2 sein, ist aber " + result.getSize(), result.getSize() == 2);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis zwei Nachrichten mit der Suchanfrage:
 		//Date:01.06.1997-01.06.2000
@@ -213,6 +246,9 @@ public class LuceneSearchTest {
 		date = "01.06.1997-01.06.2000";
 		result = search.search(null, date, null, null, 2);
 		assertTrue("Sollte 2 sein, ist aber " + result.getSize(), result.getSize() == 2);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis eine Nachrichten mit der Suchanfrage:
 		//Date:01.06.1997-01.06.2000
@@ -220,6 +256,9 @@ public class LuceneSearchTest {
 		date = "01.06.1997-01.06.2000";
 		result = search.search(null, date, null, null, 1);
 		assertTrue("Sollte 1 sein, ist aber " + result.getSize(), result.getSize() == 1);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//---------------------------------------------------------------------------------------------
 		
@@ -229,6 +268,9 @@ public class LuceneSearchTest {
 		date = "01.06.2000-01.06.2017";
 		result = search.search(null, date, null, null, 3);
 		assertTrue("Sollte 3 sein, ist aber " + result.getSize(), result.getSize() == 2);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis zwei Nachrichten mit der Suchanfrage:
 		//Date:01.06.2000-01.06.2017
@@ -236,6 +278,9 @@ public class LuceneSearchTest {
 		date = "01.06.2000-01.06.2017";
 		result = search.search(null, date, null, null, 2);
 		assertTrue("Sollte 2 sein, ist aber " + result.getSize(), result.getSize() == 2);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis eine Nachrichten mit der Suchanfrage:
 		//Date:01.06.2000-01.06.2017
@@ -243,6 +288,9 @@ public class LuceneSearchTest {
 		date = "01.06.2000-01.06.2017";
 		result = search.search(null, date, null, null, 1);
 		assertTrue("Sollte 1 sein, ist aber " + result.getSize(), result.getSize() == 1);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//---------------------------------------------------------------------------------------------
 		
@@ -252,6 +300,9 @@ public class LuceneSearchTest {
 		date = "02.06.1997-31.05.2000";
 		result = search.search(null, date, null, null, 3);
 		assertTrue("Sollte 0 sein, ist aber " + result.getSize(), result.getSize() == 0);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis null Nachrichten mit der Suchanfrage:
 		//Date:02.06.2000-31.05.2017
@@ -259,6 +310,9 @@ public class LuceneSearchTest {
 		date = "02.06.2000-31.05.2017";
 		result = search.search(null, date, null, null, 3);
 		assertTrue("Sollte 0 sein, ist aber " + result.getSize(), result.getSize() == 0);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 	
 		//---------------------------------------------------------------------------------------------
 		
@@ -268,6 +322,9 @@ public class LuceneSearchTest {
 		date = "02.06.1997-31.05.2000 01.06.1997";
 		result = search.search(null, date, null, null, 3);
 		assertTrue("Sollte 1 sein, ist aber " + result.getSize(), result.getSize() == 1);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis eine Nachrichten mit der Suchanfrage:
 		//Date:02.06.1997-31.05.2000 01.06.2000
@@ -275,6 +332,9 @@ public class LuceneSearchTest {
 		date = "02.06.1997-31.05.2000 01.06.2000";
 		result = search.search(null, date, null, null, 3);
 		assertTrue("Sollte 1 sein, ist aber " + result.getSize(), result.getSize() == 1);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis eine Nachrichten mit der Suchanfrage:
 		//Date:02.06.1997-31.05.2000 01.06.2017
@@ -282,6 +342,9 @@ public class LuceneSearchTest {
 		date = "02.06.1997-31.05.2000 01.06.2017";
 		result = search.search(null, date, null, null, 3);
 		assertTrue("Sollte 1 sein, ist aber " + result.getSize(), result.getSize() == 1);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 			
 		//---------------------------------------------------------------------------------------------
 		
@@ -291,6 +354,9 @@ public class LuceneSearchTest {
 		date = "01.01.1997-01.01.2018";
 		result = search.search(null, date, null, null, 3);
 		assertTrue("Sollte 3 sein, ist aber " + result.getSize(), result.getSize() == 3);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 		
 		//Ergebnis eine Nachrichten mit der Suchanfrage:
 		//Date:01.01.1997-01.01.2018.
@@ -298,9 +364,295 @@ public class LuceneSearchTest {
 		date = "01.01.1998-01.01.2017";
 		result = search.search(null, date, null, null, 3);
 		assertTrue("Sollte 1 sein, ist aber " + result.getSize(), result.getSize() == 1);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
 					
 		//---------------------------------------------------------------------------------------------
 
+	}
+	
+	@Test
+	public void testSearchWithInvalidDates() {
+		String date;
+		NewsResult result;
+		
+		date = "01.06-1997";
+		result = search.search(null, date, null, null, 3);
+		assertTrue(result.getSize() == 0);
+		
+		date = "01.06.1997 01.06.2017 01.06-2000";
+		result = search.search(null, date, null, null, 3);
+		assertTrue(result.getSize() == 2);
+		
+		date = "01.06.1997-01.06.2017 01.06-2000";
+		result = search.search(null, date, null, null, 3);
+		assertTrue(result.getSize() == 3);
+		
+		date = "01.06.1997-01.06-2017 01.06-2000";
+		result = search.search(null, date, null, null, 3);
+		assertTrue(result.getSize() == 0);
+		
+		date = "01.06.1997-01.06-2017 01.06.2000";
+		result = search.search(null, date, null, null, 3);
+		assertTrue("Erhalten wurde " + result.getSize(), result.getSize() == 1);
+		
+	}
+	
+	@Test
+	public void testSearchTopics() {
+		String topics;
+		NewsResult result;
+		
+		topics = "IT";
+		result = search.search(null, null, topics, null, 3);
+		assertTrue("Erhalten wurde " + result.getSize(), result.getSize() == 2);
+		assertFalse(result.getNews(0).getText().equals(testText3));
+		assertFalse(result.getNews(1).getText().equals(testText3));
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
+		
+		topics = "it";
+		result = search.search(null, null, topics, null, 1);
+		assertTrue(result.getSize() == 1);
+		assertFalse(result.getNews(0).getText().equals(testText3));
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
+		
+		topics = "anders";
+		result = search.search(null, null, topics, null, 3);
+		assertTrue(result.getSize() == 1);
+		assertTrue(result.getNews(0).getText().equals(testText3));
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
+		
+		topics = "anders it";
+		result = search.search(null, null, topics, null, 3);
+		assertTrue(result.getSize() == 3);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
+		
+		topics = "it anders";
+		result = search.search(null, null, topics, null, 3);
+		assertTrue(result.getSize() == 3);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
+		
+		topics = "it anders";
+		result = search.search(null, null, topics, null, 2);
+		assertTrue(result.getSize() == 2);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
+		
+		topics = "it anders";
+		result = search.search(null, null, topics, null, 1);
+		assertTrue(result.getSize() == 1);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
+		
+		topics = "thema";
+		result = search.search(null, null, topics, null, 3);
+		assertTrue(result.getSize() == 0);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) == 0);
+		}
+	}
+
+	@Test
+	public void testSearchSimilarNews() {
+		String reducedText;
+		NewsResult result;
+		
+		reducedText = "Java";
+		result = search.search(null, null, null, reducedText, 3);
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) >= NewsSimilarity.similar);
+		}
+		
+		reducedText = "Java Programmiersprache";
+		result = search.search(null, null, null, reducedText, 3);
+		assertTrue(result.getNews(0).getText().equals(testText2));
+		assertTrue(result.getNews(1).getText().equals(testText1));
+		for(int i = 0; i < result.getSize(); ++i) {
+			assertTrue(result.getScore(i) >= NewsSimilarity.similar);
+		}
+	}
+	
+	@Test
+	public void testSearchCombination() {
+		String terms;
+		String dates;
+		String topics;
+		String news;
+		NewsResult result;
+		
+		terms = "java";
+		dates = "01.06.1997";
+		topics = "";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "java";
+		dates = "01.06.2000";
+		topics = "";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+		
+		terms = "anderes";
+		dates = "01.06.2000";
+		topics = "";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "anderes";
+		dates = "01.06.2017";
+		topics = "";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+				
+		terms = "java";
+		dates = "01.06.1997";
+		topics = "it";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "java";
+		dates = "01.06.1997";
+		topics = "anders";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+		
+		terms = "java";
+		dates = "01.06.2000";
+		topics = "anders";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+		
+		terms = "java";
+		dates = "01.06.2000";
+		topics = "it";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+		
+		terms = "java";
+		dates = "01.06.1997";
+		topics = "it";
+		news = "java";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "java";
+		dates = "01.06.2017";
+		topics = "it";
+		news = "java";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "java";
+		dates = "01.06.2000";
+		topics = "it";
+		news = "anderes";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+		
+		terms = "java";
+		dates = "01.06.2000";
+		topics = "Anders";
+		news = "anderes";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+		
+		terms = "etwas";
+		dates = "01.06.2000";
+		topics = "Anders";
+		news = "anderes";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "";
+		dates = "01.06.2017";
+		topics = "it";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "";
+		dates = "01.06.1997";
+		topics = "it";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "";
+		dates = "01.06.2000";
+		topics = "anders";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "";
+		dates = "01.06.1997";
+		topics = "anders";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+		
+		terms = "";
+		dates = "01.06.2017";
+		topics = "anders";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+		
+		terms = "";
+		dates = "01.06.2000";
+		topics = "it";
+		news = "";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+		
+		terms = "";
+		dates = "01.06.1997";
+		topics = "it";
+		news = "java";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "";
+		dates = "01.06.2017";
+		topics = "it";
+		news = "java";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
+		
+		terms = "";
+		dates = "01.06.2000";
+		topics = "it";
+		news = "anderes";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 0);
+		
+		terms = "";
+		dates = "01.06.2000";
+		topics = "Anders";
+		news = "anderes";
+		result = search.search(terms, dates, topics, news, 3);
+		assertTrue(result.getSize() == 1);
 	}
 	
 	@After

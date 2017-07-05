@@ -13,6 +13,11 @@ import org.junit.Test;
 import application.controller.search.DateCreator;
 import application.model.news.NewsFields;
 
+/**
+ * 
+ * @author Thomas Zerr
+ *
+ */
 public class DateCreatorTest {
 	
 	private DateCreator creator;

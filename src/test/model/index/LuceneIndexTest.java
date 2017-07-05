@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.lucene.index.Term;
-import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TermQuery;
 import org.junit.After;
 import org.junit.Before;
@@ -21,6 +20,11 @@ import application.model.news.NewsFields;
 import application.model.news.NewsLuceneAdapter;
 import application.model.newsresult.NewsResult;
 
+/**
+ * 
+ * @author Thomas Zerr
+ *
+ */
 public class LuceneIndexTest {
 
 	LuceneIndex index;

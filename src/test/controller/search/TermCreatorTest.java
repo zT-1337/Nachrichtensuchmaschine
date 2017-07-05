@@ -11,6 +11,11 @@ import org.junit.Test;
 import application.controller.search.TermCreator;
 import application.model.news.NewsFields;
 
+/**
+ * 
+ * @author Thomas Zerr
+ *
+ */
 public class TermCreatorTest {
 
 	private TermCreator creator_;

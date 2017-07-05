@@ -8,6 +8,11 @@ import org.junit.Test;
 
 import application.util.date.DateConverter;
 
+/**
+ * 
+ * @author Thomas Zerr
+ *
+ */
 public class DateConverterTest {
 
 	DateConverter converter;

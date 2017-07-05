@@ -7,6 +7,11 @@ import org.junit.Test;
 
 import application.model.newsresult.NewsResultLuceneAdapter;
 
+/**
+ * 
+ * @author Thomas Zerr
+ *
+ */
 public class NewsResultLuceneAdapterTest {
 	
 	@Test

@@ -13,6 +13,11 @@ import org.junit.Test;
 import application.model.news.NewsFields;
 import application.model.news.NewsLuceneAdapter;
 
+/**
+ * 
+ * @author Thomas Zerr
+ *
+ */
 public class NewsLuceneAdapterTest {
 	
 	private NewsLuceneAdapter news = new NewsLuceneAdapter();
@@ -47,8 +52,8 @@ public class NewsLuceneAdapterTest {
 		 
 		 news.setTopic(testTopic);
 		 
-		 assertTrue("Erwartet wurde: " + testTopic + " erhalten wurd: " + news.getTopic(),
-				 	news.getTopic().equals(testTopic));
+		 assertTrue("Erwartet wurde: " + testTopic.toLowerCase() + " erhalten wurd: " + news.getTopic(),
+				 	news.getTopic().equals(testTopic.toLowerCase()));
 		 assertTrue("Erwartet wurde ein Document", news.getDataStructure() instanceof Document);
 		 Document doc = (Document) news.getDataStructure();
 		 IndexableField field = doc.getField(NewsFields.TOPIC);
