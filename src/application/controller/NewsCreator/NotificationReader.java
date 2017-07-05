@@ -50,7 +50,7 @@ public class NotificationReader {
 	 * @param a_List Die Liste in die die Dateipfade gespeichert werden.
 	 * @throws IOException
 	 */
-	public void ReadFile(String a_url, ArrayList<String> a_List) throws IOException{
+	public void readFile(String a_url, ArrayList<String> a_List) throws IOException{
 		try{
 			notification = new File(a_url);
 			input = new BufferedReader(new FileReader(a_url));

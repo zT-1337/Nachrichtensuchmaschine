@@ -165,7 +165,7 @@ public class CreatorController {
 			listener.newNotification(notifications);
 			Thread.sleep(2000);
 			for(int i = 0; i < notifications.size(); i++){
-				reader.ReadFile(notifications.get(i), xmlFiles);
+				reader.readFile(notifications.get(i), xmlFiles);
 			}
 			System.out.println("Erstellte xml : " + xmlFiles.size());
 			for(int i = 0; i < xmlFiles.size(); i++){
