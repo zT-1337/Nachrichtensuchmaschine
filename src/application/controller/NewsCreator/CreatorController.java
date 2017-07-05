@@ -1,3 +1,11 @@
+/**
+ * CreatorController
+ * 
+ * Version: 1.0
+ * 
+ * Datum: 3.07.2017
+ */
+
 package application.controller.NewsCreator;
 
 import java.io.File;
@@ -22,30 +30,111 @@ import application.model.news.News;
 import application.model.news.NewsLuceneAdapter;
 import application.model.newsresult.NewsResult;
 import application.model.newsresult.NewsResultLuceneAdapter;
+import application.model.news.*;
+
+/**
+ * Koordiniert alle Komponenten zum erzeugen neuer Newsobjekte. Startet den XML_Parser, DirectoryListener und NotifivationListener.
+ * 
+ * @author Kevin Kaufmann
+ * @version 1.0
+ */
 
 public class CreatorController {
 	
-	
+	/**
+	 * Das Verzeichnis indem die Notifications, des RSS-Crawlers, stehen.
+	 */
 	private String directory;
+	
+	/**
+	 * Eine Map, die die Wortliste repräsentiert
+	 */
 	private Map<String,AtomicInteger> wordlist;
+	
+	/**
+	 * Wert der zeigt ob die start-methode gerade arbeitet.
+	 */
 	private volatile boolean alive;
 	
+	
+	/**
+	 * Zwischenspeicher einer neuen News die in den Index geschrieben wird.
+	 */
 	private NewsLuceneAdapter news;
+	
+	/**
+	 * Referenz für den verwendeten XML_Parser, zum parsen neuer Files.
+	 */
 	private XML_Parser parser;
+	
+	/**
+	 * Referenz für den verwendeten NotificationReader, zum extrahieren der Dateipfade.
+	 */
 	private NotificationReader reader;
+	
+	/**
+	 * Referenz für den verwendeten DirectoryListener, zum überwachen eines Dateiverzeichnisses.
+	 */
 	private DirectoryListener listener;
 	
+	
+	/**
+	 * Zwischensprecher für alle Inhalte einer neuen News.
+	 */
 	private ArrayList<String> newsContent = new ArrayList<String>();
+	
+	/**
+	 * Speicher aller Dateipfade neuer XML-Dateien, die eingelesen werden müssen.
+	 */
 	private ArrayList<String> xmlFiles = new ArrayList<String>();
+	
+	/**
+	 * Speicher für neue Viewernotification die vom DirectoryListener gefunden wurden.
+	 */
 	private ArrayList<String> notifications = new ArrayList<String>();
+	
+	/**
+	 * Zwischenspeicher für neu erstellt News, bevor Sie überprüft werden auf neue News.
+	 */
 	private ArrayList<News> createdNews = new ArrayList<News>();
+	
+	/**
+	 * Zwischenspeicher aller neuen News, die dem Index übergeben werden.
+	 */
 	private ArrayList<News> newNewsList = new ArrayList<News>();
 	
+	
+	/**
+	 * Referenz für einen Index, in den die News geschrieben werden.
+	 */
 	private LuceneIndex index;
+	
+	/**
+	 * Zwischenspeicher für News, die endgültig in den Index übernommen werden.
+	 */
 	private NewsLuceneAdapter newNews;
+	
+	/**
+	 * Referenz für einen NewsResult, der nach eine Nachrichtensuche erhalten wird.
+	 */
 	private NewsResult newsResult;
+	
+	/**
+	 * Referenz für den Suchkomponente, die benoetigt wird um nach News zu suchen.
+	 */
 	private LuceneSearch search;
 	
+	/**
+	 * 
+	 * Erzeugt einen neuen CreatorController.
+	 * 
+	 * @param a_NotificationPath Dateipfad, des Ordners indem die Viewernotification, des RSS-Crawler geschrieben werden.
+	 * @param a_WordlistPath Dateipfad, der verwendeten Wortliste.
+	 * @param a_Index Index in den die neuen Newsobjekte geschrieben werden.
+	 * @throws ParserConfigurationException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public CreatorController(String a_NotificationPath,String a_WordlistPath, LuceneIndex a_Index) throws ParserConfigurationException, IOException, ClassNotFoundException{
 		parser = new XML_Parser();
 		directory = a_NotificationPath;
@@ -57,23 +146,30 @@ public class CreatorController {
 		alive = true;
 	}
 	
+	/**
+	 * Startet das hinzufuegen neuer News in den Index.
+	 * 
+	 * @param directory - Das zu ueberwachende Verzeichnis.
+	 * @throws InterruptedException
+	 * @throws IOException
+	 */
 	public void start(String directory) throws InterruptedException, IOException{
 		while(alive){
 			System.out.println("Schleifenanfang");
-			clearArrayList(newsContent);
-			clearArrayList(xmlFiles);
-			clearArrayList(notifications);
-			clearArrayList(newNewsList);
-			clearArrayList(createdNews);
+			newsContent.clear();
+			xmlFiles.clear();
+			notifications.clear();
+			newNewsList.clear();
+			createdNews.clear();
 			System.out.println("Listen geleert");
 			listener.newNotification(notifications);
 			Thread.sleep(2000);
 			for(int i = 0; i < notifications.size(); i++){
-				reader.ReadFile(notifications.get(i), xmlFiles);
+				reader.readFile(notifications.get(i), xmlFiles);
 			}
 			System.out.println("Erstellte xml : " + xmlFiles.size());
 			for(int i = 0; i < xmlFiles.size(); i++){
-				clearArrayList(newsContent);
+				newsContent.clear();
 				parser.parse(xmlFiles.get(i), newsContent);
 				System.out.println(xmlFiles.get(i));
 				newsContent.add(xmlFiles.get(i));
@@ -97,12 +193,11 @@ public class CreatorController {
 		}
 	}
 	
-	private void clearArrayList(ArrayList<?> a_List){
-		while(a_List.size() != 0){
-			a_List.remove(0);
-		}
-	}
-	
+	/**
+	 * Wandelt einen uebergebenen String in das, fuer eine Suche, 
+	 * 
+	 * @param a_List - die zu uebergebende Liste(MewsContent) indem das Nachrichtendatum an Stelle 1 steht.
+	 */
 	private void createDate(ArrayList<String> a_List){
 		String date = a_List.get(1);
 		
@@ -132,6 +227,11 @@ public class CreatorController {
 		}
 	}
 	
+	/**
+	 * Extrahiert aus einem uebergebenden Dateipfad das Topic.
+	 * 
+	 * @param a_String Dateipfad aus dem das Tpic extrahiert werden soll.
+	 */
 	private void createTopic(String a_String){
 		Pattern topicRegEx = Pattern.compile( "((/\\w*){4}/)\\w*");
 		String reverse = new StringBuilder(a_String).reverse().toString();
@@ -147,34 +247,60 @@ public class CreatorController {
 		
 	}
 	
+	/**
+	 * Erzeugt eine neue News
+	 * 
+	 * @param a_List Eine Liste(NewsContent) in der alle Inhalte der zu erstellenden News stehen.
+	 * @return
+	 */
 	private NewsLuceneAdapter createNews(ArrayList<String> a_List){
 		news = new NewsLuceneAdapter();
 		
 		news.setSource(a_List.get(0));
-		news.setPubDate(a_List.get(1));
-		news.setText(a_List.get(2));
-		news.setTitle(a_List.get(3));
-		news.setURL(a_List.get(4));
+		news.setPubDate(a_List.get(3));
+		news.setText(a_List.get(4));
+		news.setTitle(a_List.get(1));
+		news.setURL(a_List.get(2));
 		news.setReducedText(a_List.get(6));
 		news.setTopic(a_List.get(7));
 		
 		return news;
 	}
 	
+	/**
+	 * Ueberprueft ob eine News bereicht im Index vorhanden ist.
+	 * 
+	 * @param a_News die News die ueberprueft werden soll.
+	 * @return
+	 */
 	private boolean isExist(News a_News){
 		System.out.println(a_News.getReducedText());
 		newsResult = search.search("", "", "", newNews.getReducedText(), 1);
-		if((newsResult.getSize() != 0) && (newsResult.getScore(0) >= 0.9f))return true;
+		if((newsResult.getSize() != 0) && (newsResult.getScore(0) >= NewsSimilarity.equal))return true;
 		
 		return false;
 	}
-	
+
+	/**
+	 * Laedt die Wortliste in den Speicher und stellt Sie zur verfuegung.
+	 * 
+	 * @param a_Path Der Dateipfad, der zu verwendenden Wortliste.
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	private void createWordlist(String a_Path) throws FileNotFoundException, IOException, ClassNotFoundException{
 		File wordlistFile = new File(a_Path);
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(wordlistFile));
 		wordlist = (Map<String, AtomicInteger>) ois.readObject();
 	}
 	
+	/**
+	 * Reduziert einen uebergebenen String auf seine bedeutenden Woerter.
+	 * 
+	 * @param a_String Der zu reduzierende String.
+	 * @return Der String enthaelt nur noch die bedeutenden Woerter des ausgangs Strings.
+	 */
 	private String doReduceString(String a_String){
 		StringTokenizer tokenizer = new StringTokenizer(a_String);
 		ArrayList<String> allWords = new ArrayList<String>();
@@ -199,7 +325,6 @@ public class CreatorController {
 		}
 		
 		for(int i = 1; i < allWords.size(); i++){
-			String key = allWords.get(i);
 			
 			if((wordlist.get(allWords.get(i)) == null)||(wordlist.get(allWords.get(i)).intValue() == 250)){
 				reduceWords.add(allWords.get(i));
@@ -214,21 +339,12 @@ public class CreatorController {
 		return  reduceText;
 	}
 	
+	/**
+	 * Stopt das hinzufürgen neuer Newsobjekte.
+	 */
 	public void closeCreator(){
+		
 		alive = false;
-		parser = null;
-		index = null;
-		listener = null;
-		search = null;
-		wordlist = null;
-		news = null;
-		newsContent = null;
-		xmlFiles = null;
-		notifications = null;
-		newNews = null;
-		newsResult = null;
-		createdNews = null;
-		newNewsList = null;
 	}
 	
 }

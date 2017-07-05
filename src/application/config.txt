@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 notification path:C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/viewernotification/
 wordlist path:C:/Users/-Felix/git/Nachrichtensuchmaschine/WordStatisticsLetter1
 rssCrawler path:C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/rssfiles/
+=======
+notification path:C:/Users/kkaufmann/Desktop/RSSArchive/View/
+wordlist path:C:/Users/kkaufmann/Desktop/Nachrichtensuchmaschine/WordStatisticsLetter1
+rssCrawler path:C:/Users/kkaufmann/Desktop/RSSArchive/Archive/
+>>>>>>> refs/heads/kk_NewsCreator
