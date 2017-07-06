@@ -4,6 +4,11 @@ wordlist path:C:/Users/-Felix/git/Nachrichtensuchmaschine/WordStatisticsLetter1
 rssCrawler path:C:/Users/-Felix/Desktop/Studium/Semester 4/Praktikum Software Entwicklung/RSSArchive/RSS/rssfiles/
 =======
 notification path:C:/Users/kkaufmann/Desktop/RSSArchive/View/
+<<<<<<< HEAD
 wordlist path:C:/Users/kkaufmann/Desktop/Nachrichtensuchmaschine/WordStatisticsLetter1
+rssCrawler path:C:/Users/kkaufmann/Desktop/RSSArchive/Archive/
+>>>>>>> refs/heads/kk_NewsCreator
+=======
+wordlist path:C:/Users/kkaufmann/git/Nachrichtensuchmaschine/WordStatisticsLetter1
 rssCrawler path:C:/Users/kkaufmann/Desktop/RSSArchive/Archive/
 >>>>>>> refs/heads/kk_NewsCreator
