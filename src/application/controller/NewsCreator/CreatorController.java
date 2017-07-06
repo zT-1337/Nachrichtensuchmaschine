@@ -175,7 +175,7 @@ public class CreatorController {
 				newsContent.add(xmlFiles.get(i));
 				createDate(newsContent);
 				if(newsContent.size() == 6){
-					newsContent.add(doReduceString(newsContent.get(2)));
+					newsContent.add(doReduceString(newsContent.get(4)));
 					createTopic(xmlFiles.get(i));
 					newNews = createNews(newsContent);
 					createdNews.add(newNews);
