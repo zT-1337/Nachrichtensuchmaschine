@@ -12,6 +12,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 
+/**
+*	This class reprenents the 'UserFunctions' component of the design (see external: Entwurf 9. UserFunctions)
+* @author  Felix Bahr
+*/
 public class UserFunctions {
 	
 	//Entwurf 9. extractText(...)
@@ -41,11 +45,13 @@ public class UserFunctions {
 	
 	//Entwurf 9. openSource(...)
 	/**
-	 * Windows: Takes a News-Object and opens its source in the users' standard browser via the Desktop {@link java.awt.Desktop.getDesktop()#desktop} class.
+	 * on Windows System: Takes a News-Object and opens its source in the users' standard browser via the Desktop.getDesktop() method.
 	 * <p>
-	 * Linux: Takes a News-Object and opens its source in the users' standard browser via the 'xdg-open' command.
+	 * on Linux System: Takes a News-Object and opens its source in the users' standard browser via the 'xdg-open' command.
 	 * 
 	 * @param news	a single News-object
+	 * 
+	 * @see java.awt.Desktop#getDesktop()
 	 */
 	public static void openSource(News news) {
 		String source = news.getURL();

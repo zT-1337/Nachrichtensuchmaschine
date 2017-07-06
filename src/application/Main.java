@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 
 /**
-*
+*	This class provides the entry, setup and shutdown for the application.
 * @author  Felix Bahr
 */
 public class Main extends Application {

@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 
 /**
-*
+*	This class reprenents the 'MainController' component of the design (see external: Entwurf 7. MainController)
 * @author  Felix Bahr
 */
 public class MainController extends Thread {
@@ -72,6 +72,26 @@ public class MainController extends Thread {
 	}
 	
 	/**
+	 * Returns the instance of LuceneSearch.
+	 * <p>
+	 * Only used for testing!
+	 * @return instance of LuceneSearch
+	 */
+	public LuceneSearch getSearch() {
+		return mySearch;
+	}
+	
+	/**
+	 * Returns the instande of LuceneIndex.
+	 * <p>
+	 * Only used for testing!
+	 * @return instance of luceneIndex
+	 */
+	public LuceneIndex getIndex() {
+		return myIndex;
+	}
+	
+	/**
 	 * Signals the instance of LuceneIndex {@link #myIndex} to close.
 	 */
 	public void closeIndex() {
@@ -118,6 +138,36 @@ public class MainController extends Thread {
 	}
 	
 	/**
+	 * Sets the variable {@link #currentPage}.
+	 * <p>
+	 * Only used for testing!
+	 * @param number the current page ht view is on
+	 */
+	public void setCurrentPage(int number) {
+		currentPage = number;
+	}
+	
+	/**
+	 * Returns the variable {@link #currentPage}.
+	 * <p>
+	 * Only used for testing!
+	 * @return the current page the view is on
+	 */
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	
+	/** 
+	 * Sets the variable {@link #maxNumberOfPages}
+	 * <p>
+	 * Only used for testing!
+	 * @param number the maxium number of pages for the current search result
+	 */
+	public void setMaxPage(int number) {
+		maxNumberOfPages = number;
+	}
+	
+	/**
 	 * This method starts the NewsCreator.
 	 * 
 	 * Firstly the config file is read and the paths contained are extracted.
@@ -161,7 +211,7 @@ public class MainController extends Thread {
 	 * Flips to the next page of news and refreshes page.
 	 */
 	public void nextPage() {
-		System.out.println("@MainController: Button Next page");
+		System.out.println("@mainController: Button Next page");
 		if(currentPage<maxNumberOfPages) {
 			currentPage++;
 			mainWindow.showNews(result);
@@ -176,7 +226,7 @@ public class MainController extends Thread {
 	 * Flips to the previous page of news and refreshes page.
 	 */
 	public void previousPage() {
-		System.out.println("@MainController: Button Previous page");
+		System.out.println("@mainController: Button Previous page");
 		if(currentPage>1) {
 			currentPage--;
 			mainWindow.showNews(result);
@@ -197,9 +247,9 @@ public class MainController extends Thread {
 	 * @param n maximum number of news that should be returned
 	 */
 	public void doSearch(String terms, String dates, String topics, String news, int n) {
-		
 		System.out.println("@MainController: Incoming search from View:");
 		System.out.println("    terms:"+terms + ",dates:"+dates + ",topics:"+topics + ",news:"+news + ",n:"+n);
+		
 		result = mySearch.search(terms, dates, topics, news, n);
 		
 		int numberOfNews = result.getSize();
@@ -273,7 +323,7 @@ public class MainController extends Thread {
 	 * 
 	 * @return a String-array with the contents of config.txt
 	 */
-	public String[] getPaths() {
+	private String[] getPaths() {
 		Path path = Paths.get("./src/application/config.txt");
 		String[] pathArray = new String[3];
 		

@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
-*
+ * This class reprenents the 'ViewVontroller' component of the design (see external: Entwurf 8. ViewController)
 * @author  Felix Bahr
 */
 public class MainWindow {
@@ -437,9 +437,9 @@ public class MainWindow {
      * @param event JavaFX event
      */
     void help(ActionEvent event) {
-    	stichwort_tf.setText("ein paar tolle Stichwörter für die Suche");
-    	thema_tf.setText("computer");
-    	zeitraum_tf.setText("01.05.2017-20.05.2017");
+    	stichwort_tf.setText("kompakt wimbledon");
+    	thema_tf.setText("Sport");
+    	zeitraum_tf.setText("01.05.2017-20.07.2017");
     }
 
     @FXML
