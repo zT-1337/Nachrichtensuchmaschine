@@ -174,6 +174,7 @@ public class CreatorController {
 				System.out.println(xmlFiles.get(i));
 				newsContent.add(xmlFiles.get(i));
 				createDate(newsContent);
+				System.out.println( "groeﬂe des newsContents" + newsContent.size());
 				if(newsContent.size() == 6){
 					newsContent.add(doReduceString(newsContent.get(4)));
 					createTopic(xmlFiles.get(i));
@@ -181,6 +182,7 @@ public class CreatorController {
 					createdNews.add(newNews);
 				}
 			}
+			System.out.println("Anzahl erstellter news" + createdNews.size());
 			for(int i = 0; i < createdNews.size(); i++){
 				if(!isExist(createdNews.get(i))) newNewsList.add(createdNews.get(i));
 			}
@@ -199,7 +201,7 @@ public class CreatorController {
 	 * @param a_List - die zu uebergebende Liste(MewsContent) indem das Nachrichtendatum an Stelle 1 steht.
 	 */
 	private void createDate(ArrayList<String> a_List){
-		String date = a_List.get(1);
+		String date = a_List.get(3);
 		
 		Pattern dateRegEx = Pattern.compile( "\\d{2}\\D{5}\\d{4}" );
 		Matcher matcher = dateRegEx.matcher(date);
@@ -220,10 +222,10 @@ public class CreatorController {
 			if(date.substring(3, 6).equals("Nov")) date = date.substring(0, 2) + "." + "11" + "." + date.substring(date.length()-4);
 			if(date.substring(3, 6).equals("Dec")) date = date.substring(0, 2) + "." + "12" + "." + date.substring(date.length()-4);
 			
-			a_List.set(1, date);
+			a_List.set(3, date);
 			
 		}else{
-			a_List.remove(1);
+			a_List.remove(3);
 		}
 	}
 	

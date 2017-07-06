@@ -1,3 +1,3 @@
 notification path:C:/Users/kkaufmann/Desktop/RSSArchive/View/
-wordlist path:C:/Users/kkaufmann/Desktop/Nachrichtensuchmaschine/WordStatisticsLetter1
+wordlist path:C:/Users/kkaufmann/git/Nachrichtensuchmaschine/WordStatisticsLetter1
 rssCrawler path:C:/Users/kkaufmann/Desktop/RSSArchive/Archive/
